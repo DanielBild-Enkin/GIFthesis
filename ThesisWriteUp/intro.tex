@@ -1,0 +1,58 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = diss.tex
+
+\chapter{Introduction}
+\label{ch:Introduction}
+
+\begin{epigraph}
+    \emph{If I have seen farther it is by standing on the shoulders of
+    Giants.} ---~Sir Isaac Newton (1855)
+\end{epigraph}
+
+
+\section{What problems}
+\label{What problems}
+
+Geophysical inversions, specifically potential fields 
+include formulation of non-regularized inverse problem
+
+\section{Difficulties with said problems }
+\label{Difficulties with said problems }
+
+The standard way to fit a set of parameters to a set of data (especialy when they are related by a linear operator) is least squares optimization. This is redered problematic since n general geo-physical inversions are ill-conditioned (define) and underdertermined (define) (Oldenburg and Li 2005 other sources I'm sure). In specific potential fields are particularly under-determined due to the lack of any depth information in the data.
+
+show some form of problems with forward operator matrix in PF inversion
+
+\section{Solutions to said dificultlies}
+\label{Solutions to said dificultlies}
+
+To mitigate the difficulties presented above an extra term is added to the optimization. 
+
+\begin{align}
+\phi = \phi_d + \beta\phi_m
+\end{align}
+
+where $\phi_m$ is called the model objective function. This $\phi_m$ can be defined in many ways, following  (Oldenburg and Li 2005)
+
+\begin{align}
+\phi_m(m) &= \alpha_s\int(m-m_{ref})^2dx+\alpha_x\int\bigg(\frac{d}{dx}(m-m_{ref})\bigg)^2dx\\
+&=\alpha_s\|\textbf{W}_s(m-m_{ref})\|^2+\alpha_x\|\textbf{W}_x(m-m_{ref})\|^2
+\end{align}
+
+in higher dimmesions more smootheness terms can be added. The $\textbf{W}$ terms contain both the operator (indentity for $\textbf{W}_s$ and derivative for $\textbf{W}_x$ and other dimensions) and the relative weight each cell or face contributes to the model norm. This gives us several levers to add a-priori information into the inversion.
+
+\subsection{$\alpha$ coefficients}
+\label{alpha coefficients}
+
+broad strokes
+
+\subsection{Weighting matrices}
+\label{Weighting matrices}
+
+\subsection{Reference Models}
+\label{Reference Models}
+
+\endinput
+
+Any text after an \endinput is ignored.
+You could put scraps here or things in progress.
