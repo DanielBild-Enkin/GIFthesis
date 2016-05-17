@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Oldenburg and Li(2005)]{oldenburg2005inversion}
+D.~W. Oldenburg and Y.~Li.
+\newblock Inversion for applied geophysics: A tutorial.
+\newblock \emph{Investigations in geophysics}, 13:\penalty0 89--150, 2005.
+
+\end{thebibliography}
