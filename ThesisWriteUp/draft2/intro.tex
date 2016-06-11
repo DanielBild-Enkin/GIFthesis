@@ -47,6 +47,7 @@ where $\phi_m$ is called the \ac{MOF} or model norm. This $\phi_m$ can be define
 in higher dimensions more smoothness terms can be added. The $\textbf{W}$ terms contain both the operator (identity for $\textbf{W}_s$ and derivative for $\textbf{W}_x$ and other dimensions) and the relative weight each cell or face contributes to the \ac{MOF}. This gives us several levers to add a-priori information into the inversion.
 
 The \ac{MOF} allows us to mathematically solve the problem by adding a priori information into the inversion. Namely we assume that the recovered model should be small and smooth. There are times when this is desired but often we have more specific information about the true model that needs to be inserted into the inversion. Luckily the various terms in the \ac{MOF} allow us to add a significant amount of information is various ways to the inversion.
+	It must be said that all of the techniques listed below are not novel. Many researchers before me have used exactly these techniques to constrain inversions (long list of citations  (Williams 2008, Lelievre 2009)). What is novel in this thesis is the creation of a suit of tools (created by me and the rest of the GIF group) to make the incorporation of geological data into the \ac{MOF} of inversions easy even in non-trivial cases.
 
 \subsection{$\alpha$ coefficients}
 \label{sec:alpha coefficients}
@@ -80,13 +81,16 @@ we can also set values that each cell of the final model must lie between. This 
 
 Finally we can generalize the \ac{MOF} somewhat. In \autoref{eq:MOF} we used $L_2$ norms as this is a natural norm that promotes a smoothly varying model that is close to the reference model. We do not always want such a model and can change the norm used in the \ac{MOF}. Lower norms promote more sparsity in whatever measure they are being applied to. This leads to models being more compact (should lowever norms be applied to the smallness term) or more blocky with greater discontinuities (should lower norms be applied to one or more smoothness terms). Non $L_2$ norms can be applied across the whole \ac{MOF} or can be applied variably across the model. This allows for placing discontinuities in a given direction but not perfectly placing the location allowing the inversion algorithm more freedom to chose the location itself.
 
+
+
+
 \section{Forms of A Priori Information}
 \label{sec:Forms of A Priori Information}
 
 \subsection{Bore Hole Data}
 \label{sec: Bore Hole Data}
 
-Bore holes can either give physical property measurements down hole or provide qualitative rock unit information. Much work has been done on inserting physical property bore hole information (NC Williams – 2008). If we can convert the  rock property information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks) we can use the information in the same fashion as a physical property bore hole
+Bore holes can either give physical property measurements down hole or provide qualitative rock unit information. Much work has been done on inserting physical property bore hole information (Williams – 2008). If we can convert the  rock property information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks) we can use the information in the same fashion as a physical property bore hole
 
 Secondly in some contexts one physical property can be used as a proxy for others. In one case study we have magnetic susceptibility measurements down hole but the context is sufficiently remanent that the simple susceptibility measurement drastically underestimates the recovered property from the magnetic inversion. This is due to the fact that the inversion is recovering effective susceptibility (susceptive magnetization plus \ac{NRM} normalized by and assuming the direction of earth's field in the location). To describe the method I will use I will need to discuss the general derivation of the magnetostatic problem and then discuss the effects of \ac{NRM} on measured data and the recovered inversion result. 
 
@@ -154,7 +158,18 @@ In the case where there is no \ac{NRM} the direction of $\mathbf M$ is going to 
 \kappa_{eff} =  \frac{\textbf{M}}{\textbf{H}}.
 \end{equation}In the case that there is no \ac{NRM}, effective susceptibility and the true susceptibility are equal.
 
-	In the context of remanent magnetization, the assumption that there is no \ac{NRM} is clearly false and effects the inversion results. In the case that the \ac{NRM} is in a direction additive to the earth's field, the measured field $b_{TMA}$ will be higher than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will be higher than the true $\kappa$. Similarly, in the case that \ac{NRM} is in a direction subtractive to the earth's field, the measured field $b_{TMA}$ will be lower than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will also  be lower than the true $\kappa$.
+	In the context of remanent magnetization, the assumption that there is no \ac{NRM} is clearly false and effects the inversion results. In the case that the \ac{NRM} is in a direction additive to the earth's field, the measured field $b_{TMA}$ will be higher than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will be higher than the true $\kappa$. Similarly, in the case that \ac{NRM} is in a direction subtractive to the earth's field, the measured field $b_{TMA}$ will be lower than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will also be lower than the true $\kappa$.
+	
+	Understanding the difference between $\kappa$ and $\kappa_{eff}$ is very important with respect to inserting magnetic petrophysical measurements into an inversion's \ac{MOF}. It is an unfortunate truth that susceptibility is significantly easier to measure than \ac{NRM} to demonstrate this I will now discuss the lab measurement of susceptibility and \ac{NRM}.
+	
+(((Section on those things)))
+
+As can be seen from the above derivations, it is not surprising that n the case of El Poma we have many susceptibility measurements including bore-holes and very few (only two within the areas of interest) measurements of \ac{NRM}. However, if susceptibility is used to constrain an inversion in a area of string \ac{NRM} the inversion could be constrained to a value much higher or lower than the true effective susceptibility. 
+	
+	
+	
+	
+	
 
 
 

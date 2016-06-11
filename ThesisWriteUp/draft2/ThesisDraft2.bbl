@@ -1,13 +1,23 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Li and Oldenburg(1996)]{li19963}
+Y.~Li and D.~W. Oldenburg.
+\newblock 3-d inversion of magnetic data.
+\newblock \emph{Geophysics}, 61\penalty0 (2):\penalty0 394--408, 1996.
+
 \bibitem[Oldenburg and Li(2005)]{oldenburg2005inversion}
 D.~W. Oldenburg and Y.~Li.
 \newblock Inversion for applied geophysics: A tutorial.
 \newblock \emph{Investigations in geophysics}, 13:\penalty0 89--150, 2005.
+
+\bibitem[Pilkington(1997)]{pilkington19973}
+M.~Pilkington.
+\newblock 3-d magnetic imaging using conjugate gradients.
+\newblock \emph{Geophysics}, 62\penalty0 (4):\penalty0 1132--1142, 1997.
 
 \end{thebibliography}
