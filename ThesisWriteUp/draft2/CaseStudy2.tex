@@ -1,0 +1,119 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = diss.tex
+
+\chapter{Case Study \#2 El Poma North}
+\label{ch:CaseStudy1}
+
+In all cases these are first guesses at what needs to be in each section more or less detail need to be added.
+
+
+
+\section{Overview of Deposits}
+\label{sec:Overview of Deposits:ElPoma2}
+
+Two anomalies. North and South. This section discusses the northern anomaly.
+
+Magnetic Anomaly. Remanent magnetization is clearly present
+
+\section{Discussion of the Geophysical Data Given}
+\label{sec:Discussion of the Geophysical Data Given:ElPoma2}
+
+Magnetics. Much better coverage than in south.
+ 
+\section{What Information is Available}
+\label{sec:What Information is Available:ElPoma2}
+
+all same as with south. Different configurations. Map shows anomalous unit dirrectly above perceived anomaly, We have a borehole right through anomaly. Less surface sample density.
+
+\section{Synthetic Model}
+\label{sec:Synthetic Model:ElPoma2}
+
+TODO: Create Model
+- make iso-surface from best guess inversion. Use parametric inversion to add properties.
+show model
+discuss its creation
+- magnetization direction
+
+show its fit to the field data
+
+\section{Blind Inversion of the Synthetic Model}
+\label{sec:Blind Inversion of the Synthetic Model:ElPoma2}
+
+Show results. Discuss how magnetization direction puts anomaly away from actual location. Assuming that it does (I expect that it will).
+
+\section{Determination of Magnetization Dirrection}
+\label{sec:Determination of Magnetization Dirrection}
+
+Correlation of Vertical and Total Gradients of Half RTP field \cite{dannemiller2006MagDirection}
+
+taking core direction from MVI result 
+could also use parametric inversion and MVI sensitivities to provide more constraint.
+
+apply recovered direction to the anomaly direction in MAG3D
+could apply anomalous dirrection locally to anomaly 
+
+\section{Creation of Constraints}
+\label{sec:Creation of Constraints:ElPoma2}
+
+\subsection{$\alpha$ coefficients}
+\label{sec:alpha coefficients:ElPoma2}
+
+not much with alphas to be done here given that we don't expect discontinuity in any one particular dirrection.
+
+\subsection{Reference Models}
+\label{sec:Reference Models:ElPoma2}
+
+Most work to be done here. 
+
+Borehole: provides susceptibilities need to convert into effective susceptibilities. Assuming uniform magnetization direction this is not complicated. Choose a $K_n$ and multiply susceptibility by that (maybe with +1). For MVI I need to apply the dirrection of magnetization as well. Either from the truth of the synth model from direction of the nearest remanent sample or from the bulk rem mag direction.
+(show reference model)
+(show result)
+
+
+Map: geological units have susceptibilities attached. Have to convert into effective susceptibilities. Might extend the map cells down below surface to be less weighted
+(show reference model)
+(show result)
+
+Surface Samples: used to make susc values for geological units. Can also be used for reference model directly but this provides less cover of the surface. Perhaps use surface samples in white region instead of just applying nothing.
+(show reference model)
+(show combined map and SS reference model)
+(show result)
+
+(show Combined result)
+
+\subsection{Weighting matrices}
+\label{sec:Weighting matrices:ElPoma2}
+
+smallness: using some measure of confidence in the measures decrease in cells with reference model specified to force the result to approximate the reference model. In case that map is extended down I will lower the $W_s$ as model cells are further below the surface.
+(show smallness weight model)
+(show result, compare to result without)
+
+
+smoothness: to spread the model values away from where they are specified I can increase the smoothness weights in the vicinity of cells with specified reference models. 
+(show face weight model)
+(show result, compare to result without)
+much less in the way of fault dirrectly over anomaly. Perhaps with dipping faults there will be a constraining plane. Only have to factor in El Deleite fault.
+
+(show Combined result)
+\subsection{Bounds}
+\label{sec:Bounds:ElPoma2}
+
+Also useful for forcing model values to be near the specified reference model while allowing for uncertainty in our phys prop value
+(show result)
+
+\subsection{$L_p L_q$ weights}
+\label{sec:Lp Lq weights:ElPoma2}
+
+allows the more fuzzy placement of faults. By rotating the \ac{MOF} we can place them in arbitrary directions. The trouble is having more than one fault in more than one orientation. Can't currently apply to MVI inversions, can still apply on MAG3D inversions 
+
+Perhaps with dipping faults there will be a constraining plane. Only have to factor in El Deleite fault.
+(show result)
+\\\\\\
+Need to determine if showing the field example is worthwhile at this point and how to bring it into the narrative
+
+MUCH similarity. perhaps this should not be its own section. Need to run some of the data to determine where the northern anomaly is different from south.
+
+\endinput
+
+Any text after an \endinput is ignored.
+You could put scraps here or things in progress.
