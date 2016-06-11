@@ -5,8 +5,8 @@
 \label{ch:Introduction}
 
 \begin{epigraph}
-The 'true' is only the expedient in our way of thinking, just as the 'right' is only the expedient in our way of behaving.
--William James
+\emph{The 'true' is only the expedient in our way of thinking, just as the 'right' is only the expedient in our way of behaving.}\\
+---~William James (1909)
 \end{epigraph}
 
 
@@ -68,7 +68,7 @@ along with the terms in the \ac{MOF} other parts of the optimization algorithm (
 \subsection{Initial Model}
 \label{sec:Initial Model}
 
-In the optimization we assume that the initial guesse is near enough to the truth that the problem is locally convex. The initial model is important in that way. In an under determined system it also provides a way to push the invesion towards a given result. Often the initial model is simply the reference model, or the reference model shifted slightly to keep it within the bounds
+In the optimization we assume that the initial guess is near enough to the truth that the problem is locally convex. The initial model is important in that way. In an under determined system it also provides a way to push the inversion towards a given result. Often the initial model is simply the reference model, or the reference model shifted slightly to keep it within the bounds
 
 \subsection{Bounds}
 \label{sec:Bounds}
@@ -88,7 +88,7 @@ Finally we can generalize the \ac{MOF} somewhat. In \autoref{eq:MOF} we used $L_
 
 Bore holes can either give physical property measurements down hole or provide qualitative rock unit information. Much work has been done on inserting physical property bore hole information (NC Williams – 2008). If we can convert the  rock property information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks) we can use the information in the same fashion as a physical property bore hole
 
-Secondly in some contexts one physical property can be used as a proxy for others. In one case study we have magnetic susceptibility measurements down hole but the context is sufficiently remanent that the simple susceptibility measurement drastically underestimates the recovered property from the magnetic inversion. This is due to the fact that the inversion is recovering effective susceptibility (susceptive magnetization plus \ac{NRM} normalized by and assuming the direction of earth's field in the location). To describe the method I will use I will need to discuss the general derivation of the magnetostatic problem. (I don't think this is how the argument will be structured in the final thesis)
+Secondly in some contexts one physical property can be used as a proxy for others. In one case study we have magnetic susceptibility measurements down hole but the context is sufficiently remanent that the simple susceptibility measurement drastically underestimates the recovered property from the magnetic inversion. This is due to the fact that the inversion is recovering effective susceptibility (susceptive magnetization plus \ac{NRM} normalized by and assuming the direction of earth's field in the location). To describe the method I will use I will need to discuss the general derivation of the magnetostatic problem and then discuss the effects of \ac{NRM} on measured data and the recovered inversion result. 
 
 The following derivation follows that in (Fournier 2015). We can derive the magnetostatic problem from Maxwell's equations. If we assume no free currents and no time varying electric field Maxwell's equations simplify to 
 
@@ -146,11 +146,15 @@ We now have a formulation of $\mathbf B$ that depends on magnetization $\mathbf 
 \textbf{M} = \kappa\textbf{H} + \textbf{M}_{NRM}
 \end{equation}
 Here $\textbf M$ is once again the total magnetization, $\kappa$ is susceptibility as defined in \autoref{eq:susc}, $\textbf{H}$ is the inducing field (in this case of the earth) and $\textbf{M}_{NRM}$ is the \ac{NRM}. $\textbf{M}_{NRM}$  is also characterized by what is called Koenigsberger ratio
-\begin{align} \label{eq:Koenigsberger}
+\begin{equation} \label{eq:Koenigsberger}
 Q = \frac{\textbf{M}_{NRM}}{ \kappa\textbf{H}}
-\end{align}
-In the case where there is no \ac{NRM} the direction of $\mathbf M$ is going to be the same as $\mathbf H$, meaning that $\mathbf B_A$ and $\mathbf B_0$ will be in the same direction and making the approximation in \autoref{eq:TMAaprox} exact. \cite{li19963} and \cite{pilkington19973} assume that not only is there no self-demagnetization but also that there is no \ac{NRM}. A slight generalization from assuming no \ac{NRM} is that the anomalous magnetization is entirely in one direction (citation needed). Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal.
-	In the context of remanent magnetization 
+\end{equation}
+In the case where there is no \ac{NRM} the direction of $\mathbf M$ is going to be the same as $\mathbf H$, meaning that $\mathbf B_A$ and $\mathbf B_0$ will be in the same direction and making the approximation in \autoref{eq:TMAaprox} exact. \cite{li19963} and \cite{pilkington19973} assume that not only is there no self-demagnetization but also that there is no \ac{NRM}. A slight generalization from assuming no \ac{NRM} is that the anomalous magnetization is entirely in one direction (citation needed). Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal. The recovered quantity is effective susceptibility, or magnetization normalized by the earth's field,
+\begin{equation} \label{eq:effSusc}
+\kappa_{eff} =  \frac{\textbf{M}}{\textbf{H}}.
+\end{equation}In the case that there is no \ac{NRM}, effective susceptibility and the true susceptibility are equal.
+
+	In the context of remanent magnetization, the assumption that there is no \ac{NRM} is clearly false and effects the inversion results. In the case that the \ac{NRM} is in a direction additive to the earth's field, the measured field $b_{TMA}$ will be higher than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will be higher than the true $\kappa$. Similarly, in the case that \ac{NRM} is in a direction subtractive to the earth's field, the measured field $b_{TMA}$ will be lower than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will also  be lower than the true $\kappa$.
 
 
 
