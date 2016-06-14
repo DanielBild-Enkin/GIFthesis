@@ -12,7 +12,6 @@
 
 In all cases these are first guesses at what needs to be in each section more or less detail need to be added.
 
-
 \section{What problems}
 \label{sec:What problems}
 
@@ -177,12 +176,18 @@ where $Q$ is the Koenigsberger ratio used and $\hat{\mathbf M}_{NRM}$ is the mag
 \subsection{Surface Sample Data}
 \label{sec: Surface Sample Data}
 
+In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in a \ac{MOF} \cite{williams2008geologically}. Surface Samples take on increased importance in the context of potential field inversion as they can constrain the values at the surface of a model and help the inversion place density or susceptibility deeper in the inversion. Novel approaches that I will implement in this thesis are the use of Koenigsberger ratios in a remanent environment (as with the bore hole data), and the use of surface samples to provide petrophysical information for geological maps.
+
 \subsection{Geological Maps}
 \label{sec: Geological Maps}
+
+Finally, the last type of data used in this thesis is geological maps. A method for the inclusion of geological maps is outlined in \cite{williams2008geologically} however his work requires a proprietary format (ESRI shapefile) and is limited to plan view maps. The work I have done allows the creation of models from maps stored as non-vector images (Bitmap, PNG, etc.) and also allows for the creation of constraints from cross section maps.
 
 
 \section{Using Multiple Data Types, with Clustering}
 \label{sec:Using Multiple Data Types, with Clustering}
+
+Thus far I have discussed the use of geological and petrophysical to create more representative \ac{MOF}s. In addition to these sources of information, other inversions of other data types can also be used to constrain an inversion. There has been much work on cooperative inversion \cite{sun2012joint} among others. In this thesis I will outline the use of clustering algorithms to iteratively form clustered pseudo-geological models. These pseudo-geoplogical models can then be used to form weighting matrices, active cell models, and reference models, allowing the inclusion of information from other data sets in an inversion. While less sophisticated than other methods of cooperative inversion, this method allows the use of standard GIF inversion software (does not require the writing of a new inversion program) and allows a great amount of user control throughout the process. Finally the clustering method also allows the use of other geological constraint methods as already described above.
 
 
 \endinput

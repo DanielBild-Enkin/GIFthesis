@@ -4,6 +4,13 @@ A level-1 auxiliary file: preface.aux
 A level-1 auxiliary file: ack.aux
 A level-1 auxiliary file: intro.aux
 A level-1 auxiliary file: GIFtools.aux
-The style file: abbrvnat.bst
+A level-1 auxiliary file: Elpoma.aux
+A level-1 auxiliary file: TKC.aux
+I couldn't open style file SEG.bst
+---line 54 of file ThesisDraft2.aux
+ : \bibstyle{SEG
+ :              }
+I'm skipping whatever remains of this command
 A level-1 auxiliary file: appendix.aux
-Database file #1: biblio.bib
+I found no style file---while reading file ThesisDraft2.aux
+(There were 2 error messages)
