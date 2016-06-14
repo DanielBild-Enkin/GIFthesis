@@ -52,4 +52,5 @@
 \contentsline {subsection}{\numberline {4.7.2}Reference Models}{18}{subsection.4.7.2}
 \contentsline {subsection}{\numberline {4.7.3}Weighting matrices}{19}{subsection.4.7.3}
 \contentsline {subsection}{\numberline {4.7.4}Bounds}{20}{subsection.4.7.4}
-\contentsline {chapter}{\numberline {A}Supporting Materials}{21}{appendix.A}
+\contentsline {chapter}{Bibliography}{21}{chapter*.8}
+\contentsline {chapter}{\numberline {A}Supporting Materials}{23}{appendix.A}
