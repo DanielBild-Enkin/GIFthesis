@@ -47,7 +47,7 @@ where $\phi_m$ is called the \ac{MOF} or model norm. This $\phi_m$ can be define
 in higher dimensions more smoothness terms can be added. The $\textbf{W}$ terms contain both the operator (identity for $\textbf{W}_s$ and derivative for $\textbf{W}_x$ and other dimensions) and the relative weight each cell or face contributes to the \ac{MOF}. This gives us several levers to add a-priori information into the inversion.
 
 The \ac{MOF} allows us to mathematically solve the problem by adding a priori information into the inversion. Namely we assume that the recovered model should be small and smooth. There are times when this is desired but often we have more specific information about the true model that needs to be inserted into the inversion. Luckily the various terms in the \ac{MOF} allow us to add a significant amount of information is various ways to the inversion.
-	It must be said that all of the techniques listed below are not novel. Many researchers before me have used exactly these techniques to constrain inversions (long list of citations  (Williams 2008, Lelievre 2009)). What is novel in this thesis is the creation of a suit of tools (created by me and the rest of the GIF group) to make the incorporation of geological data into the \ac{MOF} of inversions easy even in non-trivial cases.
+	It must be said that all of the techniques listed below are not novel. Many researchers before me have used exactly these techniques to constrain inversions (\cite{williams2008geologicall},\cite{Lelievre2009Integrating} among other (still need to add more)). What is novel in this thesis is the creation of a suit of tools (created by me and the rest of the GIF group) to make the incorporation of geological data into the \ac{MOF} of inversions easy even in non-trivial cases.
 
 \subsection{$\alpha$ coefficients}
 \label{sec:alpha coefficients}
@@ -81,20 +81,17 @@ we can also set values that each cell of the final model must lie between. This 
 
 Finally we can generalize the \ac{MOF} somewhat. In \autoref{eq:MOF} we used $L_2$ norms as this is a natural norm that promotes a smoothly varying model that is close to the reference model. We do not always want such a model and can change the norm used in the \ac{MOF}. Lower norms promote more sparsity in whatever measure they are being applied to. This leads to models being more compact (should lowever norms be applied to the smallness term) or more blocky with greater discontinuities (should lower norms be applied to one or more smoothness terms). Non $L_2$ norms can be applied across the whole \ac{MOF} or can be applied variably across the model. This allows for placing discontinuities in a given direction but not perfectly placing the location allowing the inversion algorithm more freedom to chose the location itself.
 
-
-
-
 \section{Forms of A Priori Information}
 \label{sec:Forms of A Priori Information}
 
-\subsection{Bore Hole Data}
+\subsection{Bore Hole Data and the Use of Koenigsberger Ratios to Correct Bore Hole Susceptibility Measurements}
 \label{sec: Bore Hole Data}
 
-Bore holes can either give physical property measurements down hole or provide qualitative rock unit information. Much work has been done on inserting physical property bore hole information (Williams – 2008). If we can convert the  rock property information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks) we can use the information in the same fashion as a physical property bore hole
+Bore holes provide physical property measurements at depth either by sending geophysical instruments down hole or by recovering a core and then measuring it subsequently in the lab. Bore holes can also provide qualitative rock unit information. Much work has been done on including physical property bore hole information(\cite{williams2008geologically} among others I'm sure). If we can convert the lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks) we can use the information in the same fashion as a physical property bore hole logs.
 
-Secondly in some contexts one physical property can be used as a proxy for others. In one case study we have magnetic susceptibility measurements down hole but the context is sufficiently remanent that the simple susceptibility measurement drastically underestimates the recovered property from the magnetic inversion. This is due to the fact that the inversion is recovering effective susceptibility (susceptive magnetization plus \ac{NRM} normalized by and assuming the direction of earth's field in the location). To describe the method I will use I will need to discuss the general derivation of the magnetostatic problem and then discuss the effects of \ac{NRM} on measured data and the recovered inversion result. 
+In some contexts one physical property can be used as a proxy for others. In one case study, we have magnetic susceptibility measurements down hole but surface samples have been measured which reveal high magnetic remanence. The simple susceptibility measurement is drastically lower than the recovered effective susceptibility derived from the inversion of a magnetic survey over the area. This is due to the fact that the inversion is recovering effective susceptibility (induced magnetization plus \ac{NRM} normalized by and assuming the direction of earth's field in the location). To describe the method we need to discuss the general derivation of the magnetostatic problem and then discuss the effects of \ac{NRM} on measured data and the recovered inversion result. 
 
-The following derivation follows that in (Fournier 2015). We can derive the magnetostatic problem from Maxwell's equations. If we assume no free currents and no time varying electric field Maxwell's equations simplify to 
+The following derivation follows the one in \cite{fournier2015cooperative}. We can derive the magnetostatic problem from Maxwell's equations. If we assume no free currents and no time varying electric field Maxwell's equations simplify to 
 
 \begin{equation} 
 \label{eq:maxwellB}
@@ -112,11 +109,15 @@ where $\mathbf{B}$ is the magnetic flux density measured in Tesla (T), $\mathbf{
 \begin{equation}\label{eq:susc}
 \mu = \mu_0(1 + \kappa),
 \end{equation}
-where $\mu_0$ is (as already stated) the permeability of free space, and $\kappa$ is the susceptibility of a material. $\kappa$ is dimensionless and describes the ability of a material to become magnetized under some field $\mathbf{H}$. Since \autoref{eq:maxwelH} state that $\mathbf{H}$ has no curl is can be written as the gradient of a potential field
+where $\mu_0$ is the permeability of free space ($4\pi\times10^{-7}\frac{Tm}{A}$), and $\kappa$ is the magnetic susceptibility of a material. $\kappa$ is dimensionless and describes the ability of a material to become magnetized under some field $\mathbf{H}$. The definition of $\kappa$ in \autoref{eq:susc}  gives us a definition for induced magnetization
+\begin{equation}\label{eq:Mi}
+\mathbf M_I = \kappa\textbf{H}.
+\end{equation}
+Since there are no free currents and \autoref{eq:maxwelH} states that $\mathbf{H}$ has no curl, it can be written as the gradient of a potential field
 \begin{equation}\label{eq:phi}
 \mathbf{H} = \mathbf{\nabla}\phi.
 \end{equation}
-Since, by \autoref{eq:maxwellB}, we assume that there are no magnetic dipoles, we approximate $\phi$ in terms of a dipole moment $\mathbf m$. If we have a magnetic dipole with a moment of $\mathbf m$ at a location $\mathbf r_Q$, then the potential field $\phi$ as measured at some $\mathbf r_P$ is given by
+Since, by \autoref{eq:maxwellB}, we assume that there are no magnetic monopoles, we approximate $\phi$ in terms of a dipole moment $\mathbf m$. If we have a magnetic dipole with a moment of $\mathbf m$ at a location $\mathbf r_Q$, then the potential field $\phi$ as measured at some $\mathbf r_P$ is given by
 \begin{equation}\label{eq:phiOfmDiscrete}
 \phi(r) = \frac{1}{4\pi}\mathbf m\cdot \mathbf{\nabla}\Big(\frac{1}{r}\Big),
 \end{equation}
@@ -132,75 +133,61 @@ If we take the gradient of \autoref{eq:phiOfmCont} we find $\mathbf B$ the magne
 \begin{equation}\label{eq:BOfPcont}
 \mathbf B (\mathbf r_P) = \frac{1}{4\pi}\int_V\mathbf M\cdot \mathbf{\nabla}\mathbf{\nabla}\Big(\frac{1}{r}\Big)dv.
 \end{equation}
-In \autoref{eq:BOfPcont} the dependency of $\mathbf B$ on $\mathbf P$ is due to the fact that $r$ depends on $\mathbf r_P$ as in \autoref{eq:rDef}. In most geophysical surveys, the full vector $\mathbf B$ is not collected, usually only its magnitude, or the \ac{TMI},
+In \autoref{eq:BOfPcont} the dependency of $\mathbf B$ on $\mathbf r_P$ is due to the fact that $r$ depends on $\mathbf r_P$ as in \autoref{eq:rDef}. In most geophysical surveys, the full vector $\mathbf B$ is not collected, usually only its magnitude, or the \ac{TMI},
 \begin{equation}\label{eq:TMI}
-b_{TMI} = \| \mathbf B_0 + \mathbf B_A\|_2
+B_{TMI} = \| \mathbf B_0 + \mathbf B_A\|_2
 \end{equation}
 where $\mathbf B_0$ is the primary field (earth's field) and $\mathbf B_A$ is the anomalous local field due to magnetization in the ground. For the purposes of geophysical exploration we are only interested in $\mathbf B_A$. Since we are only interested in $\mathbf B_A$ a useful quantity is therefor the \ac{TMA}, defined as
 \begin{equation}\label{eq:TMA}
-b_{TMA} = \| \mathbf B_{Total} + \mathbf B_0\|_2
+B_{TMA} = \| \mathbf B_{Total} + \mathbf B_0\|_2
 \end{equation}
 \ac{TMA} is difficult to measure directly but can be approximated assuming $\frac{\|\mathbf B_A\|}{\|\mathbf B_0\|} \ll 1$,
 \begin{align}\label{eq:TMAaprox}
-b_{TMA} &\simeq \mathbf B_A\cdot \hat{\mathbf B}_0\\
+B_{TMA} &\simeq \mathbf B_A\cdot \hat{\mathbf B}_0\\
 &=\|\mathbf B_0+\mathbf B_A\| - \|\mathbf B_0\|
 \end{align}
-We now have a formulation of $\mathbf B$ that depends on magnetization $\mathbf M$. We also have looked into the quantities collected in geophysical magnetics surveys. We will now take a more specific look at magnetization and it's effects both on $\mathbf B$ and $b_{TMA}$. If we assume no self-demagnetization the magnetic field is constant over the region and magnetization can be characterized by the following
-\begin{equation} \label{eq:magnetization}
-\textbf{M} = \kappa\textbf{H} + \textbf{M}_{NRM}
-\end{equation}
-Here $\textbf M$ is once again the total magnetization, $\kappa$ is susceptibility as defined in \autoref{eq:susc}, $\textbf{H}$ is the inducing field (in this case of the earth) and $\textbf{M}_{NRM}$ is the \ac{NRM}. $\textbf{M}_{NRM}$  is also characterized by what is called Koenigsberger ratio
+We now have a formulation of $\mathbf B$ that depends on magnetization $\mathbf M$, the vector field of magnetization in the ground and the quantities collected in geophysical magnetics surveys. We will now take a more specific look at magnetization and its effects both on $\mathbf B$ and $B_{TMA}$. If we assume no self-demagnetization (which is reasonable for susceptibilities below $1\time10^{-2}$ \cite{lelievre2006magnetic}) the inducing magnetic field is constant over the volume to be inverted and total magnetization can be characterized by the following
+\begin{align} \label{eq:magnetization}
+\textbf{M} &= \mathbf M_I + \textbf{M}_{NRM}\\
+\textbf{M} &= \kappa\textbf{H} + \textbf{M}_{NRM}
+\end{align}
+Here $\textbf M$ is the total magnetization, $\mathbf M_I$ is the induced magnetization as in \autoref{eq:Mi} , $\kappa$ is susceptibility as defined in \autoref{eq:susc}, $\textbf{H}$ is the inducing field (in this case of the geomagnetic field) and $\textbf{M}_{NRM}$ is the \ac{NRM}. $\textbf{M}_{NRM}$  is also characterized by what is called Koenigsberger ratio
 \begin{equation} \label{eq:Koenigsberger}
-Q = \frac{\textbf{M}_{NRM}}{ \kappa\textbf{H}}
+Q = \frac{\textbf{M}_{NRM}}{ \kappa\textbf{H}} = \frac{\text{remanent magnetization}}{\text{induced magnetization}}
 \end{equation}
-In the case where there is no \ac{NRM} the direction of $\mathbf M$ is going to be the same as $\mathbf H$, meaning that $\mathbf B_A$ and $\mathbf B_0$ will be in the same direction and making the approximation in \autoref{eq:TMAaprox} exact. \cite{li19963} and \cite{pilkington19973} assume that not only is there no self-demagnetization but also that there is no \ac{NRM}. A slight generalization from assuming no \ac{NRM} is that the anomalous magnetization is entirely in one direction (citation needed). Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal. The recovered quantity is effective susceptibility, or magnetization normalized by the earth's field,
+In the case where \ac{NRM} is negligible, the direction of $\mathbf M$ isthe same as $\mathbf H$, meaning that $\mathbf B_A$ and $\mathbf B_0$ are in the same direction and making the approximation in \autoref{eq:TMAaprox} exact. The methods outlined in \cite{li19963} and \cite{pilkington19973} assume that not only is there no self-demagnetization but also that there is no \ac{NRM}. A slight generalization from assuming no \ac{NRM} is that the anomalous magnetization is entirely in one direction \cite{li19963}. The recovered quantity is effective susceptibility, or magnetization normalized by the earth's field,
 \begin{equation} \label{eq:effSusc}
-\kappa_{eff} =  \frac{\textbf{M}}{\textbf{H}}.
-\end{equation}In the case that there is no \ac{NRM}, effective susceptibility and the true susceptibility are equal.
+\kappa_{eff} =  \frac{\|\mathbf M\|}{\|\mathbf H\|}.
+\end{equation}In the case that the magnitude of \ac{NRM} is negligible, effective susceptibility and the true susceptibility are equal (i.e. $Q \ll 1)$.
 
-	In the context of remanent magnetization, the assumption that there is no \ac{NRM} is clearly false and effects the inversion results. In the case that the \ac{NRM} is in a direction additive to the earth's field, the measured field $b_{TMA}$ will be higher than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will be higher than the true $\kappa$. Similarly, in the case that \ac{NRM} is in a direction subtractive to the earth's field, the measured field $b_{TMA}$ will be lower than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will also be lower than the true $\kappa$.
+	In the context of high remanent magnetization, the assumption that there is no \ac{NRM} is by definition clearly false and \ac{NRM} affects the inversion results. In the case that the \ac{NRM} is in a similar direction as the earth's field, the measured field $B_{TMA}$ will be higher than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will be higher than the true $\kappa$. Similarly, in the case that \ac{NRM} is in a direction nearly anti-parallel to the earth's field, the measured field $B_{TMA}$ will be lower than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will also be lower than the true $\kappa$.
 	
-	Understanding the difference between $\kappa$ and $\kappa_{eff}$ is very important with respect to inserting magnetic petrophysical measurements into an inversion's \ac{MOF}. It is an unfortunate truth that susceptibility is significantly easier to measure than \ac{NRM} to demonstrate this I will now discuss the lab measurement of susceptibility and \ac{NRM}.
+	Understanding the difference between $\kappa$ and $\kappa_{eff}$ is very important with respect to inserting magnetic petrophysical measurements into an inversion's \ac{MOF}. It is an unfortunate truth that susceptibility is significantly easier to measure than \ac{NRM}. As stated above in \autoref{eq:susc} the permeability of an object is related to its susceptibility. In addition the inductance of a coil is proportional to the permeability inside and around it and thus is dependent on the susceptibility of the material. This change in inductance of a coil allows the precise measurement of susceptibility without contamination by \ac{NRM} \cite{collinson1983methods},\cite{clark1991notes}. The measurement of the inductance of a coil also allows the measurement of susceptibility of a rock without reorienting the sample and without shielding from ambient magnetic fields \cite{collinson1983methods}.
 	
-(((Section on those things)))
+On the other hand, \ac{NRM} as opposed to susceptibility is a vector quantity and thus the sample must be reoriented to measure it from different directions, even when only the magnitude of the \ac{NRM} is required. In addition, unless the sample is very highly magnetized and stable, measurement will require shielding from ambient fields.
 
-As can be seen from the above derivations, it is not surprising that n the case of El Poma we have many susceptibility measurements including bore-holes and very few (only two within the areas of interest) measurements of \ac{NRM}. However, if susceptibility is used to constrain an inversion in a area of string \ac{NRM} the inversion could be constrained to a value much higher or lower than the true effective susceptibility. 
+As can be seen from the above, it is not surprising that n the case of El Poma we have many susceptibility measurements including bore-holes and very few (only two within the areas of interest) measurements of \ac{NRM}. However, if susceptibility is used to constrain an inversion in an area of strong \ac{NRM} the inversion could be constrained to a value much higher or lower than the true effective susceptibility. 
+
+At first order, a potential correction given \ac{NRM} measurements is to use the Koenigsberger ratio of a sample and assume that other samples will have a similar Koenigsberger ratio. It is recognized that this assumption will not be true. That said it is a closer approximation than would otherwise be possible without the sample. Once we have a Koenigsberger ratio and a susceptibility we can determine the magnetization of the sample using \autoref{eq:magnetization} and  \autoref{eq:Koenigsberger} in the form
+\begin{equation} \label{eq:Qcorrection}
+\textbf{M}_{eff} = \kappa\textbf{H} + \|Q\kappa\textbf{H}\|\hat{\mathbf M}_{NRM},
+\end{equation}	
+where $Q$ is the Koenigsberger ratio used and $\hat{\mathbf M}_{NRM}$ is the magnetization direction of the sample used. It is important to note that \autoref{eq:Qcorrection} is a vector sum and the direction of $\mathbf{M}_{eff}$ will not be in the direction of either $\mathbf H$ or $\mathbf M_{NRM}$. It is also interesting to note that \autoref{eq:Qcorrection} is more generally true if more samples have \ac{NRM} measurements. If, instead of being a single measurement, we have a more detailed estimate of each sample's Koenigsberger ratio and magnetization direction, we can get a better estimate of $\mathbf M_{eff}$.
 	
-	
-	
-	
-	
-
-
-
-Having the only direction of mag
-
-
-
-
-
-
-
-
-
-The recovered property in a magnetic inversion is susceptibility as in \autoref{eq:magnetization} except it is normalized by $\textbf{H}$. The inversion used assumes that all magnetization is due to susceptibility and that all magnetization is in the same direction. There is a parameter in the inversion that allows for an anomaly magnetization direction other than that of earth's field but all magnetization is still all in the same direction. If \ac{NRM}
-
-
-
-
-
-
 \subsection{Surface Sample Data}
 \label{sec: Surface Sample Data}
 
-In a addition to 
+\subsection{Geological Maps}
+\label{sec: Geological Maps}
 
 
-
-
+\section{Using Multiple Data Types, with Clustering}
+\label{sec:Using Multiple Data Types, with Clustering}
 
 
 \endinput
+
+ Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal.
 
 Any text after an \endinput is ignored.
 You could put scraps here or things in progress.

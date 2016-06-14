@@ -1,0 +1,47 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Clark and Emerson(1991)]{clark1991notes}
+D.~Clark and D.~Emerson.
+\newblock Notes on rock magnetization characteristics in applied geophysical
+  studies.
+\newblock \emph{Exploration Geophysics}, 22\penalty0 (3):\penalty0 547--555,
+  1991.
+
+\bibitem[Collinson(1983)]{collinson1983methods}
+D.~Collinson.
+\newblock Methods in rock magnetism and palaeomagnetism, 503 pp, 1983.
+
+\bibitem[Fournier(2015)]{fournier2015cooperative}
+D.~Fournier.
+\newblock \emph{A cooperative magnetic inversion method with Lp-norm
+  regularization}.
+\newblock PhD thesis, University of British Columbia, 2015.
+
+\bibitem[Lelievre and Oldenburg(2006)]{lelievre2006magnetic}
+P.~G. Lelievre and D.~W. Oldenburg.
+\newblock Magnetic forward modelling and inversion for high susceptibility.
+\newblock \emph{Geophysical Journal International}, 166\penalty0 (1):\penalty0
+  76--90, 2006.
+
+\bibitem[Li and Oldenburg(1996)]{li19963}
+Y.~Li and D.~W. Oldenburg.
+\newblock 3-d inversion of magnetic data.
+\newblock \emph{Geophysics}, 61\penalty0 (2):\penalty0 394--408, 1996.
+
+\bibitem[Pilkington(1997)]{pilkington19973}
+M.~Pilkington.
+\newblock 3-d magnetic imaging using conjugate gradients.
+\newblock \emph{Geophysics}, 62\penalty0 (4):\penalty0 1132--1142, 1997.
+
+\bibitem[Williams(2008)]{williams2008geologically}
+N.~C. Williams.
+\newblock Geologically-constrained ubc--gif gravity and magnetic inversions
+  with examples from the agnew-wiluna greenstone belt, western australia.
+\newblock 2008.
+
+\end{thebibliography}

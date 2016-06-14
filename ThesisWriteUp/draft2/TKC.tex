@@ -1,44 +1,45 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Case Study \#1 El Poma South}
+\chapter{Case Study \#2 TKC}
 \label{ch:CaseStudy1}
 
 In all cases these are first guesses at what needs to be in each section more or less detail need to be added.
 
-\section{General Overview of El Poma}
-\label{sec:General Over View of El Poma}
 
-Two anomalies. North and South. This section discusses the southern anomaly. The next discusses the northern one. 
-
-Magnetic Anomaly. Remanent magnetization is clearly present
 
 \section{Overview of Deposits}
-\label{sec:Overview of Deposits:ElPoma1}
+\label{sec:Overview of Deposits:TKC}
 
+Kimberlite Complex
+Two anomalies, focusing on the southern one (DO27)
+
+Magnetic Anomaly. Remanent magnetization is likely present but largely in the dirrection of the earth's field
+Density Anomaly. 
 \section{Discussion of the Geophysical Data Given}
-\label{sec:Discussion of the Geophysical Data Given:ElPoma1}
+\label{sec:Discussion of the Geophysical Data Given:TKC}
 
-Magnetics. Missing a corner.
+Magnetics: Three different surveys\\
+Gravity: Ground mag (of usable but dubious quality), Gravity Gradiometry airborne data
+
+much EM as well, outside the scope of this Master's Thesis
 
 \section{What Information is Available}
-\label{sec:What Information is Available:ElPoma1}
+\label{sec:What Information is Available:TKC}
 
-Bore Hole
--susceptibilities, much lower than the recovered model sue to remanent effects being present
+Great deal of borehole data with facies at each depth
+We also have Phys Props at various points along the holes. We can either mean these across the facies or take the value of each facies that the specially nearest the the measured result.
 
-Plan View Geological map
--with susceptibility surface samples marked, in addition to surface samples and geological units, we also have a system of thrust faults over top of both anomalies.
+From the borehole data we also have created a surface model of each of the units
 
-Surface Samples
--susceptibility, same as marked on map but includes many samples from outside map area as well
--also have nine remanences measured with direction and $K_n$
+again from the borehole data, we have graphical cross section maps
 
 \section{Synthetic Model}
-\label{sec:Synthetic Mode:ElPoma1l}
+\label{sec:Synthetic Model:TKC}
 
 TODO: Create Model
-- make iso-surface of Kris's result. Determine property from parametric inversion.
+- Already mostly done
+- we have a surface from the borehole data and we can use the parametric inversion to assign the properties.
 show model
 discuss its creation
 - magnetization direction
@@ -46,9 +47,9 @@ discuss its creation
 show its fit to the field data
 
 \section{Blind Inversion of the Synthetic Model}
-\label{sec:Blind Inversion of the Synthetic Mode1:ElPoma1}
+\label{sec:Blind Inversion of the Synthetic Model:TKC}
 
-Show results. Discuss how magnetization direction puts anomaly away from actual location
+Show results. show how model is insufficiently compact and over estimates the amount of kimberlite
 
 \section{Determination of Magnetization Dirrection}
 \label{sec:Determination of Magnetization Dirrection}
@@ -56,75 +57,80 @@ Show results. Discuss how magnetization direction puts anomaly away from actual 
 Correlation of Vertical and Total Gradients of Half RTP field \cite{dannemiller2006MagDirection}
 
 taking core direction from MVI result 
-could also use parametric inversion and MVI sensitivities to provide more constraint.
 
 apply recovered direction to the anomaly direction in MAG3D
+could also use parametric inversion and MVI sensitivities to provide more constraint.
+
 could apply anomalous dirrection locally to anomaly 
 
-\section{Creation of Constraints}
-\label{sec:Creation of Constraints:ElPoma1}
+In any case the result will be very similar to the earth's field in the location
+
+\section{Creation of Constraints and Types of Data}
+\label{sec:Creation of Constraints:TKC}
+
+Extensive Boreholes with rock units
+Multiple cross sections (crreated from said bore holes)
+Multiple data types to cluster
+
+
 
 \subsection{$\alpha$ coefficients}
-\label{sec:alpha coefficients:ElPoma1}
+\label{sec:alpha coefficients:TKC}
 
-For El Espa\~nole (north south fault) we can lower the $\alpha_x$ to allow for greater discontinuity in general in that direction. Cannot account for other faults without rotation objective function.
-
-(show result)
+not much with alphas to be done here given that we don't expect discontinuity in any one particular dirrection.
 
 \subsection{Reference Models}
-\label{sec:Reference Models:ElPoma1}
+\label{sec:Reference Models:TKC}
 
 Most work to be done here. 
 
-Borehole: provides susceptibilities need to convert into effective susceptibilities. Assuming uniform magnetization direction this is not complicated. Choose a $K_n$ and multiply susceptibility by that (maybe with +1). For MVI I need to apply the dirrection of magnetization as well. Either from the truth of the synth model from direction of the nearest remanent sample or from the bulk rem mag direction.
+We can create a reference model from the phys prop results from the borehole data. Perhaps we should only use some of the boreholes so that we have a more realistic amount of information than in a fully drilled example. We have two ways of applying phys prop measures to inversion and might use both. Also using $K_n$s to improve degree of fit between phys prop measures and effective susc recovered properties
 (show reference model)
 (show result)
 
-
-Map: geological units have susceptibilities attached. Have to convert into effective susceptibilities. Might extend the map cells down below surface to be less weighted
+with sufficient boreholes we could make a incorrect surface that approximates the ``true'' model used. Use this with parametric inversion for reference model
 (show reference model)
 (show result)
 
-Surface Samples: used to make susc values for geological units. Can also be used for reference model directly but this provides less cover of the surface. Perhaps use surface samples in white region instead of just applying nothing.
+using clustering between density and mag (and conductivity and chargeablity) to create clusters, populate each cluster with a value either the mean value of the cluster or a parametric inversion and use as reference
 (show reference model)
-(show combined map and SS reference model)
+(show result)
+
+use cross section from \cite{harder2006geologyTKC}
+perhaps extend away from line and down weight
+(show reference model)
 (show result)
 
 (show Combined result)
 
 \subsection{Weighting matrices}
-\label{sec:Weighting matrices:ElPoma1}
+\label{sec:Weighting matrices:TKC}
 
-smallness: using some measure of confidence in the measures decrease in cells with reference model specified to force the result to approximate the reference model. In case that map is extended down I will lower the $W_s$ as model cells are further below the surface.
+smallness: using some measure of confidence in the measures decrease in cells with reference model specified to force the result to approximate the reference model. In case the cross section is extended down I will lower the $W_s$ as model cells are further away from the cross section
 (show smallness weight model)
 (show result, compare to result without)
 
-
 smoothness: to spread the model values away from where they are specified I can increase the smoothness weights in the vicinity of cells with specified reference models. 
 (show face weight model)
-(show result, compare to result without)
-The other application of smoothness weights is to allow discontinuities on the faults (perhaps with increased smoothing on either side of the fault). Need to experiment with orientations of the faults.
+
+with sufficient boreholes we could make a incorrect surface that approximates the ``true'' model used. Use this with parametric inversion for reference mode,l put lower weights along this surface.
+(show face weight model)
+
+using clustering between density and mag (and conductivity and chargeablity) to create clusters, populate each cluster with a value either the mean value of the cluster or a parametric inversion and use as reference
 (show result)
+
+(show result, compare to result without)
 
 (show Combined result)
 \subsection{Bounds}
-\label{sec:Bounds:ElPoma1}
+\label{sec:Bounds:TKC}
 
-Also useful for forcing model values to be near the specified reference model while allowing for uncertainty in our phys prop value
+Also useful for forcing model values to be near the specified reference model while allowing for uncertainty in our phys prop value. Since we have more statistical info on the 
 (show result)
 
-\subsection{$L_p L_q$ weights}
-\label{sec:Lp Lq weights:ElPoma1}
-
-allows the more fuzzy placement of faults. By rotating the \ac{MOF} we can place them in arbitrary directions. The trouble is having more than one fault in more than one orientation. Can't currently apply to MVI inversions, can still apply on MAG3D inversions 
-(show result)
-\\\\\\
 Need to determine if showing the field example is worthwhile at this point and how to bring it into the narrative
 
 \endinput
-
-
-
 
 Any text after an \endinput is ignored.
 You could put scraps here or things in progress.
