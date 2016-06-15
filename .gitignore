@@ -1,2 +1,6 @@
 *.tmp
 ~$utline.doc
+*.aux
+*.bbl
+*.blg
+*.brf

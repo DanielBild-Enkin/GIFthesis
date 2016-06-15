@@ -12,185 +12,25 @@ In all cases these are first guesses at what needs to be in each section more or
 \section{Reasearch Motivation}
 \label{sec:Reasearch Motivation}
 
-The overarching goal of geophysical inversion is to provide distributions of physical properties in the ground to aid in mineral exploration. To useful to this end the distribution of the physical property (the geophysical model) needs to both fit the geophysical data and match the geological interpretations already present in a deposit. 
+In mineral exploration there are many form of information that can be used to determine the location of a deposit. These can be divided broadly into geological and geophysical data. Geological data refers to the actual study of the rocks in a region through surface samples, bore holes, and a understanding of how rock units interrelate under the surface. Geophysical data refers to the recovery of the value of some field above the ground that will be related to some discriminative property of the deposit. For exploration to be as effective as possible, we need to find ways of combining the geological and geophysical information. One of the major tools in using geophysical data to create geologically significant interpretations is inversion.
 
-Since geophysical inversions are by their nature non-unique (because of data uncertainty and there being many more model parameters than data) more a priori information needs to be added to provide a model that matches the geology of a deposit. Much work has been done on creating a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversion  (for example \cite{li19963}). However an area where more work can be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create constraints that can be used in inversions.
+The overarching goal of geophysical inversion is to recover distributions of physical properties in the ground to aid in mineral exploration. To be useful to this end the distribution of the physical property (the geophysical model) needs to both fit the geophysical data and match existing geological interpretations. 
 
-The research in this thesis will attempt to do exactly that, provide new tools in an integrated framework that will allow the incorporation of non-trivial a priori information into geophysical inversions. It must be said that all of the techniques listed below are not novel. Many researchers before me have used exactly these techniques to constrain inversions (\cite{williams2008geologically},\cite{Lelievre2009Integrating},\cite{phillips2002geophysical} among other (still need to add more)). What is novel in this thesis is the creation of a suit of tools (created by me and the rest of the \ac{GIF} group) to make the incorporation of geological and petrophysical data into  inversions easy even in non-trivial cases.
+Since geophysical inversions are by their nature non-unique (because of data uncertainty and there being many more model parameters than data) more a priori information needs to be added to provide a model that matches the geology of a deposit. Much work has been done to create a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversions (for example \cite{li19963}). However, an area where more work can be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create constraints that can be used in inversions.
+
+The research in this thesis will attempt to do exactly that, provide new tools in an integrated framework that will allow the incorporation of non-trivial a priori information into geophysical inversions. As stated above, the inclusion of a priori information in inversions is not novel.  Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (\cite{Lelievre2009Integrating},\cite{phillips2002geophysical} among other (still need to add more)). 
+
+In addition, in \cite{williams2008geologically} Williams develops a software package to create constraints for inversions. What is novel in this thesis is the creation of a suite of tools (created by me and the rest of the \ac{GIF} group) to make the incorporation of geological and petrophysical data into \ac{GIF} inversions easy even in non-trivial cases. The interface by which a priori information can be incorporated has been much updated from \cite{williams2008geologically}, and tools to incorporate new forms of data into inversions have been added.
 
 %In the case that we have no additional information (a blind inversion) the standard assumption that is made is that the deposit is small (most of the cells will have a value close to zero)  and smooth (most of the cells will have a value similar to their neighbors) \cite{oldenburg2005inversion}. However following the methodology used in the \ac{GIF} inversion codes (for example \cite{li19963}) there are several terms in the inversion formulation that allow for the inclusion of geological and petrophysical information into an inversion. +
 
 
+\section{Literature Review}
+\label{sec:Literature Review}
 
 
-
-
-
-
-
-\section{Description of Regularization Method}
-\label{sec:Solutions to said difficulties}
-
-As described above, the geophysical inversion problem is inherently non-unique. 
-
-\begin{align}
-\phi = \phi_d + \beta\phi_m
-\end{align}
-\label{eq:objective function}
-
-where $\phi_m$ is called the \ac{MOF} or model norm. This $\phi_m$ can be defined in many ways, following  \cite{oldenburg2005inversion}
-
-\begin{align}
-\phi_m(m) &= \alpha_s\int(m-m_{ref})^2dx+\alpha_x\int\bigg(\frac{d}{dx}(m-m_{ref})\bigg)^2dx\\
-&=\alpha_s\|\textbf{W}_s(m-m_{ref})\|^2_2+\alpha_x\|\textbf{W}_x(m-m_{ref})\|^2_2
-\end{align}
-\label{eq:MOF}
-
-in higher dimensions more smoothness terms can be added. The $\textbf{W}$ terms contain both the operator (identity for $\textbf{W}_s$ and derivative for $\textbf{W}_x$ and other dimensions) and the relative weight each cell or face contributes to the \ac{MOF}. This gives us several levers to add a-priori information into the inversion.
-
-The \ac{MOF} allows us to mathematically solve the problem by adding a priori information into the inversion. Namely we assume that the recovered model should be small and smooth. There are times when this is desired but often we have more specific information about the true model that needs to be inserted into the inversion. Luckily the various terms in the \ac{MOF} allow us to add a significant amount of information is various ways to the inversion.
-	
-\subsection{$\alpha$ coefficients}
-\label{sec:alpha coefficients}
-
-broad strokes weights the relative importance of the smallness and smoothness in the various directions. can also be thought of as length scales
-
-\subsection{Reference Models}
-\label{sec:Reference Models}
-
-we don't always want a model to be close to zero. Sometimes it should be close to another constant sometimes we have guesses of the property in some places and want the inversion result to be close to that value
-
-\subsection{Weighting matrices}
-\label{sec:Weighting matrices}
-
-much more precise. Can put interfaces in precise locations. Can also force a model towards the reference model where we are more sure
-\\\\
-along with the terms in the \ac{MOF} other parts of the optimization algorithm (may need more info in the optimization) can be used to add information into the inversion
-
-\subsection{Initial Model}
-\label{sec:Initial Model}
-
-In the optimization we assume that the initial guess is near enough to the truth that the problem is locally convex. The initial model is important in that way. In an under determined system it also provides a way to push the inversion towards a given result. Often the initial model is simply the reference model, or the reference model shifted slightly to keep it within the bounds
-
-\subsection{Bounds}
-\label{sec:Bounds}
-
-we can also set values that each cell of the final model must lie between. This allows for a hard setting of confidence intervals in the physical properties
-
-\subsection{$L_p L_q$ weights}
-\label{sec:Lp Lq weights}
-
-Finally we can generalize the \ac{MOF} somewhat. In \autoref{eq:MOF} we used $L_2$ norms as this is a natural norm that promotes a smoothly varying model that is close to the reference model. We do not always want such a model and can change the norm used in the \ac{MOF}. Lower norms promote more sparsity in whatever measure they are being applied to. This leads to models being more compact (should lowever norms be applied to the smallness term) or more blocky with greater discontinuities (should lower norms be applied to one or more smoothness terms). Non $L_2$ norms can be applied across the whole \ac{MOF} or can be applied variably across the model. This allows for placing discontinuities in a given direction but not perfectly placing the location allowing the inversion algorithm more freedom to chose the location itself.
-
-\section{Forms of A Priori Information}
-\label{sec:Forms of A Priori Information}
-
-\subsection{Bore Hole Data and the Use of Koenigsberger Ratios to Correct Bore Hole Susceptibility Measurements}
-\label{sec: Bore Hole Data}
-
-Bore holes provide physical property measurements at depth either by sending geophysical instruments down hole or by recovering a core and then measuring it subsequently in the lab. Bore holes can also provide qualitative rock unit information. Much work has been done on including physical property bore hole information(\cite{williams2008geologically} among others I'm sure). If we can convert the lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks) we can use the information in the same fashion as a physical property bore hole logs.
-
-In some contexts one physical property can be used as a proxy for others. In one case study, we have magnetic susceptibility measurements down hole but surface samples have been measured which reveal high magnetic remanence. The simple susceptibility measurement is drastically lower than the recovered effective susceptibility derived from the inversion of a magnetic survey over the area. This is due to the fact that the inversion is recovering effective susceptibility (induced magnetization plus \ac{NRM} normalized by and assuming the direction of earth's field in the location). To describe the method we need to discuss the general derivation of the magnetostatic problem and then discuss the effects of \ac{NRM} on measured data and the recovered inversion result. 
-
-The following derivation follows the one in \cite{fournier2015cooperative}. We can derive the magnetostatic problem from Maxwell's equations. If we assume no free currents and no time varying electric field Maxwell's equations simplify to 
-
-\begin{equation} 
-\label{eq:maxwellB}
-\mathbf{\nabla} \cdot \mathbf{B} = 0\\
-\end{equation}
-\begin{equation}
-\label{eq:maxwelH}
-\mathbf{\nabla} \times \mathbf{H} = 0\\   
-\end{equation}
-\begin{equation}
-\label{eq:maxwellHB}
-\mathbf{B} = \mu\mathbf{H},
-\end{equation}
-where $\mathbf{B}$ is the magnetic flux density measured in Tesla (T), $\mathbf{H}$ is the magnetic field measured in amperes per meter (A/m), and $\mu$ is magnetic permeability which relates  $\mathbf{B}$ to $\mathbf{H}$ in matter. We can rewrite $\mu$ to take the permeability of free space ($\mu_0$) into account and state that
-\begin{equation}\label{eq:susc}
-\mu = \mu_0(1 + \kappa),
-\end{equation}
-where $\mu_0$ is the permeability of free space ($4\pi\times10^{-7}\frac{Tm}{A}$), and $\kappa$ is the magnetic susceptibility of a material. $\kappa$ is dimensionless and describes the ability of a material to become magnetized under some field $\mathbf{H}$. The definition of $\kappa$ in \autoref{eq:susc}  gives us a definition for induced magnetization
-\begin{equation}\label{eq:Mi}
-\mathbf M_I = \kappa\textbf{H}.
-\end{equation}
-Since there are no free currents and \autoref{eq:maxwelH} states that $\mathbf{H}$ has no curl, it can be written as the gradient of a potential field
-\begin{equation}\label{eq:phi}
-\mathbf{H} = \mathbf{\nabla}\phi.
-\end{equation}
-Since, by \autoref{eq:maxwellB}, we assume that there are no magnetic monopoles, we approximate $\phi$ in terms of a dipole moment $\mathbf m$. If we have a magnetic dipole with a moment of $\mathbf m$ at a location $\mathbf r_Q$, then the potential field $\phi$ as measured at some $\mathbf r_P$ is given by
-\begin{equation}\label{eq:phiOfmDiscrete}
-\phi(r) = \frac{1}{4\pi}\mathbf m\cdot \mathbf{\nabla}\Big(\frac{1}{r}\Big),
-\end{equation}
-where
-\begin{equation}\label{eq:rDef}
-\mathbf r = \| \mathbf r_Q - \mathbf r_P\|_2.
-\end{equation}
-We can generalize \autoref{eq:phiOfmDiscrete} to a continuous form by replacing the discrete $\mathbf m$ with a continuous $\mathbf M$ and integrating
-\begin{equation}\label{eq:phiOfmCont}
-\phi( r) = \frac{1}{4\pi}\int_V\mathbf M\cdot \mathbf{\nabla}\Big(\frac{1}{r}\Big)dv.
-\end{equation}
-If we take the gradient of \autoref{eq:phiOfmCont} we find $\mathbf B$ the magnetic flux density,\\\\
-\begin{equation}\label{eq:BOfPcont}
-\mathbf B (\mathbf r_P) = \frac{1}{4\pi}\int_V\mathbf M\cdot \mathbf{\nabla}\mathbf{\nabla}\Big(\frac{1}{r}\Big)dv.
-\end{equation}
-In \autoref{eq:BOfPcont} the dependency of $\mathbf B$ on $\mathbf r_P$ is due to the fact that $r$ depends on $\mathbf r_P$ as in \autoref{eq:rDef}. In most geophysical surveys, the full vector $\mathbf B$ is not collected, usually only its magnitude, or the \ac{TMI},
-\begin{equation}\label{eq:TMI}
-B_{TMI} = \| \mathbf B_0 + \mathbf B_A\|_2
-\end{equation}
-where $\mathbf B_0$ is the primary field (earth's field) and $\mathbf B_A$ is the anomalous local field due to magnetization in the ground. For the purposes of geophysical exploration we are only interested in $\mathbf B_A$. Since we are only interested in $\mathbf B_A$ a useful quantity is therefor the \ac{TMA}, defined as
-\begin{equation}\label{eq:TMA}
-B_{TMA} = \| \mathbf B_{Total} + \mathbf B_0\|_2
-\end{equation}
-\ac{TMA} is difficult to measure directly but can be approximated assuming $\frac{\|\mathbf B_A\|}{\|\mathbf B_0\|} \ll 1$,
-\begin{align}\label{eq:TMAaprox}
-B_{TMA} &\simeq \mathbf B_A\cdot \hat{\mathbf B}_0\\
-&=\|\mathbf B_0+\mathbf B_A\| - \|\mathbf B_0\|
-\end{align}
-We now have a formulation of $\mathbf B$ that depends on magnetization $\mathbf M$, the vector field of magnetization in the ground and the quantities collected in geophysical magnetics surveys. We will now take a more specific look at magnetization and its effects both on $\mathbf B$ and $B_{TMA}$. If we assume no self-demagnetization (which is reasonable for susceptibilities below $1\time10^{-2}$ \cite{lelievre2006magnetic}) the inducing magnetic field is constant over the volume to be inverted and total magnetization can be characterized by the following
-\begin{align} \label{eq:magnetization}
-\textbf{M} &= \mathbf M_I + \textbf{M}_{NRM}\\
-\textbf{M} &= \kappa\textbf{H} + \textbf{M}_{NRM}
-\end{align}
-Here $\textbf M$ is the total magnetization, $\mathbf M_I$ is the induced magnetization as in \autoref{eq:Mi} , $\kappa$ is susceptibility as defined in \autoref{eq:susc}, $\textbf{H}$ is the inducing field (in this case of the geomagnetic field) and $\textbf{M}_{NRM}$ is the \ac{NRM}. $\textbf{M}_{NRM}$  is also characterized by what is called Koenigsberger ratio
-\begin{equation} \label{eq:Koenigsberger}
-Q = \frac{\textbf{M}_{NRM}}{ \kappa\textbf{H}} = \frac{\text{remanent magnetization}}{\text{induced magnetization}}
-\end{equation}
-In the case where \ac{NRM} is negligible, the direction of $\mathbf M$ isthe same as $\mathbf H$, meaning that $\mathbf B_A$ and $\mathbf B_0$ are in the same direction and making the approximation in \autoref{eq:TMAaprox} exact. The methods outlined in \cite{li19963} and \cite{pilkington19973} assume that not only is there no self-demagnetization but also that there is no \ac{NRM}. A slight generalization from assuming no \ac{NRM} is that the anomalous magnetization is entirely in one direction \cite{li19963}. The recovered quantity is effective susceptibility, or magnetization normalized by the earth's field,
-\begin{equation} \label{eq:effSusc}
-\kappa_{eff} =  \frac{\|\mathbf M\|}{\|\mathbf H\|}.
-\end{equation}In the case that the magnitude of \ac{NRM} is negligible, effective susceptibility and the true susceptibility are equal (i.e. $Q \ll 1)$.
-
-	In the context of high remanent magnetization, the assumption that there is no \ac{NRM} is by definition clearly false and \ac{NRM} affects the inversion results. In the case that the \ac{NRM} is in a similar direction as the earth's field, the measured field $B_{TMA}$ will be higher than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will be higher than the true $\kappa$. Similarly, in the case that \ac{NRM} is in a direction nearly anti-parallel to the earth's field, the measured field $B_{TMA}$ will be lower than expected, given only susceptibility, and thus the recovered $\kappa_{eff}$ will also be lower than the true $\kappa$.
-	
-	Understanding the difference between $\kappa$ and $\kappa_{eff}$ is very important with respect to inserting magnetic petrophysical measurements into an inversion's \ac{MOF}. It is an unfortunate truth that susceptibility is significantly easier to measure than \ac{NRM}. As stated above in \autoref{eq:susc} the permeability of an object is related to its susceptibility. In addition the inductance of a coil is proportional to the permeability inside and around it and thus is dependent on the susceptibility of the material. This change in inductance of a coil allows the precise measurement of susceptibility without contamination by \ac{NRM} \cite{collinson1983methods},\cite{clark1991notes}. The measurement of the inductance of a coil also allows the measurement of susceptibility of a rock without reorienting the sample and without shielding from ambient magnetic fields \cite{collinson1983methods}.
-	
-On the other hand, \ac{NRM} as opposed to susceptibility is a vector quantity and thus the sample must be reoriented to measure it from different directions, even when only the magnitude of the \ac{NRM} is required. In addition, unless the sample is very highly magnetized and stable, measurement will require shielding from ambient fields.
-
-As can be seen from the above, it is not surprising that n the case of El Poma we have many susceptibility measurements including bore-holes and very few (only two within the areas of interest) measurements of \ac{NRM}. However, if susceptibility is used to constrain an inversion in an area of strong \ac{NRM} the inversion could be constrained to a value much higher or lower than the true effective susceptibility. 
-
-At first order, a potential correction given \ac{NRM} measurements is to use the Koenigsberger ratio of a sample and assume that other samples will have a similar Koenigsberger ratio. It is recognized that this assumption will not be true. That said it is a closer approximation than would otherwise be possible without the sample. Once we have a Koenigsberger ratio and a susceptibility we can determine the magnetization of the sample using \autoref{eq:magnetization} and  \autoref{eq:Koenigsberger} in the form
-\begin{equation} \label{eq:Qcorrection}
-\textbf{M}_{eff} = \kappa\textbf{H} + \|Q\kappa\textbf{H}\|\hat{\mathbf M}_{NRM},
-\end{equation}	
-where $Q$ is the Koenigsberger ratio used and $\hat{\mathbf M}_{NRM}$ is the magnetization direction of the sample used. It is important to note that \autoref{eq:Qcorrection} is a vector sum and the direction of $\mathbf{M}_{eff}$ will not be in the direction of either $\mathbf H$ or $\mathbf M_{NRM}$. It is also interesting to note that \autoref{eq:Qcorrection} is more generally true if more samples have \ac{NRM} measurements. If, instead of being a single measurement, we have a more detailed estimate of each sample's Koenigsberger ratio and magnetization direction, we can get a better estimate of $\mathbf M_{eff}$.
-	
-\subsection{Surface Sample Data}
-\label{sec: Surface Sample Data}
-
-In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in a \ac{MOF} \cite{williams2008geologically}. Surface Samples take on increased importance in the context of potential field inversion as they can constrain the values at the surface of a model and help the inversion place density or susceptibility deeper in the inversion. Novel approaches that I will implement in this thesis are the use of Koenigsberger ratios in a remanent environment (as with the bore hole data), and the use of surface samples to provide petrophysical information for geological maps.
-
-\subsection{Geological Maps}
-\label{sec: Geological Maps}
-
-Finally, the last type of data used in this thesis is geological maps. A method for the inclusion of geological maps is outlined in \cite{williams2008geologically} however his work requires a proprietary format (ESRI shapefile) and is limited to plan view maps. The work I have done allows the creation of models from maps stored as non-vector images (Bitmap, PNG, etc.) and also allows for the creation of constraints from cross section maps.
-
-
-\section{Using Multiple Data Types, with Clustering}
-\label{sec:Using Multiple Data Types, with Clustering}
-
-Thus far I have discussed the use of geological and petrophysical to create more representative \ac{MOF}s. In addition to these sources of information, other inversions of other data types can also be used to constrain an inversion. There has been much work on cooperative inversion \cite{sun2012joint} among others. In this thesis I will outline the use of clustering algorithms to iteratively form clustered pseudo-geological models. These pseudo-geoplogical models can then be used to form weighting matrices, active cell models, and reference models, allowing the inclusion of information from other data sets in an inversion. While less sophisticated than other methods of cooperative inversion, this method allows the use of standard GIF inversion software (does not require the writing of a new inversion program) and allows a great amount of user control throughout the process. Finally the clustering method also allows the use of other geological constraint methods as already described above.
-
+\section{Types of Data Included}
+\label{sec:Types of Data Included}
 
 \endinput
 
