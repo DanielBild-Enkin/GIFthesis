@@ -6,7 +6,7 @@
 \contentsline {chapter}{Glossary}{viii}{chapter*.6}
 \contentsline {chapter}{Acknowledgments}{ix}{chapter*.7}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Reasearch Motivation}{1}{section.1.1}
+\contentsline {section}{\numberline {1.1}Research Motivation}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Literature Review}{2}{section.1.2}
 \contentsline {section}{\numberline {1.3}Types of Data Included}{2}{section.1.3}
 \contentsline {chapter}{\numberline {2}Solutions to Including Information Into \ac {MOF}}{3}{chapter.2}
