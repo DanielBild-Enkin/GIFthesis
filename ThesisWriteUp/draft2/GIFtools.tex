@@ -28,7 +28,20 @@ Again \cite{williams2008geologically} did much of this. I think the Surface Samp
 \subsection{Geological Maps}
 \label{sec: Geological Maps}
 
-This is novel as far as I can tell. I will describe the map to model software and I will describe the use of the ``add face weights along line'' tool to add faults in
+It is often the case that geological information is provided in the form of geological maps. 
+
+The method I use to incorporate a pixel map
+
+\begin{itemize}
+\item load image into the GIFtools format
+\begin{itemize}
+	\item determine image format
+	\item load image using MATLAB utilities
+	\item convert image into .png style representation for faster computation
+	\item using .twf file (world file) assign location and spacial resolution to the image
+	\item assign a legend assigning pixel values to geological unit
+\end{itemize}
+\end{itemize}
 
 
 \section{Using Multiple Data Types, with Clustering}
