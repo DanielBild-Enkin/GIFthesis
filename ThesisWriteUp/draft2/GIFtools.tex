@@ -1,7 +1,7 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Solutions to Including Information Into \ac{MOF}}
+\chapter{Solutions to Including Geological Maps Into \ac{MOF}}
 \label{ch:GIFtools}
 %
 %\begin{epigraph}
@@ -28,7 +28,7 @@
 %\subsection{Geological Maps}
 %\label{sec: Geological Maps}
 
-It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface.
+It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface. Cross sections can provide a great deal of information at depth and constrain as whole region often within the center of a target of interest. While plan view maps cannot provide information at depth they can constrain the entire surface of an inversion.  Constraining the surface of an inversion is of particular interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface.
 
 Below in point form is the method I use to incorporate a pixel map
 
@@ -43,6 +43,17 @@ Below in point form is the method I use to incorporate a pixel map
 \end{itemize}
 \end{itemize}
 
+Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map.
+
+Continuing on in the process of making a geological constraint, in the plan view case
+
+\begin{itemize}
+\item provide active model	
+\begin{itemize}
+	\item this simultaneously provides a discretized topography for the mesh to lay along and also a mesh
+\end{itemize}
+
+\end{itemize}
 
 
 %\section{Using Multiple Data Types, with Clustering}
