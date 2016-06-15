@@ -6,4 +6,4 @@
 *.brf
 *.toc
 *.out
-*.gz
+*.synctex.gz
