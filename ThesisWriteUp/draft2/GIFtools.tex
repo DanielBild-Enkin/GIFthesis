@@ -45,12 +45,23 @@ Below in point form is the method I use to incorporate a pixel map
 
 Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map.
 
-Continuing on in the process of making a geological constraint, in the plan view case
+Continuing on in the process of making a geological constraint
+
+\begin{itemize}
+\item find the geological value of each pixel
+\begin{itemize}
+	\item in the .png style format as stored in MATLAB an image consists of an ``image' field', a matrix of integers, and a ``map'' field, which maps the image matrix to RBG value triplets
+	\item Each RGB triplet is compared to the legend that was provided when the image was loaded. A map field entry is considered to represent a geological unit if all three components of the RGB triplet are within a provided tolerance of any entry in the legend
+	\item now that we have a relation of entries in the map field to geological units in the legend, we can assign a geological unit to each pixel in the original image simply by applying the new geological map to the image field.
+\end{itemize}
+\end{itemize}
+
+now in the plan view case
 
 \begin{itemize}
 \item provide active model	
 \begin{itemize}
-	\item this simultaneously provides a discretized topography for the mesh to lay along and also a mesh
+	\item this simultaneously provides a discretized topography for the map to lay along and also a mesh (\ac{GIF} 3D tensor or OcTree) 
 \end{itemize}
 \item provide some form of depth information
 \begin{itemize}
@@ -58,8 +69,21 @@ Continuing on in the process of making a geological constraint, in the plan view
 	\item Depth, the map will be used to assign a geological unit down to a fixed depth across the while model
 	\item Surface, if you provide another surface below topography the cells between topography and the other surface will be assigned
 \end{itemize}
+
+\item crop all pixels that extend outside of the mesh or that represent the background geological unit
+\begin{itemize}
+	\item the cropping greatly speeds up the process and makes it require much less RAM
+	\item this also means that in the event of a mistake with coordinates the process ends almost instantly since there are almost no pixels to process
+\end{itemize}
+\item Finally the geological model is created
+\begin{itemize}
+	\item We determine which cell of the mesh each pixel is in, including those cells below each pixel to account for thickness
+	\item each cell is assigned a geological unit based on the mode of the geological value of each pixel
+	\item the geology definition which will allow the assignment of physical properties to each geological unit
+\end{itemize}
 \end{itemize}
 
+The cross section case follows much the same procedure with a few exceptions. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction.
 
 %\section{Using Multiple Data Types, with Clustering}
 %\label{sec:Using Multiple Data Types, with Clustering}
