@@ -1,9 +1,0 @@
-diff a/ThesisWriteUp/draft2/ThesisDraft2.tex b/ThesisWriteUp/draft2/ThesisDraft2.tex	(rejected hunks)
-@@ -396,7 +396,6 @@
- %    5. Bibliography
- \begin{singlespace}
- \raggedright
--\bibliographystyle{abbrvnat}
- \bibliographystyle{SEG}
- \bibliography{biblio}
- \end{singlespace}
