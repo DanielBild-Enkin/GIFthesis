@@ -1,0 +1,63 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = diss.tex
+
+\chapter{Description of Regularization Method}
+\label{ch:Description of Regularization Method}
+
+As described above, the geophysical inversion problem is inherently non-unique. 
+
+\begin{align}
+\phi = \phi_d + \beta\phi_m
+\end{align}
+\label{eq:objective function}
+
+where $\phi_m$ is called the \ac{MOF} or model norm. This $\phi_m$ can be defined in many ways, following  \cite{oldenburg2005inversion}
+
+\begin{align}
+\phi_m(m) &= \alpha_s\int(m-m_{ref})^2dx+\alpha_x\int\bigg(\frac{d}{dx}(m-m_{ref})\bigg)^2dx\\
+&=\alpha_s\|\textbf{W}_s(m-m_{ref})\|^2_2+\alpha_x\|\textbf{W}_x(m-m_{ref})\|^2_2
+\end{align}
+\label{eq:MOF}
+
+in higher dimensions more smoothness terms can be added. The $\textbf{W}$ terms contain both the operator (identity for $\textbf{W}_s$ and derivative for $\textbf{W}_x$ and other dimensions) and the relative weight each cell or face contributes to the \ac{MOF}. This gives us several levers to add a-priori information into the inversion.
+
+The \ac{MOF} allows us to mathematically solve the problem by adding a priori information into the inversion. Namely we assume that the recovered model should be small and smooth. There are times when this is desired but often we have more specific information about the true model that needs to be inserted into the inversion. Luckily the various terms in the \ac{MOF} allow us to add a significant amount of information is various ways to the inversion.
+	
+\section{$\alpha$ coefficients}
+\label{sec:alpha coefficients}
+
+broad strokes weights the relative importance of the smallness and smoothness in the various directions. can also be thought of as length scales
+
+\section{Reference Models}
+\label{sec:Reference Models}
+
+we don't always want a model to be close to zero. Sometimes it should be close to another constant sometimes we have guesses of the property in some places and want the inversion result to be close to that value
+
+\section{Weighting matrices}
+\label{sec:Weighting matrices}
+
+much more precise. Can put interfaces in precise locations. Can also force a model towards the reference model where we are more sure
+\\\\
+along with the terms in the \ac{MOF} other parts of the optimization algorithm (may need more info in the optimization) can be used to add information into the inversion
+
+\section{Initial Model}
+\label{sec:Initial Model}
+
+In the optimization we assume that the initial guess is near enough to the truth that the problem is locally convex. The initial model is important in that way. In an under determined system it also provides a way to push the inversion towards a given result. Often the initial model is simply the reference model, or the reference model shifted slightly to keep it within the bounds
+
+\section{Bounds}
+\label{sec:Bounds}
+
+we can also set values that each cell of the final model must lie between. This allows for a hard setting of confidence intervals in the physical properties
+
+\section{$L_p L_q$ weights}
+\label{sec:Lp Lq weights}
+
+Finally we can generalize the \ac{MOF} somewhat. In \autoref{eq:MOF} we used $L_2$ norms as this is a natural norm that promotes a smoothly varying model that is close to the reference model. We do not always want such a model and can change the norm used in the \ac{MOF}. Lower norms promote more sparsity in whatever measure they are being applied to. This leads to models being more compact (should lowever norms be applied to the smallness term) or more blocky with greater discontinuities (should lower norms be applied to one or more smoothness terms). Non $L_2$ norms can be applied across the whole \ac{MOF} or can be applied variably across the model. This allows for placing discontinuities in a given direction but not perfectly placing the location allowing the inversion algorithm more freedom to chose the location itself.
+
+\endinput
+
+ Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal.
+
+Any text after an \endinput is ignored.
+You could put scraps here or things in progress.

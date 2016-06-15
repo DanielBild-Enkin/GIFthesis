@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -57,6 +57,12 @@ Y.~Li and D.~W. Oldenburg.
 D.~W. Oldenburg and Y.~Li.
 \newblock Inversion for applied geophysics: A tutorial.
 \newblock \emph{Investigations in geophysics}, 13:\penalty0 89--150, 2005.
+
+\bibitem[Phillips(2002)]{phillips2002geophysical}
+N.~D. Phillips.
+\newblock Geophysical inversion in an integrated exploration program: Examples
+  from the san nicolas deposit.
+\newblock 2002.
 
 \bibitem[Pilkington(1997)]{pilkington19973}
 M.~Pilkington.
