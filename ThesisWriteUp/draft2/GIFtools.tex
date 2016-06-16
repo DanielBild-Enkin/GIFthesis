@@ -40,13 +40,26 @@ Below in point form is the method I use to incorporate a pixel map
 	\item convert image into .png style representation for faster computation
 	\item using .twf file (world file) assign location and spacial resolution to the image
 	\item assign a legend assigning pixel RGB values to geological unit
+	\item assign topography (either number or GIFtools TOPOdata item) for visualization
 \end{itemize}
 \end{itemize}
-
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/importPlan.PNG}
+    \caption{GUI for importing plan view image }
+    \label{fig:importPlanGui}
+\end{figure}
 Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map.
 
-Continuing on in the process of making a geological constraint
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/mapData.PNG}
+    \caption{Example of magnetics data being viewed with a map overlaid }
+    \label{fig:mapData}
+\end{figure}
 
+
+Continuing on in the process of making a geological constraint
 \begin{itemize}
 \item find the geological value of each pixel
 \begin{itemize}
@@ -83,7 +96,32 @@ now in the plan view case
 \end{itemize}
 \end{itemize}
 
-The cross section case follows much the same procedure with a few exceptions. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction.
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/mapModelPlan.PNG}
+    \caption{Example of a geology model created from a map with the map overlaid}
+    \label{fig:mapModelPlan}
+\end{figure}
+
+The cross section case follows much the same procedure with a few exceptions. An imported cross section map is shown overlaid on a 2D mesh in \autoref{fig:mapMeshCros}. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. The result is shown in \autoref{fig:mapModelCross}.  After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction.
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/mapMeshCross.PNG}
+    \caption{Example of a 2D mesh with the map overlaid}
+    \label{fig:mapMeshCross}
+\end{figure}
+
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/mapModelCross.PNG}
+    \caption{Example of a 2D geology model created from a cross section map with the map overlaid}
+    \label{fig:mapModelCross}
+\end{figure}
+
+
+
+
+
 
 %\section{Using Multiple Data Types, with Clustering}
 %\label{sec:Using Multiple Data Types, with Clustering}
