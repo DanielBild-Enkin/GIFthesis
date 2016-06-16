@@ -1,7 +1,7 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Solutions to Including Geological Maps Into \ac{MOF}}
+\chapter{Solutions to Including Geological Maps Into Mode Objective Functionsl }
 \label{ch:GIFtools}
 %
 %\begin{epigraph}
@@ -22,18 +22,21 @@
 %\subsection{Surface Sample Data}
 %\label{sec: Surface Sample Data}
 %
-%Again \cite{williams2008geologically} did much of this. I think the Surface Samples will be promary use in proving physical properties for the map in El Poma
+%Again \cite{williams2008geologically} did much of this. I think the Surface Samples will be primary use in proving physical properties for the map in El Poma
 %
 %
 %\subsection{Geological Maps}
 %\label{sec: Geological Maps}
 
-It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface. Cross sections can provide a great deal of information at depth and constrain as whole region often within the center of a target of interest. While plan view maps cannot provide information at depth they can constrain the entire surface of an inversion.  Constraining the surface of an inversion is of particular interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface.
+It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface. Cross sections can provide a great deal of information at depth and constrain as whole region often within the center of a target of interest. While plan view maps cannot provide information at depth they can constrain the entire surface of an inversion.  Constraining the surface of an inversion is of particular interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study and the cross section model is from TKS specifically the map from \citep{harder2006geology}
 
 Below in point form is the method I use to incorporate a pixel map
 
+\section{Loading Images into GIFtools}
+\label{sec:Load Images into GIFtools}
+
 \begin{itemize}
-\item load image into the GIFtools format
+\item load image into the GIFtools format (\autoref{fig:importPlanGui})
 \begin{itemize}
 	\item determine image format
 	\item load image using MATLAB utilities
@@ -41,6 +44,9 @@ Below in point form is the method I use to incorporate a pixel map
 	\item using .twf file (world file) assign location and spacial resolution to the image
 	\item assign a legend assigning pixel RGB values to geological unit
 	\item assign topography (either number or GIFtools TOPOdata item) for visualization
+	\begin{itemize}
+		\item In the case of a cross section image, instead of topography, information for the location of the cross section in 3D or 2D space is required (\autoref{fig:importCrossGui})
+	\end{itemize}
 \end{itemize}
 \end{itemize}
 \begin{figure} [h]
@@ -49,8 +55,13 @@ Below in point form is the method I use to incorporate a pixel map
     \caption{GUI for importing plan view image }
     \label{fig:importPlanGui}
 \end{figure}
-Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map.
-
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/importCross.PNG}
+    \caption{GUI for importing cross section image }
+    \label{fig:importCrossGui}
+\end{figure}
+Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map (\autoref{fig:mapData}).
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/GUI/mapData.PNG}
@@ -59,9 +70,13 @@ Storing a map as a GIFtools object allows it's use in several ways. Notably it a
 \end{figure}
 
 
+
+\section{Creating a Pixel Map Legend}
+\label{sec:Create Pixel Map Legend}
+
 Continuing on in the process of making a geological constraint
 \begin{itemize}
-\item find the geological value of each pixel
+\item find the geological unit represented of each pixel
 \begin{itemize}
 	\item in the .png style format as stored in MATLAB an image consists of an ``image' field', a matrix of integers, and a ``map'' field, which maps the image matrix to RBG value triplets
 	\item Each RGB triplet is compared to the legend that was provided when the image was loaded. A map field entry is considered to represent a geological unit if all three components of the RGB triplet are within a provided tolerance of any entry in the legend
@@ -69,7 +84,13 @@ Continuing on in the process of making a geological constraint
 \end{itemize}
 \end{itemize}
 
-now in the plan view case
+
+
+\section{Making a Geology Model from Map}
+\label{sec:Make Geology Model from Map}
+
+\subsection{Plan View}
+\label{subsec:Make Geology Model from Map Plan View}
 
 \begin{itemize}
 \item provide active model	
@@ -95,7 +116,6 @@ now in the plan view case
 	\item the geology definition which will allow the assignment of physical properties to each geological unit
 \end{itemize}
 \end{itemize}
-
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/GUI/mapModelPlan.PNG}
@@ -103,7 +123,13 @@ now in the plan view case
     \label{fig:mapModelPlan}
 \end{figure}
 
-The cross section case follows much the same procedure with a few exceptions. An imported cross section map is shown overlaid on a 2D mesh in \autoref{fig:mapMeshCross}. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. The result is shown in \autoref{fig:mapModelCross}.  After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction.
+\subsection{Cross Section}
+\label{subsec:Make Geology Model from Map Cross Section}
+
+The cross section case follows much the same procedure with a few exceptions. An imported cross section map is shown overlaid on a 2D mesh in \autoref{fig:mapMeshCross}. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. The result is shown in \autoref{fig:mapModelCross}.  
+
+A 2D Geology model can be used to create constraints for a 2D inversion, it can also be used to add constraints to a 3D inversion as well. After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction \autoref{fig:add2Dto3D},\autoref{fig:mapModelCross3D}.
+%\autoref{fig:mapModelCross3D}.
 
 \begin{figure} [h]
     \centering
@@ -119,10 +145,24 @@ The cross section case follows much the same procedure with a few exceptions. An
     \label{fig:mapModelCross}
 \end{figure}
 
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/add2Dto3D.PNG}
+    \caption{GUI for adding a 2D model to a 3D model}
+    \label{fig:add2Dto3D}
+\end{figure}
 
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/GUI/mapModelCross3D.PNG}
+    \caption{Example of a 2D geology inserted into a 3D model with the map overlaid}
+    \label{fig:mapModelCross3D}
+\end{figure}
 
+\section{Making Constraints for an Inversion}
+\label{sec:Making Constraints for and Inversion}
 
-
+The conversion from geological models to inversion constraints in mediated by the geology definition of the geological model. In 
 
 %\section{Using Multiple Data Types, with Clustering}
 %\label{sec:Using Multiple Data Types, with Clustering}
