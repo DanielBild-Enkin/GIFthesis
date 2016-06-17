@@ -32,7 +32,7 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 \begin{itemize}
 \item smoothly varying models
 \begin{itemize}
-\item \cite{li19963} and \cite{li19983}recovers a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model
+\item \cite{li19963} and \cite{li19983}recovers a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model.
 
 \item \cite{li2003fast}  extends the method by also implementing bounds that can be specified for each model cell.
 \end{itemize}
@@ -42,15 +42,15 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 \item \cite{portniaguine1999focusing} extends  \cite{last1983compact} by adding a minimum gradient support functional. It minimizes the gradient such that gradient values below a threshold do not contribute to the the objective function. Whereas values above the threshold all contribute equally. This allows for sharp boundaries and blocky models because once the algorithm determines a boundary as necessary to fit the data there is little to constrain the the physical property contrast across the boundary.
 \item \cite{rudin1992nonlinear} and \cite{vogel1998fast} Propose total variation, in other words the use of $L_1$ norms to regularize, instead of $L_2$ norms as in \cite{li19963} and \cite{li19983}. Since minimizing $L_1$ norms promote sparsity, regularizing by them will have a comparable effect (blocky models with sharp boundaries) as the method used by \cite{portniaguine1999focusing}.
 	\begin{itemize}
-		\item Total variation has been used more specifically in the context of geophysical inversion, such as with \cite{guitton2012blocky}		
+		\item Total variation has been used more specifically in the context of geophysical inversion, such as with \cite{guitton2012blocky}.	
 	\end{itemize}
 \item \cite{farquharson1998non} also report ways of achieving sharp contrast by implementing non-$L_2$ norms such as Ekblom and Huber norms.
 \item \cite{fournier2015cooperative} implements a method of minimizing the general $L_p$ (smallness) and $L_q$ (smoothness) norms for any $p$ and $q$ (typically values between 0 and 2) allowing an inversion to recover compact or blocky models in different directions and amounts.
 \end{itemize}
 \item models with dipping anomalies
 \begin{itemize}
-\item \cite{li2000incorporating}  extends the method of \cite{li19963} and \cite{li19983} by rotating the model objective function to allow for linear features in the recovered model to be in a direction not in line with the mesh grid
-\item \cite{lelievre2009comprehensive} generalize the methods in \cite{li2000incorporating} to the 3D case
+\item \cite{li2000incorporating}  extends the method of \cite{li19963} and \cite{li19983} by rotating the model objective function to allow for linear features in the recovered model to be in a direction not in line with the mesh grid.
+\item \cite{lelievre2009comprehensive} generalize the methods in \cite{li2000incorporating} to the 3D case.
 \item \cite{chasseriau20033d} create a very general method of biasing the inversion algorithm towards anomalies of almost any shape by weighting the smallness term with a covariance matrix of the model, i.e., a matrix with the covariance of each cell versus every other cell in the model. The covariance matrix can be generated from bore hole or surface sample data or from a synthetic initial model. Depending on the covariance matrix, the inversion can be biased toward an anomaly of almost any shape.
 \item \cite{guillen1984gravity} extend the method in \cite{last1983compact}. Instead of minimizing volume, the authors minimize the moment of inertia. By specifying an axis of rotation to determine the moment of inertia they put dip information into the regularization.
 \item \cite{barbosa1994generalized} and \cite{barbosa2006interactive} generalize the method even further allowing multiple axes of rotation. The second paper also describes a GUI to interactively test the fit of various axes of rotation.
@@ -67,10 +67,10 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 \end{itemize}
 \item Implementations of Constrained Inversion
 \begin{itemize}
-	\item \cite{phillips2001thesis} uses bore hole densities and susceptibilities to bound a gravity and a magnetic inversion	
-	\item \cite{farquharson2008geologically} use density bore hole logs to create a reference model for a gravity inversion. They demonstrate  the effect of having many bore holes versus only a few
-	\item \cite{williams2008geologically} This important thesis provides the most extensive review of this subject. He creates a software package to integrate a phenomenal number of types of geological and petrophysical data. He then uses these tools to make detailed susceptibility and density constraints
-	\item \cite{Lelievre2009Integrating} discusses the use of surface samples and bore holes in constraining a synthetic example. He also goes into the use of orientation information of linear features as a geological constraint
+	\item \cite{phillips2001thesis} uses bore hole densities and susceptibilities to bound a gravity and a magnetic inversion.
+	\item \cite{farquharson2008geologically} use density bore hole logs to create a reference model for a gravity inversion. They demonstrate  the effect of having many bore holes versus only a few.
+	\item \cite{williams2008geologically} This important thesis provides the most extensive review of this subject. He creates a software package to integrate a phenomenal number of types of geological and petrophysical data. He then uses these tools to make detailed susceptibility and density constraints.
+	\item \cite{Lelievre2009Integrating} discusses the use of surface samples and bore holes in constraining a synthetic example. He also goes into the use of orientation information of linear features as a geological constraint.
 	
 	
 
