@@ -12,25 +12,42 @@ In all cases these are first guesses at what needs to be in each section more or
 \section{Research Motivation}
 \label{sec:Research Motivation}
 
-In mineral exploration there are many form of information that can be used to determine the location of a deposit. These can be divided broadly into geological and geophysical data. Geological data refers to the actual study of the rocks in a region through surface samples, bore holes, and a understanding of how rock units interrelate under the surface. Geophysical data refers to the recovery of the value of some field above the ground that will be related to some discriminative property of the deposit. For exploration to be as effective as possible, we need to find ways of combining the geological and geophysical information. One of the major tools in using geophysical data to create geologically significant interpretations is inversion.
+In mineral exploration there are many forms of information that can be used to determine the location of a deposit. These can be divided broadly into geological and geophysical data. Geological data refers to the study of the rocks in a region through surface samples, bore holes, and an understanding of how rock units interrelate under the surface. Geophysical data refers to recovered measurements of some field that will be related to some physical property that will aid in the understanding of the deposit. For exploration to be as effective as possible, we need to find ways of integrating the geological and geophysical information. One of the major tools in using geophysical data to create geologically significant interpretations is inversion.
 
-The overarching goal of geophysical inversion is to recover distributions of physical properties in the ground to aid in mineral exploration. To be useful to this end the distribution of the physical property (the geophysical model) needs to both fit the geophysical data and match existing geological interpretations. 
+The overarching goal of geophysical inversion is to recover distributions of physical properties in the ground to aid in mineral exploration. To be useful to this end the spacial distribution of the physical property (the geophysical model) needs to both fit the geophysical data and match existing geological interpretations. 
 
-Since geophysical inversions are by their nature non-unique (because of data uncertainty and there being many more model parameters than data) more a priori information needs to be added to provide a model that matches the geology of a deposit. Much work has been done to create a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversions (for example \cite{li19963}). However, an area where more work can be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create constraints that can be used in inversions.
+Since geophysical inversions are by their nature non-unique (because of data uncertainty and there being many more model parameters than data), \emph{a priori} information needs to be added to provide a model that matches the geology of a deposit. Much work has been done to create a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversions (for example \citep{li19963}). However, an area where more work can be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create usable constraints that can be applied to inversions.
 
-The research in this thesis will attempt to do exactly that, provide new tools in an integrated framework that will allow the incorporation of non-trivial a priori information into geophysical inversions. As stated above, the inclusion of a priori information in inversions is not novel.  Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (\cite{Lelievre2009Integrating},\cite{phillips2002geophysical} among other (still need to add more)). 
+The research in this thesis will attempt to do exactly that: provide new tools in an integrated framework that will allow the incorporation of non-trivial \emph{a priori} information into geophysical inversions. The inclusion of \emph{a priori} information in inversions is not novel. Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (\citep{Lelievre2009Integrating},\citep{phillips2002geophysical} among other (still need to add more)). 
 
-In addition, in \cite{williams2008geologically} Williams develops a software package to create constraints for inversions. What is novel in this thesis is the creation of a suite of tools (created by me and the rest of the \ac{GIF} group) to make the incorporation of geological and petrophysical data into \ac{GIF} inversions easy even in non-trivial cases. The interface by which a priori information can be incorporated has been much updated from \cite{williams2008geologically}, and tools to incorporate new forms of data into inversions have been added.
+In addition, in \cite{williams2008geologically} develops a software package to create constraints for inversions. What is novel in this thesis is the creation of a suite of tools (created by me and colleagues in the \ac{GIF} group) to make the incorporation of geological and petrophysical data into \ac{GIF} inversions easy even in non-trivial cases. The interface by which \emph{a priori} information can be incorporated has been much updated from \citep{williams2008geologically}, and tools to incorporate new forms of data into inversions have been added.
 
-%In the case that we have no additional information (a blind inversion) the standard assumption that is made is that the deposit is small (most of the cells will have a value close to zero)  and smooth (most of the cells will have a value similar to their neighbors) \cite{oldenburg2005inversion}. However following the methodology used in the \ac{GIF} inversion codes (for example \cite{li19963}) there are several terms in the inversion formulation that allow for the inclusion of geological and petrophysical information into an inversion. +
+% discussion of what is GIFtools. Discussion of my role in GIFtools
+
+
+%In the case that we have no additional information (a blind inversion) the standard assumption that is made is that the deposit is small (most of the cells will have a value close to zero)  and smooth (most of the cells will have a value similar to their neighbors) \citep{oldenburg2005inversion}. However following the methodology used in the \ac{GIF} inversion codes (for example \citep{li19963}) there are several terms in the inversion formulation that allow for the inclusion of geological and petrophysical information into an inversion. +
 
 
 \section{Literature Review}
 \label{sec:Literature Review}
 
+\begin{itemize}
+\item \cite{19963} and \cite{li19983}
+	\begin{itemize}
+	\item recovers a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model
+	\end{itemize}
+\item \cite{li2003fast} 
+	\begin{itemize}
+	\item extends the method by also implementing bounds that can be specified for each model cell.
+	\end{itemize}	
+\end{itemize}
 
-\section{Types of Data Included}
-\label{sec:Types of Data Included}
+The methods above demand smoothness of the recovered models. There have been many attempts at allowing discontinuities in recovered models
+
+
+
+%\section{Types of Data Included}
+%\label{sec:Types of Data Included}
 
 \endinput
 

@@ -1,7 +1,7 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Solutions to Including Geological Maps Into Mode Objective Functionsl }
+\chapter{Including Geological Maps in Model Objective Functions }
 \label{ch:GIFtools}
 %
 %\begin{epigraph}
@@ -28,9 +28,14 @@
 %\subsection{Geological Maps}
 %\label{sec: Geological Maps}
 
-It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface. Cross sections can provide a great deal of information at depth and constrain as whole region often within the center of a target of interest. While plan view maps cannot provide information at depth they can constrain the entire surface of an inversion.  Constraining the surface of an inversion is of particular interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study (for the purposes of building a geological model the regions on the map have been replaced with solid colours) and the cross section model is from TKC, specifically the map from \citep{harder2006geology}
+It is often the case that geological information is provided in the form of geological maps in either cross section or plan view. Such maps are particularly useful since they provide a great deal of information over their entire surface. Cross sections can provide information at depth and constrain a whole region often within the center of a target of interest. Plan view maps do not provide information at depth, but they do constrain the entire surface of region being inverted.  Constraining the surface of an inversion is of interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study and the cross section model is from TKC, specifically the map from \citep{harder2006geology}
 
 Below in point form is the method I use to incorporate a pixel map
+
+\section{Preprocessing Images}
+\label{sec:Preprocessing}
+
+ (for the purposes of building a geological model the regions on the map have been replaced with solid colours)
 
 \section{Loading Images into GIFtools}
 \label{sec:Load Images into GIFtools}
@@ -61,7 +66,7 @@ Below in point form is the method I use to incorporate a pixel map
     \caption{GUI for importing cross section image }
     \label{fig:importCrossGui}
 \end{figure}
-Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map (\autoref{fig:mapData}).
+Storing a map as a GIFtools object allows its use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map (\autoref{fig:mapData}).
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/MaptoModel/mapData.PNG}
@@ -76,15 +81,13 @@ Storing a map as a GIFtools object allows it's use in several ways. Notably it a
 
 Continuing on in the process of making a geological constraint
 \begin{itemize}
-\item find the geological unit represented of each pixel
+\item Find the geological unit represented of each pixel
 \begin{itemize}
-	\item in the .png style format as stored in MATLAB an image consists of an ``image' field', a matrix of integers, and a ``map'' field, which maps the image matrix to RBG value triplets
+	\item In the .png style format as stored in MATLAB, an image consists of an ``image'' field, a matrix of integers, and a ``map'' field, which maps the image matrix to RBG value triplets
 	\item Each RGB triplet is compared to the legend that was provided when the image was loaded. A map field entry is considered to represent a geological unit if all three components of the RGB triplet are within a provided tolerance of any entry in the legend
-	\item now that we have a relation of entries in the map field to geological units in the legend, we can assign a geological unit to each pixel in the original image simply by applying the new geological map to the image field.
+	\item Now that we have a relation of entries in the map field to geological units in the legend, we can assign a geological unit to each pixel in the original image simply by applying the new geological map to the image field.
 \end{itemize}
 \end{itemize}
-
-
 
 \section{Making a Geology Model from Map}
 \label{sec:Make Geology Model from Map}
@@ -106,13 +109,16 @@ Continuing on in the process of making a geological constraint
 
 \item crop all pixels that extend outside of the mesh or that represent the background geological unit
 \begin{itemize}
-	\item the cropping greatly speeds up the process and makes it require much less RAM
-	\item this also means that in the event of a mistake with coordinates the process ends almost instantly since there are almost no pixels to process
+	\item the cropping greatly speeds up the process and makes it require much less computer memory
+	\item furthermore, in the event of a mistake with coordinates the process ends almost instantly as there are few pixels to process
 \end{itemize}
 \item Finally the geological model is created
 \begin{itemize}
 	\item We determine which cell of the mesh each pixel is in, including those cells below each pixel to account for thickness
-	\item each cell is assigned a geological unit based on the mode of the geological value of each pixel
+	\item each cell is assigned a geological unit based on the mode of the geological values of each pixel
+	\begin{itemize}
+	\item The mode is used since each cell will be a particular unit. Since the property being mapped onto each cell is a geological unit, interpolation between the units will not provide the desired result
+	\end{itemize}
 	\item the geology definition which will allow the assignment of physical properties to each geological unit
 \end{itemize}
 \end{itemize}
@@ -128,7 +134,7 @@ Continuing on in the process of making a geological constraint
 
 The cross section case follows much the same procedure with a few exceptions. An imported cross section map is shown overlaid on a 2D mesh in \autoref{fig:mapMeshCross}. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. The result is shown in \autoref{fig:mapModelCross}.  
 
-A 2D Geology model can be used to create constraints for a 2D inversion, it can also be used to add constraints to a 3D inversion as well. After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction \autoref{fig:add2Dto3D},\autoref{fig:mapModelCross3D}.
+A 2D Geology model can be used to create constraints for a 2D inversion, it can also be used to add constraints to a 3D inversion as well. After the 2D geology model is created from the cross section map, it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction \autoref{fig:add2Dto3D},\autoref{fig:mapModelCross3D}.
 
 \begin{figure} [h]
     \centering
@@ -158,21 +164,26 @@ A 2D Geology model can be used to create constraints for a 2D inversion, it can 
 \section{Making Constraints for an Inversion}
 \label{sec:Making Constraints for and Inversion}
 
-The conversion from geological models to inversion constraints in mediated by the geology definition of the geological model. In the figures below the geological definition came from surface measurements of magnetic susceptibility within each geological unit. \autoref{fig:geoDefPlan} is an example of a geological definition in the GIFtools GUI.
+The model that has been created is a geology model. That is, a model in which each cell represents a given geological unit. To be able to convert this model into a constraint for a geophysical inversion some link between between the geology and the petrophysics needs to be provided. 
+
+The link is stored in what is called a geology definition. In GIFtools this takes the form of a lookup table that contains information of a particular geological unit's property, lower and upper bounds, and optionally the smallness weight associated with each unit. 
+
+Using the geology definition we can convert a geology model that has information about the spacial distribution of geological units but not of their physical properties into constraints that are usable by an inversion. In the figures below the geological definition came from surface measurements of magnetic susceptibility within each geological unit. \autoref{fig:geoDefPlan} is an example of a geology definition in the GIFtools GUI.
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/MaptoModel/geoDefPlan.PNG}
     \caption{Example of a geological definition as displayed in the GIFtools GUI}
     \label{fig:geoDefPlan}
 \end{figure}
-Once the geology definition is defined, we can use the Combine Model Dialog (\autoref{fig:combineModelRef}) in Model Builder to create a reference model and bounds. 
+
+Once the geology definition is provided, we can use the Combine Model Dialog (\autoref{fig:combineModelRef}) in Model Builder to create a reference model and bounds. 
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/MaptoModel/combineModelRef.PNG}
     \caption{Example of a typical combine model dialog for a reference model}
     \label{fig:combineModelRef}
 \end{figure}
-In this case the resolution of conflicts is trivial as there is a single source of information. Less trivial example of the creation of reference models and bound will be discussed later. The resulting reference model is shown in \autoref{fig:mapRefModPlan}.
+In this case the resolution of conflicts is trivial as there is a single source of information. Less trivial examples of the creation of reference models and bounds will be discussed later. The resulting reference model is shown in \autoref{fig:mapRefModPlan}.
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/MaptoModel/mapRefModPlan.PNG}
@@ -187,11 +198,11 @@ Another piece of information that can be in geological maps are fault locations.
 \begin{figure} [h]
     \centering
     \frame{\includegraphics[width=0.8\textwidth]{images/Faults/ElPoma_GEOL_MagSus.png}}
-    \caption{The El Poma map with fault lines included}
+    \caption{The El Poma map with fault lines (blue lines with barbs) included}
     \label{fig:ElPoma_GEOL_MagSus}
 \end{figure}
 \FloatBarrier
-The method used to insert faults into an inversion follows
+The method used to insert faults into an inversion is as follows
 
 \begin{itemize}
 \item Determine the end points of the fault.
