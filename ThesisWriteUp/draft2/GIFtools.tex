@@ -28,7 +28,7 @@
 %\subsection{Geological Maps}
 %\label{sec: Geological Maps}
 
-It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface. Cross sections can provide a great deal of information at depth and constrain as whole region often within the center of a target of interest. While plan view maps cannot provide information at depth they can constrain the entire surface of an inversion.  Constraining the surface of an inversion is of particular interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study and the cross section model is from TKS specifically the map from \citep{harder2006geology}
+It is often the case that geological information is provided in the form of geological maps either cross section or plan view. These maps are of particular use since they provide a great deal of information over their entire surface. Cross sections can provide a great deal of information at depth and constrain as whole region often within the center of a target of interest. While plan view maps cannot provide information at depth they can constrain the entire surface of an inversion.  Constraining the surface of an inversion is of particular interest since the sensitivity of the data to the top cells is particularly high which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study (for the purposes of building a geological model the regions on the map have been replaced with solid colours) and the cross section model is from TKC, specifically the map from \citep{harder2006geology}
 
 Below in point form is the method I use to incorporate a pixel map
 
@@ -51,20 +51,20 @@ Below in point form is the method I use to incorporate a pixel map
 \end{itemize}
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/importPlan.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/importPlan.PNG}
     \caption{GUI for importing plan view image }
     \label{fig:importPlanGui}
 \end{figure}
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/importCross.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/importCross.PNG}
     \caption{GUI for importing cross section image }
     \label{fig:importCrossGui}
 \end{figure}
 Storing a map as a GIFtools object allows it's use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map (\autoref{fig:mapData}).
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/mapData.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/mapData.PNG}
     \caption{Example of magnetics data being viewed with a map overlaid }
     \label{fig:mapData}
 \end{figure}
@@ -118,7 +118,7 @@ Continuing on in the process of making a geological constraint
 \end{itemize}
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/mapModelPlan.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/mapModelPlan.PNG}
     \caption{Example of a geology model created from a map with the map overlaid}
     \label{fig:mapModelPlan}
 \end{figure}
@@ -129,40 +129,99 @@ Continuing on in the process of making a geological constraint
 The cross section case follows much the same procedure with a few exceptions. An imported cross section map is shown overlaid on a 2D mesh in \autoref{fig:mapMeshCross}. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. The result is shown in \autoref{fig:mapModelCross}.  
 
 A 2D Geology model can be used to create constraints for a 2D inversion, it can also be used to add constraints to a 3D inversion as well. After the 2D geology model is created from the cross section map it can be inserted into a 3D mesh (\ac{GIF} 3D tensor or OcTree) given a starting and ending position or a starting position and a direction \autoref{fig:add2Dto3D},\autoref{fig:mapModelCross3D}.
-%\autoref{fig:mapModelCross3D}.
 
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/mapMeshCross.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/mapMeshCross.PNG}
     \caption{Example of a 2D mesh with the map overlaid}
     \label{fig:mapMeshCross}
 \end{figure}
-
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/mapModelCross.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/mapModelCross.PNG}
     \caption{Example of a 2D geology model created from a cross section map with the map overlaid}
     \label{fig:mapModelCross}
 \end{figure}
-
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/add2Dto3D.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/add2Dto3D.PNG}
     \caption{GUI for adding a 2D model to a 3D model}
     \label{fig:add2Dto3D}
 \end{figure}
-
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/GUI/mapModelCross3D.PNG}
+    \includegraphics[width=0.5\textwidth]{images/MaptoModel/mapModelCross3D.PNG}
     \caption{Example of a 2D geology inserted into a 3D model with the map overlaid}
     \label{fig:mapModelCross3D}
 \end{figure}
-
+\FloatBarrier
 \section{Making Constraints for an Inversion}
 \label{sec:Making Constraints for and Inversion}
 
-The conversion from geological models to inversion constraints in mediated by the geology definition of the geological model. In 
+The conversion from geological models to inversion constraints in mediated by the geology definition of the geological model. In the figures below the geological definition came from surface measurements of magnetic susceptibility within each geological unit. \autoref{fig:geoDefPlan} is an example of a geological definition in the GIFtools GUI.
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/MaptoModel/geoDefPlan.PNG}
+    \caption{Example of a geological definition as displayed in the GIFtools GUI}
+    \label{fig:geoDefPlan}
+\end{figure}
+Once the geology definition is defined, we can use the Combine Model Dialog (\autoref{fig:combineModelRef}) in Model Builder to create a reference model and bounds. 
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/MaptoModel/combineModelRef.PNG}
+    \caption{Example of a typical combine model dialog for a reference model}
+    \label{fig:combineModelRef}
+\end{figure}
+In this case the resolution of conflicts is trivial as there is a single source of information. Less trivial example of the creation of reference models and bound will be discussed later. The resulting reference model is shown in \autoref{fig:mapRefModPlan}.
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/MaptoModel/mapRefModPlan.PNG}
+    \caption{Example of a reference model created from a geological map}
+    \label{fig:mapRefModPlan}
+\end{figure}
+
+\section{Inputing Fault information from Geological Maps}
+\label{sec:Inputing Fault information from Geological Maps}
+
+Another piece of information that can be in geological maps are fault locations. Again in the context of El Poma the map provided a whole complex of thrust faults as shown in the un-doctored map in \autoref{fig:ElPoma_GEOL_MagSus}
+\begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.8\textwidth]{images/Faults/ElPoma_GEOL_MagSus.png}}
+    \caption{The El Poma map with fault lines included}
+    \label{fig:ElPoma_GEOL_MagSus}
+\end{figure}
+\FloatBarrier
+The method used to insert faults into an inversion follows
+
+\begin{itemize}
+\item Determine the end points of the fault.
+\begin{itemize}
+	\item GIFtools makes this easy by reporting the location of the cursor in the data viewer allowing you to find the location (including elevation) of a point along the fault
+\end{itemize}
+\item Using the locations provided create a box of a desired thickness (default value is based on the core mesh size) that includes the ends points of the fault and dips in the desired direction
+\item faces within this box are assigned a new value that is provided in the GUI \autoref{fig:makeFaultGUI}
+\end{itemize}
+
+\begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.5\textwidth]{images/Faults/makeFaultGUI.png}}
+    \caption{The GUI for the creation of fault weights}
+    \label{fig:makeFaultGUI}
+\end{figure}
+
+This process can be done multiple times to create non-trivial fault complexes as shown in \autoref{fig:faults}
+
+\begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.5\textwidth]{images/Faults/faults.png}}
+    \caption{An example of fault weights that can be created with GIFtools}
+    \label{fig:faults}
+\end{figure}
+\FloatBarrier
+
+In this section I have shown the creation of constraints that are compatiple with \ac{GIF} inversion codes. I have created these constraints from multiple types of map (Cross Section and Plan View) and have used different pieces of information from these maps (geological units and fault locations).
+
+
 
 %\section{Using Multiple Data Types, with Clustering}
 %\label{sec:Using Multiple Data Types, with Clustering}
@@ -170,8 +229,6 @@ The conversion from geological models to inversion constraints in mediated by th
 %There is interesting things to discuss in the storing of multiple inversion in GIFtools, and in the use of clustering algorythms used and then ability to take geological models and make reference models and non-trivial face weighting.
 
 \endinput
-
- Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal.
 
 Any text after an \endinput is ignored.
 You could put scraps here or things in progress.
