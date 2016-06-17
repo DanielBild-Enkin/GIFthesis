@@ -7,18 +7,16 @@
 \begin{epigraph}
 \end{epigraph}
 
-In all cases these are first guesses at what needs to be in each section more or less detail need to be added.
-
 \section{Research Motivation}
 \label{sec:Research Motivation}
 
-In mineral exploration there are many forms of information that can be used to determine the location of a deposit. These can be divided broadly into geological and geophysical data. Geological data refers to the study of the rocks in a region through surface samples, bore holes, and an understanding of how rock units interrelate under the surface. Geophysical data refers to recovered measurements of some field that will be related to some physical property that will aid in the understanding of the deposit. For exploration to be as effective as possible, we need to find ways of integrating the geological and geophysical information. One of the major tools in using geophysical data to create geologically significant interpretations is inversion.
+In mineral exploration there are many forms of information that can be used to determine the location of a deposit. These can be divided broadly into geological and geophysical data. Geological data refers to the study of the rocks in a region through surface samples, bore holes, and an understanding of how rock units interrelate under the surface. Geophysical data refers to recovered measurements of some field that will be related to the physical properties of the rocks that will aid in the understanding of the deposit. For exploration to be as effective as possible, we need to find ways of integrating the geological and geophysical information that produce exploration vectors to the target. One of the major tools in using geophysical data to create geologically significant interpretations is inversion.
 
 The overarching goal of geophysical inversion is to recover distributions of physical properties in the ground to aid in mineral exploration. To be useful to this end the spacial distribution of the physical property (the geophysical model) needs to both fit the geophysical data and match existing geological interpretations. 
 
-Since geophysical inversions are by their nature non-unique (because of data uncertainty and there being many more model parameters than data), \emph{a priori} information needs to be added to provide a model that matches the geology of a deposit. Much work has been done to create a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversions (for example \citep{li19963}). However, an area where more work can be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create usable constraints that can be applied to inversions.
+Since geophysical inversions are by their nature non-unique (because of data uncertainty and there typically being many more model parameters than data), \emph{a priori} information needs to be added to provide a model that matches the geology of a deposit. Much work has been done to create a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversions (for example \cite{li19963}). However, an area where more work must be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create usable constraints that can be applied to inversions.
 
-The research in this thesis will attempt to do exactly that: provide new tools in an integrated framework that will allow the incorporation of non-trivial \emph{a priori} information into geophysical inversions. The inclusion of \emph{a priori} information in inversions is not novel. Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (\citep{Lelievre2009Integrating},\citep{phillips2002geophysical} among other (still need to add more)). 
+The research in this thesis will attempt to do exactly that: provide new tools in an integrated framework that will allow the incorporation of non-trivial \emph{a priori} information into geophysical inversions. The inclusion of \emph{a priori} information in inversions is not novel. Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (\citep{Lelievre2009Integrating},\citep{phillips2001thesis} among other). 
 
 In addition, in \cite{williams2008geologically} develops a software package to create constraints for inversions. What is novel in this thesis is the creation of a suite of tools (created by me and colleagues in the \ac{GIF} group) to make the incorporation of geological and petrophysical data into \ac{GIF} inversions easy even in non-trivial cases. The interface by which \emph{a priori} information can be incorporated has been much updated from \citep{williams2008geologically}, and tools to incorporate new forms of data into inversions have been added.
 
@@ -32,17 +30,53 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 \label{sec:Literature Review}
 
 \begin{itemize}
-\item \cite{19963} and \cite{li19983}
+\item smoothly varying models
+\begin{itemize}
+\item \cite{li19963} and \cite{li19983}recovers a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model
+
+\item \cite{li2003fast}  extends the method by also implementing bounds that can be specified for each model cell.
+\end{itemize}
+\item sharply varying models	
+\begin{itemize}	
+\item \cite{last1983compact} instead of regularizing by smallness and smoothness, they regularize compactness, essentially demanding that the model be as small as possible while still fitting the data. 	
+\item \cite{portniaguine1999focusing} extends  \cite{last1983compact} by adding a minimum gradient support functional. It minimizes the gradient such that gradient values below a threshold do not contribute to the the objective function. Whereas values above the threshold all contribute equally. This allows for sharp boundaries and blocky models because once the algorithm determines a boundary as necessary to fit the data there is little to constrain the the physical property contrast across the boundary.
+\item \cite{rudin1992nonlinear} and \cite{vogel1998fast} Propose total variation, in other words the use of $L_1$ norms to regularize, instead of $L_2$ norms as in \cite{li19963} and \cite{li19983}. Since minimizing $L_1$ norms promote sparsity, regularizing by them will have a comparable effect (blocky models with sharp boundaries) as the method used by \cite{portniaguine1999focusing}.
 	\begin{itemize}
-	\item recovers a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model
+		\item Total variation has been used more specifically in the context of geophysical inversion, such as with \cite{guitton2012blocky}		
 	\end{itemize}
-\item \cite{li2003fast} 
-	\begin{itemize}
-	\item extends the method by also implementing bounds that can be specified for each model cell.
-	\end{itemize}	
+\item \cite{farquharson1998non} also report ways of achieving sharp contrast by implementing non-$L_2$ norms such as Ekblom and Huber norms.
+\item \cite{fournier2015cooperative} implements a method of minimizing the general $L_p$ (smallness) and $L_q$ (smoothness) norms for any $p$ and $q$ (typically values between 0 and 2) allowing an inversion to recover compact or blocky models in different directions and amounts.
+\end{itemize}
+\item models with dipping anomalies
+\begin{itemize}
+\item \cite{li2000incorporating}  extends the method in \cite{li19963} and \cite{li19983} by rotating the model objective function to allow for linear features in the recovered model to be in a direction not in line with the mesh grid
+\item \cite{lelievre2009comprehensive} generalizes the methods in \cite{li2000incorporating} to the 3D case
+\item \cite{chasseriau20033d} creates a very general method of acquiring anomalies of almost any shape by weighting the smallness term with a covariance matrix of the model, i.e. a matrix with the covariance of each cell versus every other cell in the model. The covariance matrix can be generated from bore hole or surface sample data or from a synthetic initial model. Depending on the covariance matrix, the inversion can be biased toward an anomaly of almost any shape.
+\item \cite{guillen1984gravity} extends the method in {last1983compact} to minimize the moment of inertia instead of volume. By specifying an axis of rotation to determine the moment of inertia they put dip information into the regularization.
+\item \cite{barbosa1994generalized} and \cite{barbosa2006interactive} generalize the method even further allowing multiple axes of rotation. The second paper also describes a GUI to interactively test the fit of various axes of rotation.
+\end{itemize}
+\item Stochastic Inversion
+\begin{itemize}
+\item \cite{bosch2001lithologic} directly inverts for lithologies. Forward modeling of physical properties is done by a probabilistic relation of the physical property to the lithology. New lithology distributions are created using a pseudo-random walk. \emph{A priori} information is included partial in the probabilistic model that links the lithology to the physical properties but also as the initial probability distribution of the lithology model.
+\item \cite{guillen2008geological} implements the method described in \cite{bosch2001lithologic} in 3D.
+\end{itemize}
+\item Fuzzy C-Means: 
+\begin{itemize}
+	\item \cite{paasche2006integration} uses FCM clustering of recovered models to derive membership functions of model cells in several clusters. The clusters are then used with \emph{a priori} porosity data to create a likely porosity of each cluster and a porosity model is created from these results.
+	\item \cite{sun2015multidomain} Instead of clustering after an inversion to achieve the effect of a cooperative inversion like \cite{paasche2006integration}, the authors use the FCM function as an extra term in the model objective function. This allows them to simultaneously invert slowness and density by linking them through the FCM clusters. It also allows them to guide the FCM cluster physical properties in a way that allows the introduction of petrophysical measurements of geological units.
+\end{itemize}
+\item Implementations of Constrained inversion
+\begin{itemize}
+	\item \cite{phillips2001thesis} Uses bore hole densities and susceptibilities to bound a gravity and a magnetic inversion	
+	\item \cite{farquharson2008geologically} uses density bore holes to create a reference model for a gravity inversion. Shows the effect of having many bore holes versus only a few
+	\item \cite{williams2008geologically} Easily the most extensive review of this subject. Creates a software package to integrate a phenomenal number of types of geological and petrophysical data. Uses these tools to make detailed susceptibility and density constraints
+	\item \cite{Lelievre2009Integrating} discusses the use of surface sample and bore holes in constraining a synthetic example. He also goes into the use of orientation information of linear features as a geological constraint
+	
+	
+
+\end{itemize}
 \end{itemize}
 
-The methods above demand smoothness of the recovered models. There have been many attempts at allowing discontinuities in recovered models
 
 
 
