@@ -30,12 +30,12 @@
 
 It is often the case that geological information is provided in the form of geological maps in either cross section or plan view. Such maps are particularly useful since they provide a great deal of information over their entire surface. Cross sections can provide information at depth and constrain a whole region often within the center of a target of interest. Plan view maps do not provide information at depth, but they do constrain the entire surface of the region being inverted.  Constraining the surface of an inversion is of interest since the sensitivity of the data to the top cells is particularly high, which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study and the cross section model is from TKC, specifically the map from \citep{harder2006geology}
 
-Below in point form is the method I have developed to incorporate a pixel map
+Below in point form is the method I have developed to incorporate a pixel maps.
 
 \section{ Preprocessing images}
 \label{sec: Preprocessing images}
 
-Often a geological map image will not be immediately suitable to the methods used below and some prepossessing is required. The most notable features that are undesirable in a map are geological units that are not only one or two colours and text or other annotations that could be interpreted by the program as geological information. Also map images may be of too high resolution to be efficiently used in these methods and must also be down sampled to save  computer processing time and memory.
+Often a geological map image will not be immediately suitable to the methods used below and some prepossessing is required. The most notable features that are undesirable in a map are geological units that are not only one or two colours and text or other annotations that could be interpreted by the program as geological information. Also map images may be of too high resolution to be efficiently used in these methods and must also be down-sampled to save  computer processing time and memory.
 
  \begin{figure} [h]
     \centering
@@ -44,7 +44,7 @@ Often a geological map image will not be immediately suitable to the methods use
     \label{fig:ElPoma_GEOL_MagSus}
 \end{figure}
 
-For example \autoref{fig:ElPoma_GEOL_MagSus} has great deal of information, (faults, magnetic susceptibility surface samples, etc.) that are not information about geological units. In addition the geological units are not a single unit. The image has been edited in the GNU Image Manipulation Program (GIMP), a free image editing program, to produce \autoref{fig:ElPoma_GEOL_MagSus_M2M_downsample8}. 
+For example \autoref{fig:ElPoma_GEOL_MagSus} has great deal of information, (faults, magnetic susceptibility surface samples, etc.) that are not information about geological units. In addition the geological units are not a single colour polygon. The image has been edited in the GNU Image Manipulation Program (GIMP), a free image editing program, to produce \autoref{fig:ElPoma_GEOL_MagSus_M2M_downsample8}. 
 
  \begin{figure} [h]
     \centering
@@ -52,8 +52,6 @@ For example \autoref{fig:ElPoma_GEOL_MagSus} has great deal of information, (fau
     \caption{The El Poma map with extra information removed and geological units made a single colour}
     \label{fig:ElPoma_GEOL_MagSus_M2M_downsample8}
 \end{figure}
-
-Importantly \autoref{fig:ElPoma_GEOL_MagSus_M2M_downsample8} has also been down sampled from the original to save processing time and computer memory.
 
 \FloatBarrier
 \section{Loading Images into GIFtools}
@@ -122,7 +120,7 @@ Continuing on in the process of making a geological constraint.
 \item Provide some form of depth information.
 \begin{itemize}
 	\item Thickness, a certain amount of depth below topography at each point will be assigned the geological unit at each.
-	\item Depth, the map will be used to assign a geological unit down to a fixed depth across the while model.
+	\item Depth, the map will be used to assign a geological unit down to a fixed depth across the whole model.
 	\item Surface, if you provide another surface below topography the cells between topography and the other surface will be assigned.
 \end{itemize}
 
@@ -134,9 +132,9 @@ Continuing on in the process of making a geological constraint.
 \item Finally the geological model is created.
 \begin{itemize}
 	\item We determine which cell of the mesh each pixel is in, including those cells below each pixel to account for thickness.
-	\item Each cell is assigned a geological unit based on the mode of the geological values of each pixel.
+	\item Each cell is assigned a geological unit based on the mode of the geological values of each pixel which colours that cell.  In other words, each cell is identified with the geological unit which fills the greatest proportion of the cell.
 	\begin{itemize}
-	\item The mode is used since each cell will be a particular unit. Since the property being mapped onto each cell is a geological unit, interpolation between the units will not provide the desired result.
+	\item The mode is used since each cell will be a particular unit. Since the property being mapped onto each cell by construction must represent a single geological unit, interpolation between the units will not provide the desired result.
 	\end{itemize}
 	\item The geology definition which will allow the assignment of physical properties to each geological unit.
 \end{itemize}
@@ -183,9 +181,9 @@ A 2D Geology model can be used to create constraints for a 2D inversion, it can 
 \section{Making Constraints for an Inversion}
 \label{sec:Making Constraints for and Inversion}
 
-The model that has been created is a geology model. That is, a model in which each cell represents a given geological unit. To be able to convert this model into a constraint for a geophysical inversion some link between between the geology and the petrophysics needs to be provided. 
+The model that has been created is a geology model. That is, a model in which each cell represents a given geological unit. To be able to convert this model into a constraint for a geophysical inversion the link between between the geology and the petrophysics needs to be provided. 
 
-The link is stored in what is called a geology definition. In GIFtools this takes the form of a lookup table that contains information of a particular geological unit's property, lower and upper bounds, and optionally the smallness weight associated with each unit. 
+The link is stored in what is called a geology definition. In GIFtools this takes the form of a lookup table that contains information of each particular geological unit's property, lower and upper bounds, and optionally the smallness weight associated with each unit. 
 
 Using the geology definition we can convert a geology model that has information about the spatial distribution of geological units but not of their physical properties into constraints that are usable by an inversion. In the figures below the geological definition came from surface measurements of magnetic susceptibility within each geological unit. \autoref{fig:geoDefPlan} is an example of a geology definition in the GIFtools GUI.
 \begin{figure} [h]
@@ -215,7 +213,7 @@ In this case the resolution of conflicts is trivial as there is a single source 
 
 Another piece of information that can be in geological maps are fault locations. Again in the context of El Poma the map provided a whole complex of thrust faults as shown in the un-doctored map in \autoref{fig:ElPoma_GEOL_MagSus}
 
-The method used to insert faults into an inversion is as follows
+The method used to insert faults into an inversion is as follows:
 
 \begin{itemize}
 \item Determine the end points of the fault.
