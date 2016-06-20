@@ -16,15 +16,65 @@ The overarching goal of geophysical inversion is to recover distributions of phy
 
 Since geophysical inversions are by their nature non-unique (because of data uncertainty and there typically being many more model parameters than data), \emph{a priori} information needs to be added to provide a model that matches the geology of a deposit. Much work has been done to create a mathematical framework to allow the inclusion of geological and petrophysical information into geophysical inversions (for example \cite{li19963}). However, an area where more work must be done is the creation of tools to take the petrophysical and geological data in the forms that are generally provided and create usable constraints that can be applied to inversions.
 
-The research in this thesis will attempt to do exactly that: provide new tools in an integrated framework that will allow the incorporation of non-trivial \emph{a priori} information into geophysical inversions. The inclusion of \emph{a priori} information in inversions is not novel. Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (\citep{Lelievre2009Integrating},\citep{phillips2001thesis} among other). 
+The research in this thesis will attempt to do exactly that: provide new tools in an integrated framework that will allow the incorporation of non-trivial \emph{a priori} information into geophysical inversions. The inclusion of \emph{a priori} information in inversions is not novel. Many researchers before me have used the mathematical framework to add geological and petrophysical information to inversions (for example \citep{Lelievre2009Integrating},\citep{phillips2001thesis}, \cite{farquharson2008geologically}). 
 
-In addition, in \cite{williams2008geologically} develops a software package to create constraints for inversions. What is novel in this thesis is the creation of a suite of tools (created by me and colleagues in the \ac{GIF} group) to make the incorporation of geological and petrophysical data into \ac{GIF} inversions easy even in non-trivial cases. The interface by which \emph{a priori} information can be incorporated has been much updated from \citep{williams2008geologically}, and tools to incorporate new forms of data into inversions have been added.
-
+In addition, in \cite{williams2008geologically} develops a software package to create constraints for inversions from a wide array of data types. What is lacking in the previous research is the link between the creation of inversion constraint with the processing of data and the running of inversions. By integrating the tools I create in this thesis into the framework of GIFtools and Model Builder, I make the incorporation of \emph{a priori} information into inversions much more expedient.  In total GIFtools and Model Builder allow users do quality control on data, create constraints, and run inversions within the same software framework. The interface by which \emph{a priori} information can be incorporated has been much updated from \citep{williams2008geologically}, and tools to incorporate new forms of data into inversions have been added. 
 % discussion of what is GIFtools. Discussion of my role in GIFtools
+
 
 
 %In the case that we have no additional information (a blind inversion) the standard assumption that is made is that the deposit is small (most of the cells will have a value close to zero)  and smooth (most of the cells will have a value similar to their neighbors) \citep{oldenburg2005inversion}. However following the methodology used in the \ac{GIF} inversion codes (for example \citep{li19963}) there are several terms in the inversion formulation that allow for the inclusion of geological and petrophysical information into an inversion. +
 
+\section{Regularized Inversion}
+\label{sec:Regularized Inversion}
+
+In the general case, geophysical inversion involves the solving of a system that is defined by some forward operator that maps from a given model to predicted data,
+\begin{equation}
+\mathbf d = \mathbb F [\mathbf m],
+\end{equation}
+\label{eq:forwardProb}
+where $\mathbf d \in \mathbb R^N$ is the geophysical data,  $\mathbf m \in \mathbb R^M$ is discretization of $m$ which is the model that describes the distribution of some physical property, and $\mathbb F$ is the forward operator that mediates between them. In the context of this thesis, $\mathbf d$is  either magnetic or gravity data, $\mathbf m$ is either a susceptibility or density model, and $\mathbb F$ is the magnetic or gravitational forward operator which has the convenient property of being linear. Since we are interested in recovering the model $\mathbf m$, we are interested in finding the inverse of $\mathbb F$,
+\begin{equation}
+\mathbf m= \mathbb F^{-1}\mathbf d.
+\end{equation}
+\label{eq:inverseProb}
+Unfortunately the inversion of $\mathbb F$ is far from trivia as the problem is ill-posed l. Firstly since there are usually more model parameters than data ($M > N$) there are an infinite number of possible distributions of the physical property that will predict the observed data. Secondly the system is unstable, that is, a small amount of error in the measurements can lead to large changes in the recovered model. To recover a model despite these difficulties, the problem is regularized by adding \emph{a prioi} information in the form of a \ac{MOF} or regularization functional. Once the problem is regularized, it is solved by minimizing the objective function,
+\begin{equation}
+\phi(\mathbf m) = \phi_d + \beta \phi_m
+\end{equation}
+\label{eq:objectiveFunc}
+where $\phi$ is the objective function , $\phi_d$ and $\phi_m$ are the data and model objective functions respectively, and $\beta$ is a tradoff parameter that scales between them. $\phi_d$ is defined,
+\begin{equation}
+\phi_d =\|\mathbf W_d\Big(\mathbb F [\mathbf m] - \mathbf d^{obs}\Big)\|^2\\
+\end{equation}
+\label{eq:phid}
+\begin{equation}
+ \mathbf d^{obs} = \mathbb F[\mathbf m^{true}] + \mathbf e
+\end{equation}
+\label{eq:dobs}
+where $\mathbf d^{obs}$ is the observed data, that is the true data contaminated with noise $\mathbf e$, and $\mathbf W_d$ is the data weighting matrix with the diagonal entries equal to the reciprocal of each datum's standard deviation,
+\begin{equation}
+\mathbf W_d = \begin{bmatrix}
+       \frac{1}{\sigma_1}  & 0 & \cdots & 0   \\
+       0 &  \frac{1}{\sigma_1}  & 0 &  \vdots \\
+       \vdots & \ddots & & 0\\
+       0  & \cdots & 0 & \frac{1}{\sigma_N}
+     \end{bmatrix},
+\end{equation}
+
+where each $\sigma_i$ is that datum's assigned standard deviation. Meanwhile $\phi_m$ is can take many forms. In \cite{li19963} it is defined in the continuous formulation as,
+\begin{align}
+\phi_m =&\alpha_s\int_V w_s \big[(m - m_{ref})\big]^2dv + \dots\label{eq:phim}\\ 
+&\alpha_x\int_V w_x \Big[\frac{\partial}{\partial x}(m - m_{ref})\Big]^2dv + \dots\notag\\ 
+&\alpha_y\int_V w_y \Big[\frac{\partial}{\partial y}(m - m_{ref})\Big]^2dv + \dots\notag\\ 
+&\alpha_z\int_V w_z \Big[\frac{\partial}{\partial z}(m - m_{ref})\Big]^2dv\notag.
+\end{align}
+The first term in \autoref{eq:phim} promotes smallness, that is the model must be close in value to the reference model $m_{ref}$ which is some first guess at the structure of the area being inverted. The next three terms promote smoothness by penalizing large derivatives in the model. There are many parameters in $\phi_m$ that the geophysisist can use to fine tune the recovered model. $\alpha_s$,$\alpha_x$,$\alpha_y$, and $\alpha_z$, scale the contribution of smallness and smoothness in each direction. $\alpha$ values can be used to broadly determine the length scales in each direction of a recovered model. The $w_s$,$w_x$,$w_y$,$w_z$ parameters allow finer control, in the continuous formulation they are function that can be discretized to vectors. They weight the model's smallness and smoothness variable across its extent allowing the user to specify certain regions as smoother than others or demanding that the recovered model more closely match the reference model in areas where the user is more certain of the reference model's validity. 
+
+The last term in \autoref{eq:objectieFunc} is $\beta$ which determines the degree to which the model fits the data or obeys the regularization. Its value is determined iteratively. Assuming that the error in $\mathbf d^{obs}$ is independent and Gaussian with the standard deviations in $\mathbf W_d$, $\phi_d$ will be a random variable with a $\chi^2$ distribution and an expeted value of $N$, the number of data. Given this expected value, beta can be iteratively decreased until the misfit is sufficiently near $N$.
+
+
+Now that I have given an overview of the structure of regularized inversion I will now discuss previous research on including geological and petrophysical information in inversion using regularization.
 
 \section{Literature Review}
 \label{sec:Literature Review}
@@ -33,13 +83,12 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 \item smoothly varying models
 \begin{itemize}
 \item \cite{li19963} and \cite{li19983}recovers a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model.
-
 \item \cite{li2003fast}  extends the method by also implementing bounds that can be specified for each model cell.
 \end{itemize}
-\item sharply varying models	
+\item The above methods recover smoothly varying models with broad distributions of the physical property. Sometimes the geological context indicated that the model should vary sharply and the the body should be compact. In other words, either the model or its derivative should be sparse. There has been a great deal of research on using sparsity promoting norms to achieve compact or sharply varying models. Using other norms is done by of generalizing \autoref{eq:phim} to allow the norm to be not just be $L_2$ but some other norm.
 \begin{itemize}	
-\item \cite{last1983compact} instead of regularizing by smallness and smoothness, they regularize compactness, essentially demanding that the model be as small as possible while still fitting the data. 	
-\item \cite{portniaguine1999focusing} extends  \cite{last1983compact} by adding a minimum gradient support functional. It minimizes the gradient such that gradient values below a threshold do not contribute to the the objective function. Whereas values above the threshold all contribute equally. This allows for sharp boundaries and blocky models because once the algorithm determines a boundary as necessary to fit the data there is little to constrain the the physical property contrast across the boundary.
+\item \cite{last1983compact} instead of regularizing by smallness and smoothness, they regularize compactness, essentially demanding that the model be as small as possible while still fitting the data. Effectively using an $L_0$ norm on the smallness component and not using the smoothness constraints	
+\item \cite{portniaguine1999focusing} extends  \cite{last1983compact} by adding a minimum gradient support functional. Again effectly using an $L_0$ norm on the smootheness terms as well.
 \item \cite{rudin1992nonlinear} and \cite{vogel1998fast} Propose total variation, in other words the use of $L_1$ norms to regularize, instead of $L_2$ norms as in \cite{li19963} and \cite{li19983}. Since minimizing $L_1$ norms promote sparsity, regularizing by them will have a comparable effect (blocky models with sharp boundaries) as the method used by \cite{portniaguine1999focusing}.
 	\begin{itemize}
 		\item Total variation has been used more specifically in the context of geophysical inversion, such as with \cite{guitton2012blocky}.	
@@ -47,12 +96,12 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 \item \cite{farquharson1998non} also report ways of achieving sharp contrast by implementing non-$L_2$ norms such as Ekblom and Huber norms.
 \item \cite{fournier2015cooperative} implements a method of minimizing the general $L_p$ (smallness) and $L_q$ (smoothness) norms for any $p$ and $q$ (typically values between 0 and 2) allowing an inversion to recover compact or blocky models in different directions and amounts.
 \end{itemize}
-\item models with dipping anomalies
+\item The formulation in \autoref{eq:phim} allows a great deal of control of the way the model varies along the three cardinal directions. Often it isknown that the geometry of a deposit is not in any of the cardinal directions and diagonal structures are preferred.
 \begin{itemize}
 \item \cite{li2000incorporating}  extends the method of \cite{li19963} and \cite{li19983} by rotating the model objective function to allow for linear features in the recovered model to be in a direction not in line with the mesh grid.
 \item \cite{lelievre2009comprehensive} generalize the methods in \cite{li2000incorporating} to the 3D case.
 \item \cite{chasseriau20033d} create a very general method of biasing the inversion algorithm towards anomalies of almost any shape by weighting the smallness term with a covariance matrix of the model, i.e., a matrix with the covariance of each cell versus every other cell in the model. The covariance matrix can be generated from bore hole or surface sample data or from a synthetic initial model. Depending on the covariance matrix, the inversion can be biased toward an anomaly of almost any shape.
-\item \cite{guillen1984gravity} extend the method in \cite{last1983compact}. Instead of minimizing volume, the authors minimize the moment of inertia. By specifying an axis of rotation to determine the moment of inertia they put dip information into the regularization.
+\item \cite{guillen1984gravity} extend the method in \cite{last1983compact}. Instead of minimizing the volume of a deposit, the authors minimize its moment of inertia. By specifying an axis of rotation to determine the moment of inertia they put dip information into the regularization.
 \item \cite{barbosa1994generalized} and \cite{barbosa2006interactive} generalize the method even further allowing multiple axes of rotation. The second paper also describes a GUI to interactively test the fit of various axes of rotation.
 \end{itemize}
 \item Stochastic Inversion
@@ -72,7 +121,15 @@ In addition, in \cite{williams2008geologically} develops a software package to c
 	\item \cite{williams2008geologically} This important thesis provides the most extensive review of this subject. He creates a software package to integrate a phenomenal number of types of geological and petrophysical data. He then uses these tools to make detailed susceptibility and density constraints.
 	\item \cite{Lelievre2009Integrating} discusses the use of surface samples and bore holes in constraining a synthetic example. He also goes into the use of orientation information of linear features as a geological constraint.
 	
-	
+\section{Thesis Organization}
+\label{sec:Thesis Organization}
+		
+In this thesis I describe the methods used to create the tools I contributed to GIFtools and give examples of their use. \autoref{ch:GIFtools} will discuss the tools I have created. It  describes the types of information that GIFtools and Model Builder can integrate into an inversion and discuss how they can be used to constrain an inversion result. I discuss how sample information, bore hole and surface sample data, can be used to set reference models and bound. I also discuss geological maps and how Model Builder incorporates information from both cross section and plan view maps into the regularization of inversions. Finally in \autoref{ch:GIFtools}  I discuss the use of clustering multiple inversion results to create non-trivial face weights in addition to reference models and bounds.
+
+In \autoref{ch:CaseStudy1} I show the use of GIFtools and Model Builder in the creation of regularizations for a magnetic inversion in El Poma. El Poma is a porphyry deposit in Colombia that has bore holes, surface samples, in addition to a geological map over the region. The region is also interesting due the large effect of remanent magnetization. I discuss a synthetic case matching the magnetic survey, bore holes, surface samples and map and recover the anomaly. I also show the result of the inversion of the actual field data.
+
+Finally in \autoref{ch:CaseStudy2} I show example GIFtools and Model Builder in the context of the Tli Kwi Cho Kimberlite complex in the North West territories. In this case there have been several surveys flown over the region for electromagnetic (of which I use only the magnetic data) and gravity gradiometry data. In addition to the geophysical data there has been extensive drilling and cross section maps have been created. I show a synthetic example incorporating the \emph{a priori} information as well as using clustering of the magnetic and gravity inversion to create further constraints.
+
 
 \end{itemize}
 \end{itemize}
