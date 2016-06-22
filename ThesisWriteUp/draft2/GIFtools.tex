@@ -30,7 +30,7 @@
 
 It is often the case that geological information is provided in the form of geological maps in either cross section or plan view. Such maps are particularly useful since they provide a great deal of information over their entire surface. Cross sections can provide information at depth and constrain a whole region often within the center of a target of interest. Plan view maps do not provide information at depth, but they do constrain the entire surface of the region being inverted.  Constraining the surface of an inversion is of interest since the sensitivity of the data to the top cells is particularly high, which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study and the cross section model is from TKC, specifically the map from \citep{harder2006geology}
 
-Below in point form is the method I have developed to incorporate a pixel maps.
+Below in point form is the method I have developed to incorporate pixel maps.
 
 \section{ Preprocessing images}
 \label{sec: Preprocessing images}
@@ -64,7 +64,7 @@ For example \autoref{fig:ElPoma_GEOL_MagSus} has great deal of information, (fau
 	\item Load image using MATLAB utilities.
 	\item Convert image into .png style representation for faster computation.
 	\item Using .twf file (world file) assign location and spacial resolution to the image.
-	\item Assign a legend assigning pixel RGB values to geological unit.
+	\item Assign a legend linking pixel RGB values to geological unit.
 	\item Assign topography (either number or GIFtools TOPOdata item) for visualization.
 	\begin{itemize}
 		\item In the case of a cross section image, instead of topography, information for the location of the cross section in 3D or 2D space is required (\autoref{fig:importCrossGui}).
@@ -113,9 +113,9 @@ Continuing on in the process of making a geological constraint.
 \label{subsec:Make Geology Model from Map Plan View}
 
 \begin{itemize}
-\item Provide active model.	
+\item Provide active model. For convenience this is usually an active model already associated with a Model Builder object.
 \begin{itemize}
-	\item This simultaneously provides a discretized topography for the map to lay along and also a mesh (\ac{GIF} 3D tensor or OcTree).
+	\item The active model simultaneously provides a discretized topography for the map to lay along and also a mesh (\ac{GIF} 3D tensor or OcTree).
 \end{itemize}
 \item Provide some form of depth information.
 \begin{itemize}
@@ -136,7 +136,7 @@ Continuing on in the process of making a geological constraint.
 	\begin{itemize}
 	\item The mode is used since each cell will be a particular unit. Since the property being mapped onto each cell by construction must represent a single geological unit, interpolation between the units will not provide the desired result.
 	\end{itemize}
-	\item The geology definition which will allow the assignment of physical properties to each geological unit.
+	\item The geology definition which will allow the assignment of physical properties to each geological unit. The result is shown in \autoref{fig:mapModelPlan}, the continuous colour bar is not an indication of a continuous model. All model values are integers that represent geological units in the map.
 \end{itemize}
 \end{itemize}
 \begin{figure} [h]

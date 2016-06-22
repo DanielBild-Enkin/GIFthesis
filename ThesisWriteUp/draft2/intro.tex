@@ -89,60 +89,45 @@ Now that I have given an overview of the structure of regularized inversion I wi
 \section{Literature Review}
 \label{sec:Literature Review}
 
-\begin{itemize}
-\item smoothly varying models
-\begin{itemize}
-\item \cite{li19963} and \cite{li19983} recover a model regularized by smallness and smoothness. Reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more or less significant in different parts of the model.
-\item \cite{li2003fast}  extend the method by also implementing bounds that can be specified for each model cell.
-\end{itemize}
-\item The above methods recover smoothly varying models with broad distributions of the physical property. Sometimes the geological context indicated that the model should vary sharply and the anomalous body should be compact. In other words, either the model or its derivative should be sparse. There has been a great deal of research on using sparsity-promoting norms to achieve compact or sharply varying models. Using other norms is done by of generalizing \autoref{eq:phim} to allow the norm to be not just be $L_2$ but some other norm.
-\begin{itemize}	
-\item \cite{last1983compact}: Instead of regularizing by smallness and smoothness, they regularize compactness, essentially demanding that the model be as small as possible while still fitting the data. Effectively using an $L_0$ norm on the smallness component and not using the smoothness constraints	
-\item \cite{portniaguine1999focusing} extends  \cite{last1983compact} by adding a minimum gradient support functional. Like in \cite{last1983compact}, the authors effectively uses an $L_0$ norm on the smoothness terms as well.
-\item \cite{rudin1992nonlinear} and \cite{vogel1998fast} propose total variation, in other words the use of $L_1$ norms to regularize, instead of $L_2$ norms as in \cite{li19963} and \cite{li19983}. Since minimizing $L_1$ norms promote sparsity, regularizing by them will have a comparable effect (blocky models with sharp boundaries) as the method used by \cite{portniaguine1999focusing}.
-	\begin{itemize}
-		\item Total variation has been used more specifically in the context of geophysical inversion, such as with \cite{guitton2012blocky}.	
-	\end{itemize}
-\item \cite{farquharson1998non} also report ways of achieving sharp contrast by implementing non-$L_2$ norms such as Ekblom and Huber norms.
-\item \cite{fournier2015cooperative} implements a method of minimizing the general $L_p$ (smallness) and $L_q$ (smoothness) norms for any $p$ and $q$ (typically values between 0 and 2) allowing an inversion to recover compact or blocky models in different directions and amounts.
-\end{itemize}
-\item The formulation in \autoref{eq:phim} allows a great deal of control of the way the model varies along the three cardinal directions. Often it is known that the geometry of a deposit is not in any of the cardinal directions and diagonal structures are preferred.
-\begin{itemize}
-\item \cite{li2000incorporating}  extends the method of \cite{li19963} and \cite{li19983} by rotating the model objective function to allow for linear features in the recovered model to be in a direction not in line with the mesh grid.
-\item \cite{lelievre2009comprehensive} generalize the methods in \cite{li2000incorporating} to the 3D case.
-\item \cite{chasseriau20033d} create a very general method of biasing the inversion algorithm towards anomalies of almost any shape by weighting the smallness term with a covariance matrix of the model, i.e., a matrix with the covariance of each cell versus every other cell in the model. The covariance matrix can be generated from bore hole or surface sample data or from a synthetic initial model.
-\item \cite{guillen1984gravity} extend the method in \cite{last1983compact}. Instead of minimizing the volume of a deposit, the authors minimize its moment of inertia. By specifying an axis of rotation to determine the moment of inertia they put dip information into the regularization.
-\item \cite{barbosa1994generalized} and \cite{barbosa2006interactive} generalize the method even further allowing multiple axes of rotation. The second paper also describes a GUI to interactively test the fit of various axes of rotation.
-\end{itemize}
-\item Stochastic Inversion
-\begin{itemize}
-\item \cite{bosch2001lithologic} directly inverts for lithologies. Forward modeling of physical properties is done by a probabilistic relation of the physical property to the lithology. New lithology distributions are created using a pseudo-random walk. \emph{A priori} information is included partially in the probabilistic model that links the lithology to the physical properties but also as the initial probability distribution of the lithology model.
-\item \cite{guillen2008geological} implements the method described in \cite{bosch2001lithologic} in 3D.
-\end{itemize}
-\item Fuzzy C-Means (FCM): 
-\begin{itemize}
-	\item \cite{paasche2006integration} uses FCM clustering of recovered models to derive membership functions of model cells in several clusters. The clusters are then used with \emph{a priori} porosity data to create a likely porosity of each cluster and a porosity model is created from these results.
-	\item \cite{sun2015multidomain} Instead of clustering after an inversion to achieve the effect of a cooperative inversion like \cite{paasche2006integration}, the authors use the FCM function as an extra term in the model objective function. This allows them to simultaneously invert slowness and density by linking them through the FCM clusters. It also allows them to guide the FCM cluster physical properties in a way that allows the introduction of petrophysical measurements of geological units.
-\end{itemize}
-\item Implementations of Constrained Inversion
-\begin{itemize}
-	\item \cite{phillips2001thesis} uses bore hole densities and susceptibilities to bound a gravity and a magnetic inversion.
-	\item \cite{farquharson2008geologically} use density bore hole logs to create a reference model for a gravity inversion. They demonstrate  the effect of having many bore holes versus only a few.
-	\item \cite{williams2008geologically}: This important thesis provides the most extensive review of this subject. He creates a software package to integrate a phenomenal number of types of geological and petrophysical data. He then uses these tools to make detailed susceptibility and density constraints.
-	\item \cite{Lelievre2009Integrating} discusses the use of surface samples and bore holes in constraining a synthetic example. He also goes into the use of orientation information of linear features as a geological constraint.
-	
+Firstly, there has been much research following the lines of \cite{li19963} and \cite{li19983}. The methods used in these two papers are described above. The advantage of using least-squares methods for the regularization of inverse problems is that the objective function is convex, continuous, and differentiable, which greatly aids the implementation of the optimization. As mentioned above, reference models and weighting matrices allow for the incorporation of geological information, making smallness and smoothness more significant or less significant in different parts of the model. \cite{li2003fast} extend the method by also implementing upper and lower bounds that can be specified for each model cell allowing the user to make hard constraints on the value of the model.
+
+The above methods described in \cite{li19963},   \cite{li19983}, \cite{li2003fast} recover smoothly varying models with broad distributions of the physical property. Sometimes the geological context indicates that the model should vary sharply and the anomalous body should be compact. In other words, either the model or its derivative should be sparse. There has been a great deal of research on using sparsity-promoting norms to achieve compact or sharply-varying models.
+
+Instead of regularizing by smallness and smoothness, \cite{last1983compact} regularize by compactness, essentially demanding that the anomaly be as small as possible while still fitting the data. They use an $L_0$ norm on the smallness component and do not use the smoothness constraints. \cite{portniaguine1999focusing} extend  \cite{last1983compact} by adding a minimum gradient support functional. The effect of this support functional is a $L_0$ norm on the smoothness terms instead of the smallness term as in \cite{last1983compact}.
+
+\cite{rudin1992nonlinear} and \cite{vogel1998fast} propose total variation methods, in other words the use of $L_1$ norms to regularize, instead of $L_2$ norms as in \cite{li19963} and \cite{li19983}. Since minimizing $L_1$ norms promotes sparsity, regularizing by them will have a comparable effect (blocky models with sharp boundaries) as the method used by \cite{last1983compact} and \cite{portniaguine1999focusing}. Total variation has been used more specifically in the context of geophysical inversion, such as with \cite{guitton2012blocky}.	
+
+\cite{farquharson1998non} also report ways of achieving sharp contrast by implementing non-$L_2$ norms such as Ekblom and Huber norms. \cite{fournier2015cooperative} implements a method of minimizing the general $L_p$ (smallness) and $L_q$ (smoothness) norms for any $p$ and $q$ (typically values between 0 and 2) allowing a user to specify the degree of compactness or blockiness of a recovered model in different spatial directions.
+
+The formulation in \autoref{eq:phim} allows a great deal of control of the way the model varies along the three cardinal directions. However, the geometry of a deposit does not always align with any of the cardinal directions and diagonal structures are preferred. \cite{li2000incorporating}  extend the method of \cite{li19963} and \cite{li19983} by rotating the model objective function to allow for linear features in the recovered model to be in a direction not in line with the mesh grid. \cite{lelievre2009comprehensive} generalize the methods in \cite{li2000incorporating} to the 3D case.
+
+\cite{guillen1984gravity} extend the method in \cite{last1983compact}. Instead of minimizing the volume of a deposit, the authors minimize its moment of inertia. By specifying an axis of rotation to determine the moment of inertia, they put dip information into the regularization in addition to having the sharp contrasts and compact models as in \cite{last1983compact}.  \cite{barbosa1994generalized} and \cite{barbosa2006interactive} extend the method even further allowing multiple axes of rotation. The second paper also describes a GUI to interactively test the fit of various axes of rotation.
+
+\cite{chasseriau20033d} create a very general method of biasing the inversion algorithm towards anomalies of almost any shape by weighting the smallness term with a covariance matrix of the model, i.e., a matrix with the covariance of each cell versus every other cell in the model. The covariance matrix can be generated from bore hole or surface sample data or from a synthetic initial model.
+
+In addition to the deterministic inversions described above, much research has been done on stochastic inversion. \cite{bosch2001lithologic} directly invert for lithologies. The authors forward model physical properties by a probabilistic relation of the physical property to the lithology. New lithology distributions are created using a pseudo-random walk. \emph{A priori} information is included partially in the probabilistic model that links the lithology to the physical properties but also in the initial probability distribution of the lithology model. \cite{guillen2008geological} implement the method described in \cite{bosch2001lithologic} in 3D. 
+
+
+Attempts have also been made at combining stochastic and deterministic methods. One particularly successful line of inquiry are \ac{FCM}. \cite{paasche2006integration} uses FCM clustering of recovered models to derive membership functions of model cells in several clusters. The clusters are then used with \emph{a priori} porosity data to create a likely porosity of each cluster and a porosity model is created from these results. 
+
+Instead of clustering after an inversion to achieve the effect of a cooperative inversion like \cite{paasche2006integration}, \cite{sun2015multidomain} use the FCM function as an extra term in the model objective function. This allows them to simultaneously invert slowness and density (from travel time and gravity data) by linking them through the FCM clusters. It also allows them to guide the FCM cluster physical properties in a way that allows the integration of petrophysical measurements of geological units without directly forcing where the units are in space.
+
+%For the purpose of this thesis I will use the framework described in \cite{li19963} and \cite{li19983}. This is partially due to computational efficiencies that come from deterministic inversion. It is also due to the fact the goal of this thesis is to integrate the creation of regularization with the actual inversion codes and data processing, as such I use the framework of the inversion software I am integrating with.
+
+Finally, I will discuss implementations of constrained inversions. \cite{phillips2001thesis} uses bore hole densities and susceptibilities to bound a gravity and a magnetic inversion. \cite{farquharson2008geologically} use density bore hole logs to create a reference model for a gravity inversion. They demonstrate the effect of having many bore holes versus only a few. \cite{williams2008geologically}  provides the most extensive review of this subject. He creates a software package to integrate a phenomenal number of types of geological and petrophysical data. Many of the tools that he created are integrated into the work that I present. He then uses these tools to make detailed susceptibility and density constraints. Finally, \cite{Lelievre2009Integrating} discusses the use of surface samples and bore holes in constraining a synthetic example. He also shows the use of orientation information of linear features as a geological constraint. 
+
+As stated in the research motivation, what is lacking in previous implementations is an integrated environment where data, models, inversions, and constraints can be developed. By implementing the creation of constraints in such an environment, I make the creation of constraints faster even in non-trivial contexts with multiple sources of information and multiple forms of constraints.
+
 \section{Thesis Organization}
 \label{sec:Thesis Organization}
 		
-In this thesis I describe the methods used to create the tools I contributed to GIFtools and give examples of their use. \autoref{ch:GIFtools} will discuss the tools I have created. It  describes the types of information that GIFtools and Model Builder can integrate into an inversion and discuss how they can be used to constrain an inversion result. I discuss how sample information, bore hole and surface sample data, can be used to set reference models and bounds. I also discuss geological maps and how Model Builder incorporates information from both cross section and plan view maps into the regularization of inversions. Finally in \autoref{ch:GIFtools}  I discuss the use of clustering multiple inversion results to create non-trivial face weights in addition to reference models and bounds.
+In this thesis I describe the methods used to create the tools I contributed to GIFtools and give examples of their use. \autoref{ch:GIFtools} will discuss the tools I have created. It  describes the types of information that GIFtools and Model Builder can integrate into an inversion and discuss how they can be used to constrain an inversion result. I discuss how sample information (bore hole and surface sample data) can be used to set reference models and bounds. I also discuss geological maps and how Model Builder incorporates information from both cross section and plan view maps into the regularization of inversions. Finally in \autoref{ch:GIFtools}  I discuss the use of clustering multiple inversion results to create non-trivial face weights in addition to reference models and bounds.
 
 In \autoref{ch:CaseStudy1} I show the use of GIFtools and Model Builder in the creation of regularizations for a magnetic inversion in El Poma. El Poma is a porphyry deposit in Colombia that has magnetic properties measured from bore holes, surface samples, in addition to a geological map over the region. The region is also interesting due the large effect of remanent magnetization. I discuss a synthetic case matching the magnetic survey, bore holes, surface samples and map to recover the anomaly. I also show the result of the inversion of the actual field data.
 
 Finally in \autoref{ch:CaseStudy2} I show an example GIFtools and Model Builder in the context of the Tli Kwi Cho Kimberlite complex in the North West territories. In this case there have been several surveys flown over the region for electromagnetic (of which I use only the magnetic data) and gravity gradiometry data. In addition to the geophysical data there has been extensive drilling and cross section maps have been created. I show a synthetic example incorporating the \emph{a priori} information as well as using clustering of the magnetic and gravity inversion to create further constraints.
 
 
-\end{itemize}
-\end{itemize}
 
 
 
@@ -152,7 +137,7 @@ Finally in \autoref{ch:CaseStudy2} I show an example GIFtools and Model Builder 
 
 \endinput
 
- Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal.
+Interestingly, the assumption that all magnetizations are in the same direction also assumes that all Koenigsberger ratios are equal.
 
 Any text after an \endinput is ignored.
 You could put scraps here or things in progress.
