@@ -1,0 +1,7 @@
+1
+MVI
+DO27VTEMmag_mesh.msh
+DO27VTEMmag.mag
+geoModel0back.geo
+VALUE 0
+VALUE 1
