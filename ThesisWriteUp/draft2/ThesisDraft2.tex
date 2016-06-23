@@ -102,10 +102,10 @@
 %%
 %% Recommended packages
 %%
-\usepackage{checkend}	% better error messages on left-open environments
+\usepackage{texmf/checkend}	% better error messages on left-open environments
 \usepackage{graphicx}	% for incorporating external images
 %\graphicspath{{images}}
-\usepackage{placeins}
+\usepackage{texmf/placeins}
 
 
 %% booktabs: provides some special commands for typesetting tables as used
@@ -127,7 +127,7 @@
 %%   we *must* use the `nohyperlinks' option -- it causes errors with
 %%   hyperref otherwise.  See Section 5.2 in the ``LaTeX 2e for Class
 %%   and Package Writers Guide'' (clsguide.pdf) for details.
-\usepackage[printonlyused,nohyperlinks]{acronym}
+\usepackage[printonlyused,nohyperlinks]{texmf/acronym}
 %% The ubcdiss.cls loads the `textcase' package which provides commands
 %% for upper-casing and lower-casing text.  The following causes
 %% the acronym package to typeset acronyms in small-caps
@@ -144,7 +144,7 @@
 %% comment: provides a new {comment} environment: all text inside the
 %% environment is ignored.
 %%   \begin{comment} ignored text ... \end{comment}
-\usepackage{comment}
+\usepackage{texmf/comment}
 
 %% The natbib package provides more sophisticated citing commands
 %% such as \citeauthor{} to provide the author names of a work,
@@ -158,7 +158,7 @@
 %% section titles are typeset.  The following uses more compact
 %% spacings above and below the title.  The titleformat that follow
 %% ensure chapter/section titles are set in singlespace.
-\usepackage[compact]{titlesec}
+\usepackage[compact]{texmf/titlesec}
 \titleformat*{\section}{\singlespacing\raggedright\bfseries\Large}
 \titleformat*{\subsection}{\singlespacing\raggedright\bfseries\large}
 \titleformat*{\subsubsection}{\singlespacing\raggedright\bfseries}
