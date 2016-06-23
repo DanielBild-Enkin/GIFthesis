@@ -1,8 +1,12 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Including Geological Maps in Model Objective Functions }
+\chapter{Tools for Integrating Geological and Petrophysical Information into Regularization}
 \label{ch:GIFtools}
+
+
+\section{Including Geological Maps in Model Objective Functions }
+\label{sec:maps}
 %
 %\begin{epigraph}
 %
@@ -32,8 +36,8 @@ It is often the case that geological information is provided in the form of geol
 
 Below in point form is the method I have developed to incorporate pixel maps.
 
-\section{ Preprocessing images}
-\label{sec: Preprocessing images}
+\subsection{ Preprocessing images}
+\label{subsec:Preprocessing images}
 
 Often a geological map image will not be immediately suitable to the methods used below and some prepossessing is required. The most notable features that are undesirable in a map are geological units that are not only one or two colours and text or other annotations that could be interpreted by the program as geological information. Also map images may be of too high resolution to be efficiently used in these methods and must also be down-sampled to save  computer processing time and memory.
 
@@ -93,8 +97,8 @@ Storing a map as a GIFtools object allows its use in several ways. Notably it al
 
 
 
-\section{Creating a Pixel Map Legend}
-\label{sec:Create Pixel Map Legend}
+\subsection{Creating a Pixel Map Legend}
+\label{subsec:Create Pixel Map Legend}
 
 Continuing on in the process of making a geological constraint.
 \begin{itemize}
@@ -178,8 +182,8 @@ A 2D Geology model can be used to create constraints for a 2D inversion, it can 
     \label{fig:mapModelCross3D}
 \end{figure}
 \FloatBarrier
-\section{Making Constraints for an Inversion}
-\label{sec:Making Constraints for and Inversion}
+\section{subMaking Constraints for an Inversion}
+\label{subsec:Making Constraints for and Inversion}
 
 The model that has been created is a geology model. That is, a model in which each cell represents a given geological unit. To be able to convert this model into a constraint for a geophysical inversion the link between between the geology and the petrophysics needs to be provided. 
 
@@ -208,8 +212,8 @@ In this case the resolution of conflicts is trivial as there is a single source 
     \label{fig:mapRefModPlan}
 \end{figure}
 
-\section{Inputing Fault information from Geological Maps}
-\label{sec:Inputing Fault information from Geological Maps}
+\subsection{Inputing Fault information from Geological Maps}
+\label{subsec:Inputing Fault information from Geological Maps}
 
 Another piece of information that can be in geological maps are fault locations. Again in the context of El Poma the map provided a whole complex of thrust faults as shown in the un-doctored map in \autoref{fig:ElPoma_GEOL_MagSus}
 
