@@ -104,7 +104,7 @@
 % GPS apparently now require the ToC to be itself listed in the ToC,
 % which seems redundant (why would you look for the ToC in the ToC?)
 \ifgpscopy
-\RequirePackage{tocbibind}
+\RequirePackage{texmf/tocbibind}
 \else
 \RequirePackage[nottoc]{tocbibind}
 \fi
@@ -116,7 +116,7 @@
 
 % GPS wants each line of the ToC/LoT/LoF to have dotted leaders.
 % Ugh, looks like Word
-\RequirePackage[titles]{tocloft}        % typesetting of ToC, LoT, & LoF
+\RequirePackage[titles]{texmf/tocloft}        % typesetting of ToC, LoT, & LoF
 \renewcommand{\cftpartdotsep}{\cftdotsep}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 
