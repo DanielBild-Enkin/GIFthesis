@@ -11,7 +11,7 @@ Bore holes provide physical property measurements at depth either by sending geo
 
 In addition to physical property data, bore holes can also provide qualitative rock unit information. In this section I show the conversion of lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks). Once this conversion is done,  the bore hole information can be used in the same fashion as a physical property bore hole logs.
 
-In this section I also show the advantage to integrating the creation of inversion constraints with more general data processing tools. Once we have a set of 
+In this section I also show the advantage to integrating the creation of 
 
 \section{Including Geological Maps in Inversion Regularization}
 \label{sec:maps}

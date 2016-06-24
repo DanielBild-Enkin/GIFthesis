@@ -1,34 +1,34 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.1.20)  23 JUN 2016 17:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.27)  24 JUN 2016 10:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **ThesisDraft2.tex
 (./ThesisDraft2.tex
-LaTeX2e <2014/05/01>
-Babel <3.9l> and hyphenation patterns for 2 languages loaded.
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 4 languages loaded.
 (./ubcdiss.cls
 Document Class: ubcdiss 2008/04/06
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count79
 \calc@Bcount=\count80
 \calc@Adimen=\dimen102
 \calc@Bdimen=\dimen103
 \calc@Askip=\skip41
 \calc@Bskip=\skip42
-LaTeX Info: Redefining \setlength on input line 75.
-LaTeX Info: Redefining \addtolength on input line 76.
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count81
 \calc@Cskip=\skip43
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 Using one-and-a-half spacing
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk11.clo
-File: bk11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count82
 \c@chapter=\count83
@@ -151,7 +151,7 @@ Package: courier 2005/04/12 PSNFSS-v9.2a (WaS)
 Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
@@ -241,7 +241,7 @@ LaTeX Warning: You have requested package `texmf/checkend',
 
 Package: checkend 2002/04/20 v1.0 Environment checking
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
@@ -249,8 +249,8 @@ Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
@@ -309,15 +309,15 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \lst@maxwidth=\dimen132
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 \c@lstnumber=\count116
 \lst@skipnumbers=\count117
 \lst@framebox=\box29
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2014/09/06 1.5e listings configuration
+File: listings.cfg 2013/08/26 1.5b listings configuration
 ))
-Package: listings 2014/09/06 1.5e (Carsten Heinz)
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
 
 (./texmf/acronym.sty
 
@@ -344,16 +344,16 @@ Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
 \AC@clearlist=\toks22
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 137.
-)
-(./texmf/comment.sty
+Package color Info: Driver file: pdftex.def on input line 130.
+) (./texmf/comment.sty
 \CommentStream=\write4
- Excluding comment 'comment')
+
+Excluding comment 'comment')
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip85
@@ -551,21 +551,7 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 \MPnumerator=\count136
 \makeMPintoPDFobject=\count137
 \everyMPtoPDFconversion=\toks25
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
 \c@lstlisting=\count138
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
@@ -573,8 +559,7 @@ Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box32
 Package backref Info: ** backref set up for natbib ** on input line 331.
 Package hyperref Info: Link coloring OFF on input line 331.
-
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -745,7 +730,7 @@ Chapter 2.
 
 
 
-] <images/Faults/ElPoma_GEOL_MagSus.png, id=456, 120.45pt x 76.24484pt>
+] <images/Faults/ElPoma_GEOL_MagSus.png, id=452, 120.45pt x 76.24484pt>
 File: images/Faults/ElPoma_GEOL_MagSus.png Graphic file (type png)
 
 <use images/Faults/ElPoma_GEOL_MagSus.png>
@@ -753,7 +738,7 @@ Package pdftex.def Info: images/Faults/ElPoma_GEOL_MagSus.png used on input lin
 e 46.
 (pdftex.def)             Requested size: 288.0011pt x 182.32237pt.
 
-<images/MaptoModel/ElPoma_GEOL_MagSus_M2M_downsample8.png, id=459, 1114.1625pt 
+<images/MaptoModel/ElPoma_GEOL_MagSus_M2M_downsample8.png, id=455, 1114.1625pt 
 x 705.63625pt>
 File: images/MaptoModel/ElPoma_GEOL_MagSus_M2M_downsample8.png Graphic file (ty
 pe png)
@@ -769,7 +754,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 65.
 
-<images/MaptoModel/importPlan.PNG, id=466, 354.57469pt x 351.56343pt>
+<images/MaptoModel/importPlan.PNG, id=462, 354.57469pt x 351.56343pt>
 File: images/MaptoModel/importPlan.PNG Graphic file (type png)
 
 <use images/MaptoModel/importPlan.PNG>
@@ -780,7 +765,7 @@ Package pdftex.def Info: images/MaptoModel/importPlan.PNG used on input line 80
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/MaptoModel/importCross.PNG, id=468, 372.64218pt x 356.83313pt>
+<images/MaptoModel/importCross.PNG, id=464, 372.64218pt x 356.83313pt>
 File: images/MaptoModel/importCross.PNG Graphic file (type png)
 
 <use images/MaptoModel/importCross.PNG>
@@ -791,7 +776,7 @@ Package pdftex.def Info: images/MaptoModel/importCross.PNG used on input line 8
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/MaptoModel/mapData.PNG, id=470, 651.18282pt x 496.85625pt>
+<images/MaptoModel/mapData.PNG, id=466, 651.18282pt x 496.85625pt>
 File: images/MaptoModel/mapData.PNG Graphic file (type png)
 
 <use images/MaptoModel/mapData.PNG>
@@ -803,7 +788,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [13 <./images/MaptoModel/importPlan.PNG> <./images/MaptoModel/importCross.PNG>]
 [14 <./images/MaptoModel/mapData.PNG>]
-<images/MaptoModel/mapModelPlan.PNG, id=487, 758.08218pt x 547.2947pt>
+<images/MaptoModel/mapModelPlan.PNG, id=483, 758.08218pt x 547.2947pt>
 File: images/MaptoModel/mapModelPlan.PNG Graphic file (type png)
 
 <use images/MaptoModel/mapModelPlan.PNG>
@@ -814,7 +799,7 @@ Package pdftex.def Info: images/MaptoModel/mapModelPlan.PNG used on input line
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15] <images/MaptoModel/mapMeshCross.PNG, id=496, 755.07094pt x 544.28343pt>
+[15] <images/MaptoModel/mapMeshCross.PNG, id=492, 755.07094pt x 544.28343pt>
 File: images/MaptoModel/mapMeshCross.PNG Graphic file (type png)
 
 <use images/MaptoModel/mapMeshCross.PNG>
@@ -822,7 +807,7 @@ Package pdftex.def Info: images/MaptoModel/mapMeshCross.PNG used on input line
 162.
 (pdftex.def)             Requested size: 180.0pt x 129.75035pt.
 
-<images/MaptoModel/mapModelCross.PNG, id=497, 757.32938pt x 545.03625pt>
+<images/MaptoModel/mapModelCross.PNG, id=493, 757.32938pt x 545.03625pt>
 File: images/MaptoModel/mapModelCross.PNG Graphic file (type png)
 
 <use images/MaptoModel/mapModelCross.PNG>
@@ -833,7 +818,7 @@ Package pdftex.def Info: images/MaptoModel/mapModelCross.PNG used on input line
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/MaptoModel/add2Dto3D.PNG, id=498, 245.41687pt x 288.3272pt>
+<images/MaptoModel/add2Dto3D.PNG, id=494, 245.41687pt x 288.3272pt>
 File: images/MaptoModel/add2Dto3D.PNG Graphic file (type png)
 
 <use images/MaptoModel/add2Dto3D.PNG>
@@ -844,7 +829,7 @@ Package pdftex.def Info: images/MaptoModel/add2Dto3D.PNG used on input line 174
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/MaptoModel/mapModelCross3D.PNG, id=499, 758.835pt x 547.2947pt>
+<images/MaptoModel/mapModelCross3D.PNG, id=495, 758.835pt x 547.2947pt>
 File: images/MaptoModel/mapModelCross3D.PNG Graphic file (type png)
 
 <use images/MaptoModel/mapModelCross3D.PNG>
@@ -858,7 +843,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [16 <./images/MaptoModel/mapModelPlan.PNG> <./images/MaptoModel/mapMeshCross.PN
 G>] [17 <./images/MaptoModel/mapModelCross.PNG> <./images/MaptoModel/add2Dto3D.
 PNG>] [18 <./images/MaptoModel/mapModelCross3D.PNG>]
-<images/MaptoModel/geoDefPlan.PNG, id=519, 590.95781pt x 222.8325pt>
+<images/MaptoModel/geoDefPlan.PNG, id=515, 590.95781pt x 222.8325pt>
 File: images/MaptoModel/geoDefPlan.PNG Graphic file (type png)
 
 <use images/MaptoModel/geoDefPlan.PNG>
@@ -866,7 +851,7 @@ Package pdftex.def Info: images/MaptoModel/geoDefPlan.PNG used on input line 19
 5.
 (pdftex.def)             Requested size: 288.0011pt x 108.59724pt.
 
-<images/MaptoModel/combineModelRef.PNG, id=521, 831.85782pt x 561.59813pt>
+<images/MaptoModel/combineModelRef.PNG, id=517, 831.85782pt x 561.59813pt>
 File: images/MaptoModel/combineModelRef.PNG Graphic file (type png)
 
 <use images/MaptoModel/combineModelRef.PNG>
@@ -874,7 +859,7 @@ Package pdftex.def Info: images/MaptoModel/combineModelRef.PNG used on input li
 ne 203.
 (pdftex.def)             Requested size: 288.0011pt x 194.42853pt.
 
-<images/MaptoModel/mapRefModPlan.PNG, id=523, 758.835pt x 547.2947pt>
+<images/MaptoModel/mapRefModPlan.PNG, id=519, 758.835pt x 547.2947pt>
 File: images/MaptoModel/mapRefModPlan.PNG Graphic file (type png)
 
 <use images/MaptoModel/mapRefModPlan.PNG>
@@ -891,7 +876,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [19
 
  <./images/MaptoModel/geoDefPlan.PNG>]
-<images/Faults/makeFaultGUI.PNG, id=531, 252.945pt x 235.63031pt>
+<images/Faults/makeFaultGUI.PNG, id=527, 252.945pt x 235.63031pt>
 File: images/Faults/makeFaultGUI.PNG Graphic file (type png)
 
 <use images/Faults/makeFaultGUI.PNG>
@@ -902,7 +887,7 @@ Package pdftex.def Info: images/Faults/makeFaultGUI.PNG used on input line 233.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/Faults/faults.png, id=533, 953.5625pt x 872.25874pt>
+<images/Faults/faults.png, id=529, 953.5625pt x 872.25874pt>
 File: images/Faults/faults.png Graphic file (type png)
 
 <use images/Faults/faults.png>
@@ -972,21 +957,26 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 418.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 418.
 Package rerunfilecheck Info: File `ThesisDraft2.out' has not changed.
 (rerunfilecheck)             Checksum: 20F8C4612CD9A6ED38A0A513AFC5651D;2604.
-Package rerunfilecheck Info: File `ThesisDraft2.brf' has not changed.
-(rerunfilecheck)             Checksum: 2A74E3C51CE53A3F5022316F6CBF2F63;2716.
 
+
+Package rerunfilecheck Warning: File `ThesisDraft2.brf' has changed.
+(rerunfilecheck)                Rerun to get bibliographical references right.
+
+Package rerunfilecheck Info: Checksums for `ThesisDraft2.brf':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  2A74E3C51CE53A3F5022316F6CBF2F63;2716.
 
 LaTeX Warning: There were undefined references.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 418.
  ) 
 Here is how much of TeX's memory you used:
- 10889 strings out of 495020
- 162839 string characters out of 6181324
- 253729 words of memory out of 5000000
- 13692 multiletter control sequences out of 15000+600000
+ 10777 strings out of 494989
+ 160625 string characters out of 6180577
+ 251444 words of memory out of 5000000
+ 13591 multiletter control sequences out of 15000+600000
  55186 words of font info for 116 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
+ 36 hyphenation exceptions out of 8191
  36i,12n,39p,1151b,533s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
@@ -999,10 +989,9 @@ r.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on ThesisDraft2.pdf (36 pages, 2015714 bytes).
+Output written on ThesisDraft2.pdf (36 pages, 2058353 bytes).
 PDF statistics:
- 674 PDF objects out of 1000 (max. 8388607)
- 591 compressed objects within 6 object streams
+ 631 PDF objects out of 1000 (max. 8388607)
  122 named destinations out of 1000 (max. 500000)
  364 words of extra memory for PDF output out of 10000 (max. 10000000)
 
