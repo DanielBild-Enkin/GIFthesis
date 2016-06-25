@@ -9,38 +9,17 @@
 
 Bore holes provide physical property measurements at depth either by sending geophysical instruments down hole or by recovering a core and then measuring it subsequently in the lab.  Much work has been done on including physical property bore hole information(\cite{williams2008geologically}). In this section I discuss the way GIFtools and Model Builder incorporate bore hole information into inversion constraints.
 
+In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in inversion regularization. Surface Samples take on increased importance since in gerneral the sensitivity of the data on a given cell is higher when the cell is nearer the surface. Constraining these sruface celles can reduce artifacts that come from this increased sensitivity.
+
+
+
 In addition to physical property data, bore holes can also provide qualitative rock unit information. In this section I show the conversion of lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks). Once this conversion is done,  the bore hole information can be used in the same fashion as a physical property bore hole logs.
 
-In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in inversion regularization. Surface Samples take on increased importance since in gerneral the sensitivity of the data on a given cell is higher when the cell is nearer the surface. Constraining these sruface celles can reduce artifacts that come from this increased sensitivity.
 
 In this section I also show the advantage to integrating the creation of inversion constraints with more general data processing tools. Once we have a set of sample data either bore hole or surface sample loaded into GIFtools we can then use the general data modification tools that are alread provided for data quality control.
 
 \section{Including Geological Maps in Inversion Regularization}
 \label{sec:maps}
-%
-%\begin{epigraph}
-%
-%\end{epigraph}
-%
-%As Far I as I can tell This section should organized by data type as well.
-%
-%\section{Forms of A Priori Information}
-%\label{sec:Forms of A Priori Information}
-%
-%\subsection{Bore Hole Data and the Use of Koenigsberger Ratios to Correct Bore Hole Susceptibility Measurements}
-%\label{sec: Bore Hole Data}
-%
-%
-%I think there is some use in describing how GIFtools does it now. Much of this work was done in \cite{williams2008geologically}. Mostly what I have done is the inclusion of lithologies and the use of Koenigsberger
-%	
-%\subsection{Surface Sample Data}
-%\label{sec: Surface Sample Data}
-%
-%Again \cite{williams2008geologically} did much of this. I think the Surface Samples will be primary use in proving physical properties for the map in El Poma
-%
-%
-%\subsection{Geological Maps}
-%\label{sec: Geological Maps}
 
 It is often the case that geological information is provided in the form of geological maps in either cross section or plan view. Such maps are particularly useful since they provide a great deal of information over their entire surface. Cross sections can provide information at depth and constrain a whole region often within the center of a target of interest. Plan view maps do not provide information at depth, but they do constrain the entire surface of the region being inverted.  Constraining the surface of an inversion is of interest since the sensitivity of the data to the top cells is particularly high, which can lead to artifacts on the surface. For the next section the plan view model is from the El Poma case study and the cross section model is from TKC, specifically the map from \citep{harder2006geology}
 
