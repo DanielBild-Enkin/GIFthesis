@@ -9,14 +9,79 @@
 
 Bore holes provide physical property measurements at depth either by sending geophysical instruments down hole or by recovering a core and then measuring it subsequently in the lab.  Much work has been done on including physical property bore hole information(\cite{williams2008geologically}). In this section I discuss the way GIFtools and Model Builder incorporate bore hole information into inversion constraints.
 
-In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in inversion regularization. Surface Samples take on increased importance since in gerneral the sensitivity of the data on a given cell is higher when the cell is nearer the surface. Constraining these sruface celles can reduce artifacts that come from this increased sensitivity.
-
-
-
 In addition to physical property data, bore holes can also provide qualitative rock unit information. In this section I show the conversion of lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks). Once this conversion is done,  the bore hole information can be used in the same fashion as a physical property bore hole logs.
 
+In this section I also show the advantage to integrating the creation of inversion constraints with more general data processing tools. Once we have a set of sample data either bore hole or surface sample loaded into GIFtools we can then use the general data modification tools that are already provided for data quality control.
 
-In this section I also show the advantage to integrating the creation of inversion constraints with more general data processing tools. Once we have a set of sample data either bore hole or surface sample loaded into GIFtools we can then use the general data modification tools that are alread provided for data quality control.
+\subsection{Importing Bore Hole Data}
+\label{subsec:importBH}
+
+\begin{itemize}
+ \item Describe Files
+ \begin{itemize}
+  \item Collar
+  \item Survey
+  \item Property File
+ \end{itemize}
+ \item Show \ac{GUI}s to do this.
+ \item describe options in importing data
+\end{itemize}
+
+
+
+\subsection{Visualizing Bore Hole Data}
+\label{subsec:visBH}
+
+\subsection{Converting Lithogy Information into Petrophysical Information}
+\label{subsec:lithBH}
+
+\subsection{Discretizing Bore Hole Data}
+\label{subsec:discBH}
+
+\begin{itemize}
+ \item Provide mesh, Usually from Model Builder
+ \item describe distribution 
+ \begin{itemize}
+  \item normal
+  \item log normal
+  \item describe why one and not other. Cond tends to be log normal (citation needed), Den tends to be normal (citation needed), Susc can be either depending on who you ask(citation needed).
+ \end{itemize}
+ \describe method of determining bounds
+ \begin{itemize}
+  \item Confidence interval: given a number of samples in a cell and a distribution, bounds are determined from a given percent confidence interval. Where the standard deviation is zero, (if there is only one datum, or all the data are equal) he minimum value is used in place of the confidence interval.
+  \item Floor: Simply assigns a bound based on the mean value of each cell plus or minus the provided floor value
+  \item Standard Deviation: Calculates the standard deviation of the sample values in each mesh cell (given a normal or log normal distribution). The bounds are set as equal to the mean value plus some multiple of the standard deviation. In the case that the standard deviation is zero the minimum value is used instead of the multiplied standard deviation. 
+ \end{itemize}
+ \item positivity simply set the lower bound and mean to be at least 0
+\end{itemize}
+
+\subsection{Editing Bore Hole Data}
+\label{subsec:visBH}
+
+\begin{itemize}
+ \item show editing of BH discretization
+ \item show editing of prop data for susc to eff susc
+\end{itemize}
+
+\subsection{Making Constraint}
+\label{subsec:makeConstBH}
+
+\begin{itemize}
+ \item show resolve conflicts dialogue
+ \begin{itemize}
+  \item steal from below section (new images necessary)
+ \end{itemize}
+\end{itemize}
+
+\subsection{Surface Sample}
+\label{subsec:SS}
+
+In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in inversion regularization. Surface Samples take on increased importance since in general the sensitivity of the data on a given cell is higher when the cell is nearer the surface. Constraining these surface cells can reduce artifacts that come from this increased sensitivity.
+
+\begin{itemize}
+ \item show loading, visualization, editing, all similar to BH
+\end{itemize}
+
 
 \section{Including Geological Maps in Inversion Regularization}
 \label{sec:maps}
@@ -47,8 +112,8 @@ For example \autoref{fig:ElPoma_GEOL_MagSus} has great deal of information, (fau
 \end{figure}
 
 \FloatBarrier
-\section{Loading Images into GIFtools}
-\label{sec:Load Images into GIFtools}
+\subsection{Loading Images into GIFtools}
+\label{subsec:Load Images into GIFtools}
 
 \begin{itemize}
 \item load image into the GIFtools format (\autoref{fig:importPlanGui})
@@ -99,11 +164,11 @@ Continuing on in the process of making a geological constraint.
 \end{itemize}
 \end{itemize}
 
-\section{Making a Geology Model from Map}
-\label{sec:Make Geology Model from Map}
+\subsection{Making a Geology Model from Map}
+\label{subsec:Make Geology Model from Map}
 
-\subsection{Plan View}
-\label{subsec:Make Geology Model from Map Plan View}
+\subsubsection{Plan View}
+\label{subsubsec:Make Geology Model from Map Plan View}
 
 \begin{itemize}
 \item Provide active model. For convenience this is usually an active model already associated with a Model Builder object.
@@ -139,8 +204,8 @@ Continuing on in the process of making a geological constraint.
     \label{fig:mapModelPlan}
 \end{figure}
 
-\subsection{Cross Section}
-\label{subsec:Make Geology Model from Map Cross Section}
+\subsubsection{Cross Section}
+\label{subsubsec:Make Geology Model from Map Cross Section}
 
 The cross section case follows much the same procedure with a few exceptions. An imported cross section map is shown overlaid on a 2D mesh in \autoref{fig:mapMeshCross}. Notably no parameter for the vertical extent is needed. The other notable exception is that mesh that is used is a \ac{GIF} 2D mesh. The result is shown in \autoref{fig:mapModelCross}.  
 
@@ -171,8 +236,8 @@ A 2D Geology model can be used to create constraints for a 2D inversion, it can 
     \label{fig:mapModelCross3D}
 \end{figure}
 \FloatBarrier
-\section{subMaking Constraints for an Inversion}
-\label{subsec:Making Constraints for and Inversion}
+\subsection{Making Constraints for an Inversion}
+\label{subsec:Making Constraints for an Inversion}
 
 The model that has been created is a geology model. That is, a model in which each cell represents a given geological unit. To be able to convert this model into a constraint for a geophysical inversion the link between between the geology and the petrophysics needs to be provided. 
 
@@ -233,6 +298,70 @@ This process can be done multiple times to create non-trivial fault complexes as
     \label{fig:faults}
 \end{figure}
 \FloatBarrier
+
+\section{Clustering to Create Pseudo-geologic Constraints}
+\label{sec:cluster}
+
+\subsection{Clustering Algorithms}
+\label{subsec:clusterAlgo}
+
+In contexts where multiple data types have been collected over an area, it is often of interest to include information from one inversion result in the regularization of another. Much work has been done on this topic (see \autoref{sec:Literature Review}).
+
+One possible way of integrating information from another inversion result is through clustering to create pseudo-geological models, and then using these to create reference models, bounds, and smoothness weights to constrain subsequent inversions.
+
+\begin{itemize}
+ \item Types of clustering algorithms
+ \begin{itemize}
+  \item K-mean
+  \item C-mean
+  \item User Defined bounds
+ \end{itemize}
+ \item describe algorithm of each
+\end{itemize}
+
+\subsection{Clustering In GIFtools}
+\label{subsec:clusterTools}
+
+\begin{itemize}
+ \item describe requirements
+ \item show GUI
+ \item show result
+\end{itemize}
+
+\subsection{Creation of Constraints}
+\label{subsec:clusterConstraints}
+
+\begin{itemize}
+ \item show creation of ref and bounds from mean cluster boundaries
+ \item show creation of sharp bounds with weights.
+\end{itemize}
+
+\section{Voxel-Parametric Inversion to Provide Physical Property Values for Geological Models}
+\label{sec:voxelParam}
+
+
+\begin{itemize}
+ \item re-describe forward problem with emphasis on forward operator and the size of the data and model vectors
+ \item show that geological model can collapse the forward operator to much smaller matrix by assuming that each unit has a single property value.
+ \begin{itemize}
+  \item especially when the background is fixed at zeros and has no sensitivity
+ \end{itemize}
+ \item describe optimization of new parametric inversion with many fewer degrees of freedom
+ \item describe uses of the new model
+ \begin{itemize}
+  \item assign properties to geological models that fit the collected data as closely as possible
+  \begin{itemize}
+   \item perhaps allows the geology constraints as in \autoref{subsec:clusterConstraints} to be more accurate
+   \item allows the determination of magnetization direction given a geologic or pseudo-geologic model of an magnetization anomaly   
+   \item allows the creation of synthetic models that roughly fit data that has already been acquired
+  \end{itemize}
+ \end{itemize}
+\end{itemize}
+
+
+
+\section{Conclusion}
+\label{sec:GIFtoolsConc}
 
 In this section I have shown the creation of constraints that are compatiple with \ac{GIF} inversion codes. I have created these constraints from multiple types of map (Cross Section and Plan View) and have used different pieces of information from these maps (geological units and fault locations).
 
