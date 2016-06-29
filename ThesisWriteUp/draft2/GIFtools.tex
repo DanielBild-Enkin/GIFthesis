@@ -16,13 +16,107 @@ In this section I also show the advantage to integrating the creation of inversi
 \subsection{Importing Bore Hole Data}
 \label{subsec:importBH}
 
+Bore hole data is typically stored in three separate files: the collar file, the survey file, and the property file. I now discuss the information contained in each file. The collar file contains the spacial information of the very top of the hole often called the collar. \autoref{tab:collarEx} shows an example collar file. GIFtools is sufficiently flexible that it can read both whitespace and comma delimited files, additionally as long as there are headers for each column, it does not matter what order the columns appear in, as the correct columns for each purpose can be specified during the import process, finally while the example shows a text hole identifier, it is also possible to identify individual hole by a numerical index.
+\begin{fileExample}
+\begin{tabular}{|ccccc|}   
+\hline
+\multicolumn{5}{|l|}{! comment} \\
+HOLE-ID & X & Y & Z & LENGTH \\
+DO27-05-01 & 557187 & 7133758 & 418 & 58.52 \\
+DO27-05-02 & 557191 & 7133755 & 418 & 459.5 \\
+DO27-05-03 & 557165 & 7133682 & 418 & 230 \\
+DO27-05-04 & 557425 & 7133835 & 420 & 112.5 \\
+DO27-05-05 & 557425 & 7133835 & 420 & 99.8 \\
+DO27-05-06 & 557425 & 7133835 & 420 & 101 \\
+DO27-05-07 & 557425 & 7133835 & 420 & 218 \\
+DO27-05-08 & 557392 & 7133834 & 419 & 290 \\
+DO27-05-09 & 557392 & 7133834 & 419 & 155 \\
+DO27-05-10 & 557392 & 7133834 & 419 & 140 \\
+DO27-05-11 & 557400 & 7133913 & 419 & 374 \\
+DO27-05-12 & 557345 & 7134210 & 419 & 65 \\
+\hline
+\end{tabular}
+\caption{An example collar file from TKC bore holes}
+\label{tab:collarEx}
+\end{fileExample}
+
+The survey file provides depth, azimuth, and dip information, coding how the hole changes direction below the collar. In \autoref{tab:surveyEx} all the holes as defined in  \autoref{tab:collarEx} are straight and dip in different directions. 
+\begin{fileExample}
+\begin{tabular}{|cccc|}
+\hline
+\multicolumn{4}{|l|}{! comment} \\
+HID & DEPTH & AZIMUTH & DIP \\
+DO27-05-01 & 58.52 & 0 & -90 \\
+DO27-05-02 & 0 & 0 & -90 \\
+DO27-05-02 & 459.5 & 0 & -90 \\
+DO27-05-03 & 0. & 0 & -90 \\
+DO27-05-03 & 230 & 0 & -90 \\
+DO27-05-04 & 0 & 180 & -70 \\
+DO27-05-04 & 112.5 & 180 & -70 \\
+DO27-05-05 & 0 & 200 & -47 \\
+DO27-05-05 & 99.8 & 200 & -47 \\
+DO27-05-06 & 0 & 80 & -45 \\
+DO27-05-06 & 101 & 80 & -45 \\
+DO27-05-07 & 0 & 273 & -70 \\
+DO27-05-07 & 218 & 273 & -70 \\
+DO27-05-08 & 0 & 265 & -45 \\
+DO27-05-08 & 290 & 265 & -45 \\
+DO27-05-09 & 0 & 265 & -86 \\
+DO27-05-09 & 155 & 265 & -86 \\
+DO27-05-10 & 0 & 348 & -45 \\
+DO27-05-10 & 140 & 348 & -45 \\
+DO27-05-11 & 0 & 240 & -45 \\
+DO27-05-11 & 374 & 240 & -45 \\
+DO27-05-12 & 0 & 230 & -45 \\
+DO27-05-12 & 65 & 230 & -45 \\
+\hline
+\end{tabular}
+\caption{An example survey file from TKC bore holes (same holes as \autoref{tab:collarEx}}
+\label{tab:surveyEx}
+\end{fileExample}
+
+Finally, the property file contains information about a given property down the hole. This property can either be a physical property (e.g. density, susceptibility, etc.) or a geological unit. The depth information of a property measurement can be stored as a simple depth along the bore hole, or as an interval with two depths a ``from'' and a ``to'' depth stating that a given measurement hold for the whole interval. \autoref{tab:propEx} shows the second form of property file with a numerical lithology.
+
+\begin{fileExample}
+\begin{tabular}{|cccc|}
+\hline
+\multicolumn{4}{|l|}{! comment} \\
+HOLE-ID & FROM & TO & LITHO  \\
+DO27-05-01 & 56.5 & 58.52 & 1 \\
+DO27-05-02 & 56 & 459.5 & 1 \\
+DO27-05-03 & 59 & 230 & 1 \\
+DO27-05-04 & 19 & 63.4 & 1 \\
+DO27-05-04 & 63.4 & 112.5 & 3 \\
+DO27-05-05 & 21.8 & 85.8 & 1 \\
+DO27-05-06 & 37 & 49.5 & 1 \\
+DO27-05-06 & 49.5 & 82.9 & 3 \\
+DO27-05-07 & 20.5 & 104.5 & 1 \\
+DO27-05-07 & 104.5 & 131 & 3 \\
+DO27-05-07 & 138.7 & 218 & 2 \\
+DO27-05-08 & 20.8 & 290 & 1 \\
+DO27-05-09 & 9 & 95.8 & 1 \\
+DO27-05-09 & 95.8 & 117 & 3 \\
+DO27-05-09 & 125.4 & 155 & 2 \\
+DO27-05-10 & 17 & 100.3 & 1 \\
+DO27-05-10 & 100.3 & 123 & 3 \\
+DO27-05-11 & 44.5 & 223.5 & 1 \\
+DO27-05-12 & 36 & 36.7 & 2 \\
+\hline
+\end{tabular}
+\caption{An example survey file from TKC bore holes (same holes as \autoref{tab:collarEx}}
+\label{tab:propEx}
+\end{fileExample}
+
+ The process to load bore hole data into GIFtools is as follows. Firstly the files that define the bore hole data set (collar, survey, and property) need to be provided. Secondly, the columns to be imported from the property file need to be stated. Lastly the method by which the property data is linked spacialy to the drilling data (collar and survey) is stated. All of these are done by the GUI as shown in \autoref{BHimport1}.
+
+ \begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/BHimport1.PNG}}
+    \caption{The first \ac{GUI} for importing cross section image}
+    \label{fig:BHimport1}
+\end{figure}
+
 \begin{itemize}
- \item Describe Files
- \begin{itemize}
-  \item Collar
-  \item Survey
-  \item Property File
- \end{itemize}
  \item Show \ac{GUI}s to do this.
  \item describe options in importing data
 \end{itemize}
@@ -132,13 +226,13 @@ For example \autoref{fig:ElPoma_GEOL_MagSus} has great deal of information, (fau
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/MaptoModel/importPlan.PNG}
-    \caption{GUI for importing plan view image }
+    \caption{\ac{GUI} for importing plan view image }
     \label{fig:importPlanGui}
 \end{figure}
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/MaptoModel/importCross.PNG}
-    \caption{GUI for importing cross section image }
+    \caption{\ac{GUI} for importing cross section image }
     \label{fig:importCrossGui}
 \end{figure}
 Storing a map as a GIFtools object allows its use in several ways. Notably it allows the integration of the map with models and data, allowing figures overlaying the map and data or model and allowing interpretation of the data or model with direct reference to the map (\autoref{fig:mapData}).
