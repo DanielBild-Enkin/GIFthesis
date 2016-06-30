@@ -134,9 +134,25 @@ Once the files, and property location options have been set, the next step to im
 \subsection{Visualizing Bore Hole Data}
 \label{subsec:visBH}
 
- One
+As stated in the introduction to this section, one of the advantages of integrating the Model Builder tools (including these tools for bore hole data being described) into GIFtools, a more general data visualization and quality control environment, is the ability to use those same tools for the data with which we create regularizations. In this case it is very useful to be able to visualize bore hole data before it gets incorporated in reference model and bounds of an inversion. 
 
-\subsection{Converting Lithogy Information into Petrophysical Information}
+\autoref{fig:TKCBHvis} show the visualization of the bore hole data from TKC, note that the data has been sampled within each unit.  \autoref{fig:EPBHvis} show the visualization of a physical property bore hole data set from El Poma. Note that instead of the blocky sampling each datum along the hole was given its own position (the mid point of each small interval). In both cases the value of the visualized property of a given hole is shown along the side of the 3D representation of all the holes.
+
+ \begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/EPBHvis.PNG}}
+    \caption{Visualization of TKC lithology bore hole data}
+    \label{fig:TKCBHvis}
+\end{figure}
+
+ \begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/EPBHvis.PNG}}
+    \caption{Visualization of El Poma susceptibility bore hole data}
+    \label{fig:EPBHvis}
+\end{figure}
+
+\subsection{Converting Lithology Information into Petrophysical Information}
 \label{subsec:lithBH}
 
 \subsection{Discretizing Bore Hole Data}
