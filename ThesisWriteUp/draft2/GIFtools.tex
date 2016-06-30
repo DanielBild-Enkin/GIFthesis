@@ -120,17 +120,14 @@ There are two methods to link property and drilling data,  discrete and interpol
 
 If interpolate is selected the program behaves differently if the depth information is simple depths or a ``from'' and a ``to'' depth. In the case of simple depths, it is assumed that the measurement is some physical property, and given the sample distance in the \ac{GUI} the measurements are linearly interpolated along the bore hole. In the case of ``from'' and ``to'' depths it is assumed that the measurement lithologies and depths along the hole that are within a ``from'' and ``to'' interval are assigned the property given while depths outside of any range are assigned a NaN value.
 
+Once the files, and property location options have been set, the next step to importing bore hole data into GIFtools is the set of data columns and data headers. Since different collar, survey, and property files have different column orders it advantageous to allow the flexibility to assign columns with a given header to any property of the bore hole object in GIFtools. The \ac{GUI} to assign the columns is shown in \autoref{fig:BHimport2}
 
-
-
-
-
-\begin{itemize}
- \item Show \ac{GUI}s to do this.
- \item describe options in importing data
-\end{itemize}
-
-
+ \begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/BHimport2.PNG}}
+    \caption{The second \ac{GUI} for importing bore hole data}
+    \label{fig:BHimport2}
+\end{figure}
 
 \subsection{Visualizing Bore Hole Data}
 \label{subsec:visBH}
@@ -381,7 +378,8 @@ The method used to insert faults into an inversion is as follows:
 \begin{itemize}
 	\item GIFtools makes this easy by reporting the location of the cursor in the data viewer allowing you to find the location (including elevation) of a point along the fault.
 \end{itemize}
-\item Using the locations provided create a box of a desired thickness (default value is based on the core mesh size) that includes the ends points of the fault and dips in the desired direction.
+\item Using the locations provided GIFtools creates the fault weights by creating a two boxes, each with one of its sides along the fault location as defined in the \ac{GUI}. By setting the value of cells in each box to one, and then taken the derivative of each model, two face models are created where only faces along the fault as defined are non-zeros. Finally by searching for non-zero elements and finding the intersect between the two models, it is possible to set the values of the the faces that define the fault to any value desired.
+
 \item faces within this box are assigned a new value that is provided in the GUI \autoref{fig:makeFaultGUI}.
 \end{itemize}
 
