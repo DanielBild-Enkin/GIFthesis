@@ -107,14 +107,23 @@ DO27-05-12 & 36 & 36.7 & 2 \\
 \label{tab:propEx}
 \end{fileExample}
 
- The process to load bore hole data into GIFtools is as follows. Firstly the files that define the bore hole data set (collar, survey, and property) need to be provided. Secondly, the columns to be imported from the property file need to be stated. Lastly the method by which the property data is linked spacialy to the drilling data (collar and survey) is stated. All of these are done by the GUI as shown in \autoref{BHimport1}.
+ The process to load bore hole data into GIFtools is as follows. Firstly the files that define the bore hole data set (collar, survey, and property) need to be provided. Secondly, the columns to be imported from the property file need to be stated. Lastly the method by which the property data is linked spatially to the drilling data (collar and survey) is stated. All of these are done by the GUI as shown in \autoref{fig:BHimport1}.
 
  \begin{figure} [h]
     \centering
     \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/BHimport1.PNG}}
-    \caption{The first \ac{GUI} for importing cross section image}
+    \caption{The first \ac{GUI} for importing bore hole data}
     \label{fig:BHimport1}
 \end{figure}
+
+There are two methods to link property and drilling data,  discrete and interpolation. If the discrete option is selected then GIFtools simply determined the spatial location based on the depth provided in the property file. In the case that the depth is given in the form of a ``from'' and a ``to'' depth, the depth of the measurement is considered to be the mean of the two depths. 
+
+If interpolate is selected the program behaves differently if the depth information is simple depths or a ``from'' and a ``to'' depth. In the case of simple depths, it is assumed that the measurement is some physical property, and given the sample distance in the \ac{GUI} the measurements are linearly interpolated along the bore hole. In the case of ``from'' and ``to'' depths it is assumed that the measurement lithologies and depths along the hole that are within a ``from'' and ``to'' interval are assigned the property given while depths outside of any range are assigned a NaN value.
+
+
+
+
+
 
 \begin{itemize}
  \item Show \ac{GUI}s to do this.
