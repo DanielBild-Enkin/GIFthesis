@@ -435,21 +435,38 @@ This process can be done multiple times to create non-trivial fault complexes as
 \subsection{Clustering Algorithms}
 \label{subsec:clusterAlgo}
 
-In contexts where multiple data types have been collected over an area, it is often of interest to include information from one inversion result in the regularization of another. Much work has been done on this topic (see \autoref{sec:Literature Review}).
+In contexts where multiple data types have been collected over an area, it is often of interest to include information from one inversion result in the regularization of another. Much work has been done on this topic (see \autoref{sec:Literature Review}). 
 
-One possible way of integrating information from another inversion result is through clustering to create pseudo-geological models, and then using these to create reference models, bounds, and smoothness weights to constrain subsequent inversions.
+One possible way of integrating information from another inversion result is through clustering to create pseudo-geological models, and then using these to create reference models, bounds, and smoothness weights to constrain subsequent inversions. 
 
-\begin{itemize}
- \item Types of clustering algorithms
- \begin{itemize}
-  \item K-mean
-  \item C-mean
-  \item User Defined bounds
- \end{itemize}
- \item describe algorithm of each
-\end{itemize}
+Given several inversion of different data types, multiple models of different physical properties can be recovered. Assuming that each recovered model is on the same mesh (either because all inversion were preformed on the same mesh or the were interpolated onto the same mesh after the fact) each cell has a value for each physical property. Since the standard representation of a model is a vector $mathbf m \in \mathbb R^M$ where as in \autoref{eq:forwardProb} $M$ is the number of cells in the discretization of the earth model, we can generalize so that $\mathbf M \in \mathbb R^{M\times l}$ is the compiled results of $l$ inversion. This notation allows us to say that $\mathbf M$ is made out of several $m_i$ for $i = 1 \cdots M$ and where each $m_i$ is a row vector $l$ long.
 
-\subsection{Clustering In GIFtools}
+In each case the algorithm depends on the user providing the number of clusters for analysis. The Clustering method used determines the clusters and the membership of each $m_i$ in the clusters.
+
+The first clustering methods implemented in Model Builder is simply user defined boundries. These allow a great deal of user control and can be very useful assuming something is known about the underground geology or the physical properties of given units. On the other hand it can quickly be untenable to use this method if several clusters are need or many recovered models are being clustered.
+
+The second clustering method implemented in Model Builder is k-means clustering \cite{gaf1984multivariate} which is based on the minimization of the following objective function,
+
+\begin{equation}
+ \phi_{k-mean} = \sum_{j=1}^k\sum_{m_i \in S_j}\|m_i - v_j\|_2^2,
+\end{equation}
+\label{eq:kmean}
+
+where $k$ is the number of clusters and $S_j$ are the sets of model cells $m_i$ that make up the clustering, finally $v_j$ are the centroids of each cluster. The algorithm to minimize $\phi_{\text{k-mean}}$ is a two step process firstly assigning each $m_i$ to a cluster $S_j$ and secondly determining a new set of $v_j$ that better fit the data.
+
+Finally, the third clustering algorithm implemented in Model Builder is \acf{FCM} \citep{sun2015multidomain}. \ac{FCM} is a generalization of \autoref{eq:kmean} where instead of each datum $m_i$ being in only one cluster, each datum is assigned membership in each cluster to varying degrees allowing ``fuzziness'' in the classification. The objective function becomes
+
+\begin{equation}
+ \phi_{FCM} = \sum_{j=1}^k\sum_{i = 1}^Mu^q_{ij}\|m_i - v_j\|_2^2,
+\end{equation}
+\label{eq:fcm}
+where instead of the $k$ sets $S_j$, membership in each cluster is represented by the membership matrix $u \in \mathbb R^{M\times k}$. Each row of $u$ must sum to 1, in other words each datum is fully considered in $u$ but may be classified as partially in each cluster. Finally $q$, controls the ``fuzziness'' of the clustering with a value of $q = 1$ making a non-fuzzy clustering with each datum being in only one cluster and amount that a given datum can be in multiple clusters increasing as the value of $q$ increases. 
+
+In the case of the clustering algorithm used in Model Builder the final step is ``de-fuzzification'', that is the determining of the cluster that each model cell most fits in. Each model cell is assigned the cluster for which it has the highest membership value.
+
+In both the k-means and the \ac{FCM} case the minimization of the objective functions is done by the standard MATLAB function and notably the value of $q$ in the \ac{FCM} case is set at 2.
+
+\subsection{Clustering In GIFtools and Model Builder}
 \label{subsec:clusterTools}
 
 \begin{itemize}
@@ -469,10 +486,39 @@ One possible way of integrating information from another inversion result is thr
 \section{Voxel-Parametric Inversion to Provide Physical Property Values for Geological Models}
 \label{sec:voxelParam}
 
+In \autoref{sec:cluster} geological models that span the whole discretized volume are defined. These are more extensive than the geological models described in \autoref{subsec:Make Geology Model from Map} because each cell is classified into a cluster as opposed to most cells not having any information (due to the map not intersecting the cell at all in the case of most cells).
+
+In addition to pseudo-geological models created by clustering, it is also possible to get geological models from drill or surface geological data. In TKC one of the forms of geological data that was provided was a set of points created from the interpreted surfaces between units determined using the litholgical bore hole data shown in \autoref{fig:TKCBHvis}.
+
+(((show figure)))
+
+In the cases listed above we have acquired a distribution of geological units that extend across the whole discretized volume it becomes interesting to go further into the assignment of physical properties to the geological units in question. In the case of a clustered pseudo-geological model the obvious method of property assignment is simply using the centroid value recovered from the clustering algorithm. In addition a standard deviation from the mean can be acquired to set the upper and lower bounds of each unit.
+
+Another option is the direct assignment of measured physical property values to the (pseudo-)geological units. This method has the advantage of directly incorporating physical property data into the inversion constraints. Direct assignment can be done through the GIFtools \ac{GUI} by editing the geologic definition of the geological model, and this method makes most sense when the model in question either is the products of geological modeling
+
+
+\subsection{Formulation of Voxel-Parametric inversion problem}
+\label{subsec:voxelParamFormulation}
+
+As stated in \autoref{sec:Regularized Inversion} and \autoref{eq:forwardProb}, the forward problem for which we are trying to find the inverse is formulated as follows
+
+\begin{equation}
+\mathbf d = \mathbb F [\mathbf m],
+\end{equation}
+\label{eq:forwardProbTools}
+
+where as stated above $\mathbf d \in \mathbb R^N$ is the geophysical data, $\mathbf m \in \mathbb R^M$ is a discretization of $m$ which is the model that describes the distribution of some physical property, and $\mathbb F$ is the forward operator that mediates between them. $\mathbb F$ can be considered to be a matrix of size $N\times M$ which in the case of a non-linear problem has a dependence on the model $m$ but in the case of linear problem (such as potential field problems) there is no such dependence. With this in mind \autoref{eq:forwardProbTools} can be re-written
+
+\begin{equation}
+\mathbf d = \mathbb F(\mathbf m)\mathbf m,
+\end{equation}
+\label{eq:forwardProbMat}
+
+
+
 
 \begin{itemize}
- \item re-describe forward problem with emphasis on forward operator and the size of the data and model vectors
- \item show that geological model can collapse the forward operator to much smaller matrix by assuming that each unit has a single property value.
+  \item show that geological model can collapse the forward operator to much smaller matrix by assuming that each unit has a single property value.
  \begin{itemize}
   \item especially when the background is fixed at zeros and has no sensitivity
  \end{itemize}
