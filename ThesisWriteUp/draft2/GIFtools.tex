@@ -140,7 +140,7 @@ As stated in the introduction to this section, one of the advantages of integrat
 
  \begin{figure} [h]
     \centering
-    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/EPBHvis.PNG}}
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/TKCBHvis.PNG}}
     \caption{Visualization of TKC lithology bore hole data}
     \label{fig:TKCBHvis}
 \end{figure}
@@ -510,34 +510,46 @@ Another option is the direct assignment of measured physical property values to 
 
 In some cases the above method leaves something to be desired. In the case of cluster centroids, artifacts in the inversion can lead to magnitudes in the recovered model not being quite in scale with the physical properties in the ground, additionally this method only works if the geological model in question was derived through clustering. In the case of the direct assignment of measured physical properties to geological units, the properties often vary a great deal across the earth model. This can be due to large scale variation across the geological unit (such as be alteration) or small scale alteration where one portion of a sample can be significantly more susceptible than another.
 
+Voxel-Parametric inversion is another method to assign physical properties to geological models. It assumes that a given geological model has correctly determined the distribution of geological units and tries to fit a given geophysical data set assuming that each unit has a single physical property value that is constant across the unit. 
+
+The method allows the assignment of physical properties to geological units based on the best fitting set of properties to a set a data. This gives an advantage over the methods described above by avoiding some artifacts due to under-determined inversion and avoiding putting undue confidence in a small number of physical property measurements. The method also allows the fast an efficient inversion of data without a large number of parameters since the forward problem is much less complex and regularization is unneeded.
 
 \subsection{Formulation of Voxel-Parametric inversion problem}
 \label{subsec:voxelParamFormulation}
 
 As stated in \autoref{sec:Regularized Inversion} and \autoref{eq:forwardProb}, the forward problem for which we are trying to find the inverse is formulated as follows
-
 \begin{equation}
-\mathbf d = \mathbb F [\mathbf m],
+\mathbf d = \mathbb F [\mathbf m], \label{eq:forwardProbTools}
 \end{equation}
-\label{eq:forwardProbTools}
-
 where as stated above $\mathbf d \in \mathbb R^N$ is the geophysical data, $\mathbf m \in \mathbb R^M$ is a discretization of $m$ which is the model that describes the distribution of some physical property, and $\mathbb F$ is the forward operator that mediates between them. $\mathbb F$ can be considered to be a matrix of size $N\times M$ which in the case of a non-linear problem has a dependence on the model $m$ but in the case of linear problem (such as potential field problems) there is no such dependence. With this in mind \autoref{eq:forwardProbTools} can be re-written
-
 \begin{equation}
-\mathbf d = \mathbb F(\mathbf m)\mathbf m,
+\mathbf d = \mathbf F(\mathbf m)\mathbf m, \label{eq:forwardProbMat}
 \end{equation}
-\label{eq:forwardProbMat}
+where $\mathbf F \in \mathbb R^{N\times M}$, and in the case of a linear problem
+\begin{equation}
+\mathbf d = \mathbf F\mathbf m. \label{eq:forwardProbMatLin}
+\end{equation}
 
+In this formulation a geological model can be represented as a sparse matrix $\mathbf{M}_g \in \mathbb R^{M\times k}$ (where $k$ is the number of geological units) that marks the membership of each model cell in each cluster and a vector $\mathbf m_g \in \mathbb R^{k}$ that has the property of each unit. Using these definitions we can define the standard property model that is represented by a geological model as
+\begin{equation}
+\mathbf m = \mathbf M_g\mathbf m_g, \label{eq:geoMod}
+\end{equation}
+where $\mathbf m$ is a standard voxel model with the each value of each cell being the value assigned to geological unit of that cell. \autoref{eq:geoMod} can be inserted intro \autoref{eq:forwardProbMatLin} to form 
+\begin{equation}
+\mathbf d = \big(\mathbf F\mathbf M_g\big)\mathbf m_g, \label{eq:forwardProbMatLinGeo}
+\end{equation}
+where $\mathbf F\mathbf M_g \in \mathbb R^{N\times k}$ is created by a sparse matrix product and is significantly smaller than $\mathbf F \in \mathbb R^{N\times M}$.
 
+Voxel-Parametric inversion now simply consists of minimizing the following data objective function modified from \autoref{eq:phid}
+\begin{equation}
+\phi_{d geo} =\|\mathbf W_d\Big(\big(\mathbf F\mathbf M_g\big)\mathbf m_g - \mathbf d^{obs}\Big)\|^2
+\end{equation}
+\label{eq:phidGeo}
+which is significantly less computationally expensive than a full voxel inversion since the forward problem is now much smaller, and no regularization is required since the problem is now over determined rather than under-determined.
 
+\subsection{Uses of Voxel-Parametric inversion results}
+\label{subsec:voxelParamUses}
 
-\begin{itemize}
-  \item show that geological model can collapse the forward operator to much smaller matrix by assuming that each unit has a single property value.
- \begin{itemize}
-  \item especially when the background is fixed at zeros and has no sensitivity
- \end{itemize}
- \item describe optimization of new parametric inversion with many fewer degrees of freedom
- \item describe uses of the new model
  \begin{itemize}
   \item assign properties to geological models that fit the collected data as closely as possible
   \begin{itemize}
@@ -546,14 +558,11 @@ where as stated above $\mathbf d \in \mathbb R^N$ is the geophysical data, $\mat
    \item allows the creation of synthetic models that roughly fit data that has already been acquired
   \end{itemize}
  \end{itemize}
-\end{itemize}
-
-
 
 \section{Conclusion}
 \label{sec:GIFtoolsConc}
 
-In this section I have shown the creation of constraints that are compatible with \ac{GIF} inversion codes. I have created these constraints from multiple types of map (Cross Section and Plan View) and have used different pieces of information from these maps (geological units and fault locations).
+In this section I have shown the creation of constraints that are compatible with \ac{GIF} inversion codes. I have created these constraints from multiple types of data: bore hole and surface sample data, maps (Cross Section and Plan View), and other inversion results (clustering and voxel-parametric inversion). I have also  used different pieces of information from these forms of data to create reference models, bounds, and face weights.
 
 
 
