@@ -488,13 +488,27 @@ In both the k-means and the \ac{FCM} case the minimization of the objective func
 
 In \autoref{sec:cluster} geological models that span the whole discretized volume are defined. These are more extensive than the geological models described in \autoref{subsec:Make Geology Model from Map} because each cell is classified into a cluster as opposed to most cells not having any information (due to the map not intersecting the cell at all in the case of most cells).
 
-In addition to pseudo-geological models created by clustering, it is also possible to get geological models from drill or surface geological data. In TKC one of the forms of geological data that was provided was a set of points created from the interpreted surfaces between units determined using the litholgical bore hole data shown in \autoref{fig:TKCBHvis}.
+In addition to pseudo-geological models created by clustering, it is also possible to get geological models from drill or surface geological data. In TKC one of the forms of geological data that was provided was a set of points created from the interpreted interfaces between units determined using the litholgical bore hole data shown in \autoref{fig:TKCBHvis}. The point cloud of the interfaces is shown in \autoref{fig:geoLoc} and the resultant geological model created using the add non-convex polyhedron command is shown in \autoref{fig:geoMod}.
 
-(((show figure)))
+\begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.5\textwidth]{images/BHSS/geoLoc.PNG}}
+    \caption{Point cloud of the geological interfaces for TKC bore hole data}
+    \label{fig:geoLoc}
+\end{figure}
+
+\begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.5\textwidth]{images/BHSS/geoMod.PNG}}
+    \caption{A geological model created from the data shown in \autoref{fig:geoLoc}}
+    \label{fig:geoMod}
+\end{figure}
 
 In the cases listed above we have acquired a distribution of geological units that extend across the whole discretized volume it becomes interesting to go further into the assignment of physical properties to the geological units in question. In the case of a clustered pseudo-geological model the obvious method of property assignment is simply using the centroid value recovered from the clustering algorithm. In addition a standard deviation from the mean can be acquired to set the upper and lower bounds of each unit.
 
-Another option is the direct assignment of measured physical property values to the (pseudo-)geological units. This method has the advantage of directly incorporating physical property data into the inversion constraints. Direct assignment can be done through the GIFtools \ac{GUI} by editing the geologic definition of the geological model, and this method makes most sense when the model in question either is the products of geological modeling
+Another option is the direct assignment of measured physical property values to the (pseudo-)geological units. This method has the advantage of directly incorporating physical property data into the inversion constraints. Direct assignment can be done through the GIFtools \ac{GUI} by editing the geologic definition of the geological model, and this method makes most sense when the model in question either is the products of geological modeling as in \autoref{fig:geoMod} or there is a strong parallel between the clustered units and actual geological units. 
+
+In some cases the above method leaves something to be desired. In the case of cluster centroids, artifacts in the inversion can lead to magnitudes in the recovered model not being quite in scale with the physical properties in the ground, additionally this method only works if the geological model in question was derived through clustering. In the case of the direct assignment of measured physical properties to geological units, the properties often vary a great deal across the earth model. This can be due to large scale variation across the geological unit (such as be alteration) or small scale alteration where one portion of a sample can be significantly more susceptible than another.
 
 
 \subsection{Formulation of Voxel-Parametric inversion problem}
@@ -539,7 +553,7 @@ where as stated above $\mathbf d \in \mathbb R^N$ is the geophysical data, $\mat
 \section{Conclusion}
 \label{sec:GIFtoolsConc}
 
-In this section I have shown the creation of constraints that are compatiple with \ac{GIF} inversion codes. I have created these constraints from multiple types of map (Cross Section and Plan View) and have used different pieces of information from these maps (geological units and fault locations).
+In this section I have shown the creation of constraints that are compatible with \ac{GIF} inversion codes. I have created these constraints from multiple types of map (Cross Section and Plan View) and have used different pieces of information from these maps (geological units and fault locations).
 
 
 
