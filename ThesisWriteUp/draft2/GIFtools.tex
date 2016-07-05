@@ -9,7 +9,7 @@
 
 Bore holes provide physical property measurements at depth either by sending geophysical instruments down hole or by recovering a core and then measuring it subsequently in the lab.  Much work has been done on including physical property bore hole information(\cite{williams2008geologically}). In this section I discuss the way GIFtools and Model Builder incorporate bore hole information into inversion constraints.
 
-In addition to physical property data, bore holes can also provide qualitative rock unit information. In this section I show the conversion of lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks). Once this conversion is done,  the bore hole information can be used in the same fashion as a physical property bore hole logs.
+In addition to physical property data, bore holes can also provide qualitative rock unit information. In this section I show the linking of lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks). Once this linking is done,  the bore hole information can be used in the same fashion as a physical property bore hole logs.
 
 In this section I also show the advantage to integrating the creation of inversion constraints with more general data processing tools. Once we have a set of sample data either bore hole or surface sample loaded into GIFtools we can then use the general data modification tools that are already provided for data quality control.
 
@@ -152,10 +152,6 @@ As stated in the introduction to this section, one of the advantages of integrat
     \label{fig:EPBHvis}
 \end{figure}
 
-\subsection{Converting Lithology Information into Petrophysical Information}
-\label{subsec:lithBH}
-
-
 \subsection{Discretizing Bore Hole Data}
 \label{subsec:discBH}
 
@@ -178,11 +174,26 @@ As stated in the introduction to this section, one of the advantages of integrat
 
  \begin{figure} [h]
     \centering
-    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/disc.PNG}}
-    \caption{\ac{GUI} to allow the discretization of bore hole data to a given mesh}
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/geoDefBH.PNG}}
+    \caption{The geology definition of the lithological units in the TKC bore hole data}
     \label{fig:disc}
 \end{figure}
 
+\subsection{Linking Lithology Information into Petrophysical Information}
+\label{subsec:lithBH}
+
+As stated in the introduction of this section bore hole data often consists of lithology data instead of a physical property. In these cases the lithology information needs to be converted into petrophysical information if the bore holes are to be used to constrain inversion results. In GIFtools, linking lithology information to petrophysical data is done by what is called a geology definition. The geology definition is a lookup table that contains information of each particular geological unit's property, lower and upper bounds, and optionally the smallness weight associated with each unit. 
+
+Using the geology definition we can convert a geology model that has information about the spatial distribution of geological units but not of their physical properties into constraints that are usable by an inversion. In the figures below the geological definition came from surface measurements of magnetic susceptibility within each geological unit. \autoref{fig:geoDefBH} is an example of a geology definition in the GIFtools GUI.
+
+ \begin{figure} [h]
+    \centering
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/geoDefBH.PNG}}
+    \caption{\ac{GUI} to allow the discretization of bore hole data to a given mesh}
+    \label{fig:geoDefBH}
+\end{figure}
+
+Once the geology definition is set the lithological bore hole can be treated as a physical property bore hole data set where each sample of a given unit is assigned the property in the geology definition. Multiple properties can be stored in the geology defintion and the one that will be used to create a set of constraints can be changed by editing the geology definition's I/O header.
 
 \subsection{Editing Bore Hole Data}
 \label{subsec:visBH}
