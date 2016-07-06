@@ -1,22 +1,22 @@
 %% The following is a directive for TeXShop to indicate the main file
 %%!TEX root = diss.tex
 
-\chapter{Tools for Integrating Geological and Petrophysical Information into Regularization}
+\chapter{Tools for Integrating Geological and Petrophysical Information into the Regularization of Inversions}
 \label{ch:GIFtools}
 
 \section{Including Sample Information (Bore Hole and Surface Sample) in Inversion Regularization}
 \label{sec:BHandSS}
 
-Bore holes provide physical property measurements at depth either by sending geophysical instruments down hole or by recovering a core and then measuring it subsequently in the lab.  Much work has been done on including physical property bore hole information(\cite{williams2008geologically}). In this section I discuss the way GIFtools and Model Builder incorporate bore hole information into inversion constraints.
+Bore holes provide physical property measurements at depth either by providing a conduit to send geophysical instruments down hole or by recovering a core and then measuring its petrophysical properties subsequently in the lab.  The inversion methods for including physical property and lithology bore hole data  have been developed (e.g., \cite{williams2008geologically}). In this section I discuss how GIFtools and Model Builder incorporate bore hole information into inversion constraints in a expedient but effective manner..
 
 In addition to physical property data, bore holes can also provide qualitative rock unit information. In this section I show the linking of lithology information from bore holes into physical property information (using petrophysical measurements of reasonably similar rocks). Once this linking is done,  the bore hole information can be used in the same fashion as a physical property bore hole logs.
 
-In this section I also show the advantage to integrating the creation of inversion constraints with more general data processing tools. Once we have a set of sample data either bore hole or surface sample loaded into GIFtools we can then use the general data modification tools that are already provided for data quality control.
+In this section I also show the advantage of integrating the creation of inversion constraints with more general data processing tools. Once we have a set of sample data from either bore hole or surface samples loaded into GIFtools, we can then use the general data modification tools that are already provided for data quality control created both by me and the rest of the \ac{GIF} team.
 
 \subsection{Importing Bore Hole Data}
 \label{subsec:importBH}
 
-Bore hole data is typically stored in three separate files: the collar file, the survey file, and the property file. I now discuss the information contained in each file. The collar file contains the spacial information of the very top of the hole often called the collar. \autoref{tab:collarEx} shows an example collar file. GIFtools is sufficiently flexible that it can read both whitespace and comma delimited files, additionally as long as there are headers for each column, it does not matter what order the columns appear in, as the correct columns for each purpose can be specified during the import process, finally while the example shows a text hole identifier, it is also possible to identify individual hole by a numerical index.
+Bore hole data is typically stored in three separate files: the collar file, the survey file, and the property file. The collar file contains the spacial information of the very top of the hole.  \autoref{tab:collarEx} shows an example collar file. GIFtools is sufficiently flexible that it can read both whitespace and comma delimited files. Additionally as long as there are headers for each column, it does not matter what order the columns appear in, as the correct columns for each purpose can be specified during the import process. Finally while the example shows a text hole identifier, it is also possible to identify individual holes by a numerical index.
 \begin{fileExample}
 \begin{tabular}{|ccccc|}   
 \hline
@@ -36,7 +36,7 @@ DO27-05-11 & 557400 & 7133913 & 419 & 374 \\
 DO27-05-12 & 557345 & 7134210 & 419 & 65 \\
 \hline
 \end{tabular}
-\caption{An example collar file from TKC bore holes}
+\caption{An example collar file from TKC bore holes (X and Y are UTM Easting and Northing, Z is the elevation, and Length is the bore hole total length.  All units in meters)}
 \label{tab:collarEx}
 \end{fileExample}
 
@@ -46,6 +46,7 @@ The survey file provides depth, azimuth, and dip information, coding how the hol
 \hline
 \multicolumn{4}{|l|}{! comment} \\
 HID & DEPTH & AZIMUTH & DIP \\
+DO27-05-01 & 0 & 0 & -90 \\
 DO27-05-01 & 58.52 & 0 & -90 \\
 DO27-05-02 & 0 & 0 & -90 \\
 DO27-05-02 & 459.5 & 0 & -90 \\
@@ -71,7 +72,7 @@ DO27-05-12 & 0 & 230 & -45 \\
 DO27-05-12 & 65 & 230 & -45 \\
 \hline
 \end{tabular}
-\caption{An example survey file from TKC bore holes (same holes as \autoref{tab:collarEx}}
+\caption{An example survey file from TKC bore holes (Depth is the position along the hole where the change indirrection occurs (in meters), Azimuth and Dip are the new direction at the depth provided (degrees). The holes are the same as \autoref{tab:collarEx}}
 \label{tab:surveyEx}
 \end{fileExample}
 
@@ -103,11 +104,11 @@ DO27-05-11 & 44.5 & 223.5 & 1 \\
 DO27-05-12 & 36 & 36.7 & 2 \\
 \hline
 \end{tabular}
-\caption{An example survey file from TKC bore holes (same holes as \autoref{tab:collarEx}}
+\caption{An example survey file from TKC bore holes (From and To are depth along the hole in meters and Litho is in this case a lithology unit. Other properties can be included is whatever unit is appropriate. The holes are the same as \autoref{tab:collarEx})}
 \label{tab:propEx}
 \end{fileExample}
 
- The process to load bore hole data into GIFtools is as follows. Firstly the files that define the bore hole data set (collar, survey, and property) need to be provided. Secondly, the columns to be imported from the property file need to be stated. Lastly the method by which the property data is linked spatially to the drilling data (collar and survey) is stated. All of these are done by the GUI as shown in \autoref{fig:BHimport1}. Note that the user has to set whether the depth information of the property 
+ The process to load bore hole data into GIFtools is as follows. Firstly the files that define the bore hole data set (collar, survey, and property) need to be provided. Secondly, the columns to be imported from the property file need to be stated. Lastly the method by which the property data is linked spatially to the drilling data (collar and survey) is stated. All of these are done by the GUI as shown in \autoref{fig:BHimport1}. Note that the user has to set whether the depth information of the property is based on the sample location (discrete) or each point along the hole is interpolated from the data (interpolate).
 
  \begin{figure} [h]
     \centering
@@ -120,7 +121,7 @@ There are two methods to link property and drilling data,  discrete and interpol
 
 If interpolate is selected the program behaves differently depending on whether the depth information is simple depths or intervals. In both cases instead of using the depth information directly, a sample is provided at each point along the bore hole with distances between each sample defined by the sampling interval value in the first \ac{GUI} (\autoref{fig:BHimport1}).
 
-In the case of simple depths, it is assumed that the measurement is some physical property, and given the sample depths the measurements are linearly interpolated along the bore hole. In the case of intervals it is assumed that the measurement lithologies which should not be interpolated, so samples with depths that are within an interval are assigned the property given while depths outside of any range are assigned a NaN value.
+In the case of simple depths, it is assumed that the measurement is some physical property, and given the sample depths the measurements are linearly interpolated along the bore hole. In the case of intervals it is assumed that the measurement lithologies should not be interpolated, so samples with depths that are within an interval are assigned the property given while depths outside of any range are assigned a NaN (not a number) value.
 
 Once the files, and property location options have been set, the next step to importing bore hole data into GIFtools is the set of data columns and data headers. Since different collar, survey, and property files have different column orders it advantageous to allow the flexibility to assign columns with a given header to any property of the bore hole object in GIFtools. The \ac{GUI} to assign the columns is shown in \autoref{fig:BHimport2}
 
@@ -136,7 +137,7 @@ Once the files, and property location options have been set, the next step to im
 
 As stated in the introduction to this section, one of the advantages of integrating the Model Builder tools (including these tools for bore hole data being described) into GIFtools, a more general data visualization and quality control environment, is the ability to use those same tools for the data with which we create regularizations. In this case it is very useful to be able to visualize bore hole data before it gets incorporated in reference model and bounds of an inversion. 
 
-\autoref{fig:TKCBHvis} show the visualization of the bore hole data from TKC, note that the data has been sampled within each unit.  \autoref{fig:EPBHvis} show the visualization of a physical property bore hole data set from El Poma. Note that instead of the blocky sampling each datum along the hole was given its own position (the mid point of each small interval). In both cases the value of the visualized property of a given hole is shown along the side of the 3D representation of all the holes.
+\autoref{fig:TKCBHvis} shows the visualization of the bore hole data from TKC. Note that the data has been sampled within each unit.  \autoref{fig:EPBHvis} shows the visualization of a physical property bore hole data set from El Poma. Note that instead of the method used in \autoref{fig:EPBHvis}, each datum along the hole was given its own position, in this case, the mid point of each small interval provided. In both cases the value of the visualized property of a given hole is shown along the side of the 3D representation of all the holes.
 
  \begin{figure} [h]
     \centering
@@ -161,7 +162,7 @@ As stated in the introduction to this section, one of the advantages of integrat
  \begin{itemize}
   \item normal
   \item log normal
-  \item describe why one and not other. Cond tends to be log normal (citation needed), Den tends to be normal (citation needed), Susc can be either depending on who you ask(citation needed).
+%   \item describe why one and not other. Cond tends to be log normal (citation needed), Den tends to be normal (citation needed), Susc can be either depending on who you ask(citation needed).
  \end{itemize}
  \item describe method of determining bounds
  \begin{itemize}
@@ -216,7 +217,7 @@ Once the geology definition is set the lithological bore hole can be treated as 
 \subsection{Surface Sample}
 \label{subsec:SS}
 
-In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in inversion regularization. Surface Samples take on increased importance since in general the sensitivity of the data on a given cell is higher when the cell is nearer the surface. Constraining these surface cells can reduce artifacts that come from this increased sensitivity.
+In addition to physical property measurements down hole, physical properties can also be measured on the surface, in many cases with much more ease. As with bore hole data, much work  has been done on including surface sample information in inversion regularization. Surface samples take on increased importance since in forward models the sensitivity of the data on a given cell is higher when the cell is nearer the surface. Constraining these surface cells can reduce artifacts that come from this increased sensitivity.
 
 \begin{itemize}
  \item show loading, visualization, editing, all similar to BH
@@ -387,7 +388,7 @@ Using the geology definition we can convert a geology model that has information
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/MaptoModel/geoDefPlan.PNG}
-    \caption{Example of a geological definition as displayed in the GIFtools GUI}
+    \caption{Example of a geological definition as displayed in the GIFtools GUI, the Mean Property, and Bounds are susceptibility measurement in SI$\times10^-3$ and the WS is to set the smallness weight model later on.}
     \label{fig:geoDefPlan}
 \end{figure}
 
@@ -418,7 +419,7 @@ The method used to insert faults into an inversion is as follows:
 \begin{itemize}
 	\item GIFtools makes this easy by reporting the location of the cursor in the data viewer allowing you to find the location (including elevation) of a point along the fault.
 \end{itemize}
-\item Using the locations provided GIFtools creates the fault weights by creating a two boxes, each with one of its sides along the fault location as defined in the \ac{GUI}. By setting the value of cells in each box to one, and then taken the derivative of each model, two face models are created where only faces along the fault as defined are non-zeros. Finally by searching for non-zero elements and finding the intersect between the two models, it is possible to set the values of the the faces that define the fault to any value desired.
+\item Using the locations provided GIFtools creates the fault weights by creating a two boxes, each with one of its sides along the fault location as defined in the \ac{GUI}. By setting the value of cells in each box to one, and then taking the derivative of each of models that had a box added, two face models are created. The location of faces along the fault can be determined by taking the non-zero faces that are in common between the two models.  It is then possible to set the values of the the faces that define the fault to any value desired.
 
 \item faces within this box are assigned a new value that is provided in the GUI \autoref{fig:makeFaultGUI}.
 \end{itemize}
@@ -430,12 +431,12 @@ The method used to insert faults into an inversion is as follows:
     \label{fig:makeFaultGUI}
 \end{figure}
 
-This process can be done multiple times to create non-trivial fault complexes as shown in \autoref{fig:faults}
+This process can be done multiple times along several consecutive segments of multiple faults to create fault complexes that are not straight of have multiple faults, as shown in \autoref{fig:faults}
 
 \begin{figure} [h]
     \centering
     \frame{\includegraphics[width=0.5\textwidth]{images/Faults/faults.png}}
-    \caption{An example of fault weights that can be created with GIFtools}
+    \caption{An example of fault weights that can be created with GIFtools. In this case a vertical fault (no dip) was created and the blue curtain is the low face weights that define the fault in an inversion. Only the faces that have values that are not 1 are visualized. Since the faces are set at a lower value than the rest of the face model (1) the are shown as blue.}
     \label{fig:faults}
 \end{figure}
 \FloatBarrier
@@ -450,20 +451,20 @@ In contexts where multiple data types have been collected over an area, it is of
 
 One possible way of integrating information from another inversion result is through clustering to create pseudo-geological models, and then using these to create reference models, bounds, and smoothness weights to constrain subsequent inversions. 
 
-Given several inversion of different data types, multiple models of different physical properties can be recovered. Assuming that each recovered model is on the same mesh (either because all inversion were preformed on the same mesh or the were interpolated onto the same mesh after the fact) each cell has a value for each physical property. Since the standard representation of a model is a vector $mathbf m \in \mathbb R^M$ where as in \autoref{eq:forwardProb} $M$ is the number of cells in the discretization of the earth model, we can generalize so that $\mathbf M \in \mathbb R^{M\times l}$ is the compiled results of $l$ inversion. This notation allows us to say that $\mathbf M$ is made out of several $m_i$ for $i = 1 \cdots M$ and where each $m_i$ is a row vector $l$ long.
+Given several inversions of different data types, multiple models of different physical properties can be recovered. Assuming that each recovered model is on the same mesh (either because all inversions were performed on the same mesh or they were interpolated onto the same mesh after the fact) each cell has a value for each physical property. Since the standard representation of a model is a vector $\mathbf m \in \mathbb R^M$ where as in \autoref{eq:forwardProb} $M$ is the number of cells in the discretization of the earth model, we can generalize so that $\mathbf M \in \mathbb R^{M\times l}$ is the compiled results of $l$ inversions. This notation allows us to say that $\mathbf M$ is made out of several $m_i$ for $i = 1 \cdots M$ and where each $m_i$ is a row vector $l$ long.
 
-In each case the algorithm depends on the user providing the number of clusters for analysis. The Clustering method used determines the clusters and the membership of each $m_i$ in the clusters.
+In each case the algorithm depends on the user providing the number of clusters for analysis. The clustering method used determines the clusters and the membership of each $m_i$ in the clusters.
 
-The first clustering methods implemented in Model Builder is simply user defined boundries. These allow a great deal of user control and can be very useful assuming something is known about the underground geology or the physical properties of given units. On the other hand it can quickly be untenable to use this method if several clusters are need or many recovered models are being clustered.
+The first clustering methods implemented in Model Builder is simply a set of user defined boundaries. These allow a great deal of user control and can be very useful assuming something is known about the underground geology or the physical properties of given units. On the other hand, it can quickly be untenable to use this method if several clusters are needed or many recovered models are being clustered.
 
 The second clustering method implemented in Model Builder is k-means clustering \cite{gaf1984multivariate} which is based on the minimization of the following objective function,
 
 \begin{equation}
- \phi_{k-mean} = \sum_{j=1}^k\sum_{m_i \in S_j}\|m_i - v_j\|_2^2,
+ \phi_{k\text{-}mean} = \sum_{j=1}^k\sum_{m_i \in S_j}\|m_i - v_j\|_2^2,
 \end{equation}
 \label{eq:kmean}
 
-where $k$ is the number of clusters and $S_j$ are the sets of model cells $m_i$ that make up the clustering, finally $v_j$ are the centroids of each cluster. The algorithm to minimize $\phi_{\text{k-mean}}$ is a two step process firstly assigning each $m_i$ to a cluster $S_j$ and secondly determining a new set of $v_j$ that better fit the data.
+where $k$ is the number of clusters and $S_j$ are the sets of model cells $m_i$ that make up the clustering, finally $v_j$ are the centroids of each cluster, that is the central tendency of the data included in the given cluster $S_i$. The algorithm to minimize $\phi_{\text{k-mean}}$ is a two step process firstly assigning each $m_i$ to a cluster $S_j$ and secondly determining a new set of $v_j$ that better fit the data.
 
 Finally, the third clustering algorithm implemented in Model Builder is \acf{FCM} \citep{sun2015multidomain}. \ac{FCM} is a generalization of \autoref{eq:kmean} where instead of each datum $m_i$ being in only one cluster, each datum is assigned membership in each cluster to varying degrees allowing ``fuzziness'' in the classification. The objective function becomes
 
@@ -471,7 +472,7 @@ Finally, the third clustering algorithm implemented in Model Builder is \acf{FCM
  \phi_{FCM} = \sum_{j=1}^k\sum_{i = 1}^Mu^q_{ij}\|m_i - v_j\|_2^2,
 \end{equation}
 \label{eq:fcm}
-where instead of the $k$ sets $S_j$, membership in each cluster is represented by the membership matrix $u \in \mathbb R^{M\times k}$. Each row of $u$ must sum to 1, in other words each datum is fully considered in $u$ but may be classified as partially in each cluster. Finally $q$, controls the ``fuzziness'' of the clustering with a value of $q = 1$ making a non-fuzzy clustering with each datum being in only one cluster and amount that a given datum can be in multiple clusters increasing as the value of $q$ increases. 
+where instead of the $k$ sets $S_j$, membership in each cluster is represented by the membership matrix $u \in \mathbb R^{M\times k}$. Each row of $u$ must sum to 1, in other words each datum is is evenly weighted in the algorithm but may be classified as partially in each cluster. Finally $q$, controls the ``fuzziness'' of the clustering with a value of $q = 1$ making a non-fuzzy clustering with each datum being in only one cluster and amount that a given datum can be in multiple clusters increasing as the value of $q$ increases. A standard value of $q$ is 2.
 
 In the case of the clustering algorithm used in Model Builder the final step is ``de-fuzzification'', that is the determining of the cluster that each model cell most fits in. Each model cell is assigned the cluster for which it has the highest membership value.
 
@@ -519,11 +520,11 @@ In the cases listed above we have acquired a distribution of geological units th
 
 Another option is the direct assignment of measured physical property values to the (pseudo-)geological units. This method has the advantage of directly incorporating physical property data into the inversion constraints. Direct assignment can be done through the GIFtools \ac{GUI} by editing the geologic definition of the geological model, and this method makes most sense when the model in question either is the products of geological modeling as in \autoref{fig:geoMod} or there is a strong parallel between the clustered units and actual geological units. 
 
-In some cases the above method leaves something to be desired. In the case of cluster centroids, artifacts in the inversion can lead to magnitudes in the recovered model not being quite in scale with the physical properties in the ground, additionally this method only works if the geological model in question was derived through clustering. In the case of the direct assignment of measured physical properties to geological units, the properties often vary a great deal across the earth model. This can be due to large scale variation across the geological unit (such as be alteration) or small scale alteration where one portion of a sample can be significantly more susceptible than another.
+In some cases the above method are not optimal. In the case of cluster centroids, artifacts in the inversion can lead to magnitudes in the recovered model not being quite in scale with the physical properties in the ground. Additionally this method only works if the geological model in question was derived through clustering. In the case of the direct assignment of measured physical properties to geological units, the properties often vary a great deal across the earth model. This can be due to large scale variation across the geological unit (such as by alteration) or small scale variation where, for example, one portion of a sample can be significantly more susceptible than another.
 
 Voxel-Parametric inversion is another method to assign physical properties to geological models. It assumes that a given geological model has correctly determined the distribution of geological units and tries to fit a given geophysical data set assuming that each unit has a single physical property value that is constant across the unit. 
 
-The method allows the assignment of physical properties to geological units based on the best fitting set of properties to a set a data. This gives an advantage over the methods described above by avoiding some artifacts due to under-determined inversion and avoiding putting undue confidence in a small number of physical property measurements. The method also allows the fast an efficient inversion of data without a large number of parameters since the forward problem is much less complex and regularization is unneeded.
+The method allows the assignment of physical properties to geological units based on the best fitting set of properties to a data set. This gives an advantage over the methods described above by avoiding some artifacts due to under-determined inversion and avoiding putting undue confidence in a small number of physical property measurements. The method also allows fast and efficient inversion of data without a large number of parameters since the forward problem is much less complex and regularization beyond the setting of the geological units is unneeded.
 
 \subsection{Formulation of Voxel-Parametric inversion problem}
 \label{subsec:voxelParamFormulation}
