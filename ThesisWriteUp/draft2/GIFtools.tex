@@ -156,8 +156,12 @@ As stated in the introduction to this section, one of the advantages of integrat
 \subsection{Discretizing Bore Hole Data}
 \label{subsec:discBH}
 
+Before a bore hole data set can be use in the creation of inversion constraints, it needs to be discretized on the mesh that will be used in the inversion. Discretization allows the multiple data along each bore hole to be usable in the context of an inversion on a given mesh. This will allow the creation of reference models, bounds, and weights. 
+
+The process to discretized bore hole data in GIFtools and Model Builder is as follows.
+
 \begin{itemize}
- \item Provide mesh, Usually from Model Builder
+ \item Provide mesh. If the bore data will be used with a Model Builder module to create constraints, it must have the same mesh as the Model Builder module.
  \item describe distribution 
  \begin{itemize}
   \item normal
@@ -175,10 +179,12 @@ As stated in the introduction to this section, one of the advantages of integrat
 
  \begin{figure} [h]
     \centering
-    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/geoDefBH.PNG}}
-    \caption{The geology definition of the lithological units in the TKC bore hole data}
+    \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/disc.PNG}}
+    \caption{\ac{GUI} to allow the discretization of bore hole data to a given mesh}
     \label{fig:disc}
 \end{figure}
+
+\autoref{fig:disc} shows the GIFtools \ac{GUI} that allows the user to input the discretization options.
 
 \subsection{Linking Lithology Information into Petrophysical Information}
 \label{subsec:lithBH}
@@ -190,11 +196,11 @@ Using the geology definition we can convert a geology model that has information
  \begin{figure} [h]
     \centering
     \frame{\includegraphics[width=0.8\textwidth]{images/BHSS/geoDefBH.PNG}}
-    \caption{\ac{GUI} to allow the discretization of bore hole data to a given mesh}
+    \caption{The geology definition of the lithological units in the TKC bore hole data. Effective susceptibility is measured in SI is (in this case)}
     \label{fig:geoDefBH}
 \end{figure}
 
-Once the geology definition is set the lithological bore hole can be treated as a physical property bore hole data set where each sample of a given unit is assigned the property in the geology definition. Multiple properties can be stored in the geology defintion and the one that will be used to create a set of constraints can be changed by editing the geology definition's I/O header.
+Once the geology definition is set the lithological bore hole can be treated as a physical property bore hole data set where each sample of a given unit is assigned the property in the geology definition. Multiple properties can be stored in the geology definition and the one that will be used to create a set of constraints can be changed by editing the geology definition's I/O header.
 
 \subsection{Editing Bore Hole Data}
 \label{subsec:visBH}
@@ -388,7 +394,7 @@ Using the geology definition we can convert a geology model that has information
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/MaptoModel/geoDefPlan.PNG}
-    \caption{Example of a geological definition as displayed in the GIFtools GUI, the Mean Property, and Bounds are susceptibility measurement in SI$\times10^-3$ and the WS is to set the smallness weight model later on.}
+    \caption{Example of a geological definition as displayed in the GIFtools GUI, the Mean Property, and Bounds are susceptibility measurement in SI$\times10^-3$ and the WS is to set the smallness weight model.}
     \label{fig:geoDefPlan}
 \end{figure}
 
@@ -565,7 +571,7 @@ which is significantly less computationally expensive than a full voxel inversio
  \begin{itemize}
   \item assign properties to geological models that fit the collected data as closely as possible
   \begin{itemize}
-   \item perhaps allows the geology constraints as in \autoref{subsec:clusterConstraints} to be more accurate
+   \item allows the geology constraints as in \autoref{subsec:clusterConstraints} to be more accurate
    \item allows the determination of magnetization direction given a geologic or pseudo-geologic model of an magnetization anomaly   
    \item allows the creation of synthetic models that roughly fit data that has already been acquired
   \end{itemize}
