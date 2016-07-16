@@ -37,37 +37,39 @@
 \section{Synthetic Model}
 \label{sec:Synthetic Model:TKC}
 %
-%Given the amount of \emph{a priori} information that has been collected in the region we can make a fairly non-trivial synthetic model to test various forms of constraints. The primary source of information for the creation of the synthetic model are drill hole logs of the kimberlite pipe \cite{eggleston2014peregrine}. From these drill holes, a data set representing the outer surface of the main geological units (PK and HK), was created. These are shown in \autoref{fig:TKCdataPKHK} along with the VTEM magnetic data over top of DO27, and the mesh used throughout the rest of this section.
+Given the amount of \emph{a priori} information that has been collected in the region we can make a fairly non-trivial synthetic model to test various forms of constraints. The primary source of information for the creation of the synthetic model are drill hole logs of the kimberlite pipe \cite{eggleston2014peregrine}. From these drill holes, a data set representing the outer surface of the main geological units (PK and HK), was created. These are shown in \autoref{fig:TKCdataPKHK} along with the VTEM magnetic data over top of DO27, and the mesh used throughout the rest of this section.
 %
-%\begin{figure} [h]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{images/TKC/TKCdataPKHK.PNG}
-%    \caption{Mesh used in this chapter along VTEM data, and outer bound of PK (red) and HK (blue)}
-%    \label{fig:TKCdataPKHK}
-%\end{figure}
+\begin{figure} [h]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/TKC/TKCdataPKHK.PNG}
+   \caption{Mesh used in this chapter along VTEM data, and outer bound of PK (red) and HK (blue)}
+   \label{fig:TKCdataPKHK}
+\end{figure}
 %
-%Using the geology unit data sets and a geological model is created \autoref{fig:TKCgeoModel}. Given this geology model and using a parametric voxel inversion (this will be described in an earlier chapter) we now have a susceptibility model that closely matches know geological structure and makes an attempt at fitting the data \autoref{fig:TKCgeoModel}. For this parametric inversion result the PK unit has an effective susceptibility of .00657(SI) and the HK unit has an effective susceptibility of .0271 (SI). These numbers may seem high but it is important to note that they are effect susceptibilities and not susceptibilities. Accounting for Koenigsberger ratios of HK and PK samples from TKC the results roughly fit petrophysical measurements. The fit of this synthetic model to the true data is shown in  \autoref{fig:paramModMisfitNorm}, the effective $\Phi_d$ of the predicted data is 
+Using the geology unit data sets and a geological model is created \autoref{fig:TKCgeoModel}. Given this geology model and using a parametric voxel inversion (this will be described in an earlier chapter) we now have a susceptibility model that closely matches know geological structure and makes an attempt at fitting the data \autoref{fig:TKCgeoModel}. 
+
+% For this parametric inversion result the PK unit has an effective susceptibility of .00657(SI) and the HK unit has an effective susceptibility of .0271 (SI). These numbers may seem high but it is important to note that they are effect susceptibilities and not susceptibilities. Accounting for Koenigsberger ratios of HK and PK samples from TKC the results roughly fit petrophysical measurements. The fit of this synthetic model to the true data is shown in  \autoref{fig:paramModMisfitNorm}, the effective $\Phi_d$ of the predicted data is 
 %
-%\begin{figure} [h]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{images/TKC/TKCgeoModel.PNG}
-%    \caption{Geology model defined by geology data sets}
-%    \label{fig:TKCgeoModel}
-%\end{figure}
-%
-%\begin{figure} [h]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{images/TKC/TKCsuscModel.PNG}
-%    \caption{Geology model defined by geology data sets}
-%    \label{fig:TKCsuscModel}
-%\end{figure}
-%
-%\begin{figure} [h]
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{images/TKC/paramModMisfitNorm.PNG}
-%    \caption{Normalized misfit of parametric voxel inversion}
-%    \label{fig:paramModMisfitNorm}
-%\end{figure}
+\begin{figure} [h]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/TKC/TKCgeoModel.PNG}
+   \caption{Geology model defined by geology data sets}
+   \label{fig:TKCgeoModel}
+\end{figure}
+
+\begin{figure} [h]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/TKC/TKCsuscModel.PNG}
+   \caption{Geology model defined by geology data sets}
+   \label{fig:TKCsuscModel}
+\end{figure}
+
+\begin{figure} [h]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/TKC/paramModMisfitNorm.PNG}
+   \caption{Normalized misfit of parametric voxel inversion}
+   \label{fig:paramModMisfitNorm}
+\end{figure}
 
 \FloatBarrier
 \section{Blind Inversion of the Synthetic Model}
