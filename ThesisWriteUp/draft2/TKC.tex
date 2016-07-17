@@ -54,7 +54,7 @@ Given the amount of \emph{a priori} information that has been collected in the r
    \label{fig:TKCgeoModel}
 \end{figure}
 
-Using the geology unit data sets and a geological model is created \autoref{fig:TKCgeoModel}. Given this geology model and using a parametric voxel inversion we now have a susceptibility model that closely matches know geological structure and makes an attempt at fitting the data \autoref{fig:TKCgeoModel}. For this parametric inversion result the PK unit has an effective susceptibility of 3.28E-3 (SI) and the HK unit has an effective susceptibility of .032 (SI). These numbers may seem high but it is important to note that they are effective susceptibilities and not true susceptibilities. 
+Using the geology unit data sets and a geological model is created \autoref{fig:TKCgeoModel}. Given this geology model and using a magnetization vector voxel-parametric inversion we now have a magnetization model that closely matches known geological structure and makes an attempt at fitting the data \autoref{fig:TKCgeoModel}. For this parametric inversion result the PK unit has an effective susceptibility of 3.28E-3 (SI) and the HK unit has an effective susceptibility of .032 (SI). These numbers may seem high but it is important to note that they are effective susceptibilities and not true susceptibilities. 
 
 \begin{figure} [h]
    \centering
@@ -67,13 +67,11 @@ Though we do not have oriented \ac{NRM} measurements for TKC samples, the un-ori
 
 Measured maximum effective susceptibility values for HK and PK samples from TKC the results roughly fit petrophysical measurements. The average of measured maximum effective susceptibility for PK is 7.37e-3(SI), and for HK is 0.045(SI) both greater than the recovered values but not so much greater as to imply a very different \ac{NRM} direction from the direction of earth's field.
 
-In terms of the recovered directions of magnetization of the units, the PK unit has an inclination of 83\degree and a declination of 70\degree (an angular difference of 6\degree) and the HK unit has an inclination of 53\degree and a declination of 19\degree (an much larger angular difference of 20\degree).
+In terms of the recovered directions of magnetization of the units, the PK unit has an inclination of 83\degree and a declination of 70\degree (an angular difference of 6\degree) and the HK unit has an inclination of 53\degree and a declination of 19\degree (a much larger angular difference of 20\degree).
 
 
-
-fit of this synthetic model to the true data is shown in  \autoref{fig:paramModMisfitNorm}, the effective $\Phi_d$ of the predicted data is 
-%
-
+The fit of this synthetic model to the measured field data is shown in  \autoref{fig:paramModMisfitNorm}, the effective $\Phi_d$ of the predicted data is 
+1.01E6 which is significantly higher that the expected value of 7657. This is because the inversion is over-determined rather than under-determined as is the case in most inversions. Since there are so many fewer degrees of freedom than data, the model will only fit the data so well. In addition the voxel-parametric inversion assumes that the geological model provided is completely true while in reality it is only an approximation based on drilling; it also assumes that each unit has a simple, constant property across its extent which is almost certainly untrue.
 
 \begin{figure} [h]
    \centering
@@ -81,6 +79,14 @@ fit of this synthetic model to the true data is shown in  \autoref{fig:paramModM
    \caption{Normalized misfit of parametric voxel inversion}
    \label{fig:paramModMisfitNorm}
 \end{figure}
+
+Given these caveats, the model shown in \autoref{fig:TKCsuscModel} will suit nicely as a sufficiently complex synthetic model for the purposes of showing the capabilities of GIFtools and Model Builder in the performing of inversion on a complicated model with extensive \emph{a priori} information.
+
+To make the inversions easier to preform, the background value (which had an effective susceptibility of 1.09e-3(SI) was set to zero. This avoids having a non-zero reference model in the inversion of the data. the synthetic model with a zero background was forward modeled using the \ac{GIF} \ac{MVI} forward
+
+
+
+
 
 \FloatBarrier
 \section{Blind Inversion of the Synthetic Model}
