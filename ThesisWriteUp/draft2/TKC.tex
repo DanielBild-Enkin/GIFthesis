@@ -98,10 +98,32 @@ The data shown in \autoref{fig:Bnoisy} is the data I will use for the rest of th
 \section{Blind Inversion of the Synthetic Model}
 \label{sec:Blind Inversion of the Synthetic Model:TKC}
 
-%Show results. show how model is insufficiently compact and over estimates the amount of kimberlite
+\begin{enumerate}
+  \item inversion assumes the the magnetization of the anomaly is in the direction of the earth's field. This is not true.
+  \item as expected the inversion recovers the HK unit which has much higher susceptibility.
+  \item inversion over estimates size of HK unit both below and above the truth.
+  \item anomaly is dipping to the south below the anomaly.
+\end{enumerate}
 
-\section{Determination of Magnetization Dirrection}
+
+\section{Determination of Magnetization Direction}
 \label{sec:Determination of Magnetization Dirrection}
+
+\begin{itemize}
+  \item if we use the true magnetization direction for the HK (53,19 as opposed to 83,19) we get this result
+  \item much better estimates the top of the HK unit
+  \item anomaly is no longer dipping though there is still a large amount of susceptibility below the true model (potential field data has no depth information)
+  \item however we usually don't have the true magnetization direction (and we don't for the actual TKC example)
+\end{itemize}
+
+\begin{itemize}
+  \item we can perform an \ac{MVI} inversion
+\end{itemize}
+
+
+
+
+
 %
 %Correlation of Vertical and Total Gradients of Half RTP field \cite{dannemiller2006MagDirection}
 %
