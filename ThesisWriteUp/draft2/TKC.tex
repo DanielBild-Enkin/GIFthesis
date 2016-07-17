@@ -82,10 +82,16 @@ The fit of this synthetic model to the measured field data is shown in  \autoref
 
 Given these caveats, the model shown in \autoref{fig:TKCsuscModel} will suit nicely as a sufficiently complex synthetic model for the purposes of showing the capabilities of GIFtools and Model Builder in the performing of inversion on a complicated model with extensive \emph{a priori} information.
 
-To make the inversions easier to preform, the background value (which had an effective susceptibility of 1.09e-3(SI) was set to zero. This avoids having a non-zero reference model in the inversion of the data. the synthetic model with a zero background was forward modeled using the \ac{GIF} \ac{MVI} forward
+To make the inversions easier to preform, the background value (which had an effective susceptibility of 1.09e-3(SI) was set to zero. This avoids having a non-zero reference model in the inversion of the data. the synthetic model with a zero background was forward modeled using the \ac{GIF} \ac{MVI} forward model code. \autoref{fig:Bnoisy} shows the synthetic data contaminated with Gaussian noise with a standard deviation of 1 nanoTesla.
 
+\begin{figure} [h]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/TKC/Bnoisy.PNG}
+   \caption{Forward modeled synthetic data contaminated with Gaussian noise}
+   \label{fig:Bnoisy}
+\end{figure}
 
-
+The data shown in \autoref{fig:Bnoisy} is the data I will use for the rest of this chapter. It is the predicted data that would be measured over the model shown in \autoref{fig:TKCsuscModel} with a zero background. From this data I will try to recover an anomaly with a similar shape to the model that created the data using various other forms of data (boreholes, cross section maps etc.)
 
 
 \FloatBarrier
