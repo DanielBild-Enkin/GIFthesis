@@ -98,28 +98,82 @@ The data shown in \autoref{fig:Bnoisy} is the data I will use for the rest of th
 \section{Blind Inversion of the Synthetic Model}
 \label{sec:Blind Inversion of the Synthetic Model:TKC}
 
-\begin{enumerate}
-  \item inversion assumes the the magnetization of the anomaly is in the direction of the earth's field. This is not true.
-  \item as expected the inversion recovers the HK unit which has much higher susceptibility.
-  \item inversion over estimates size of HK unit both below and above the truth.
-  \item anomaly is dipping to the south below the anomaly.
-\end{enumerate}
+The inversion whose result is shown in \autoref{fig:blindIndDir} assumes the the magnetization of the anomaly is in the direction of the earth's field. This is not true as discussed in \autoref{sec:Synthetic Model:TKC}. The inversion result highlights the position of the HK unit rather than the PK unit. This is expected given the much higher susceptibility of the HK unit. Since the inversion performed used $L_2$ norms in the \ac{MOF} the model is not compact and over estimates the size of the susceptibility anomaly, especially below the unit in the synthetic model. Additionally, while the position of the HK unit is well estimated at the depth of the true synthetic HK unit, the recovered anomaly dips quite a bit to the south, implying a very different susceptibility distribution than the true synthetic model. By using extra information from \emph{a priori} sources and other inversions I will make the result shown match more closely with the distribution from the synthetic model shown in \autoref{fig:TKCsuscModel}.
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blindIndDirSouth.PNG}
+        \caption{View from south}
+        \label{fig:blindIndDirSouth}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blindIndDirEast.PNG}
+        \caption{View from east}
+        \label{fig:blindIndDirEast}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+   \caption{Blind inversion result assuming a magnetization direction to be the same as the earths field in the location of TKC. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 4.0348E-03 (SI) are shown)}
+   \label{fig:blindIndDir}
+\end{figure}
+
+\FloatBarrier
 
 \section{Determination of Magnetization Direction}
 \label{sec:Determination of Magnetization Dirrection}
 
-\begin{itemize}
-  \item if we use the true magnetization direction for the HK (53,19 as opposed to 83,19) we get this result
-  \item much better estimates the top of the HK unit
-  \item anomaly is no longer dipping though there is still a large amount of susceptibility below the true model (potential field data has no depth information)
-  \item however we usually don't have the true magnetization direction (and we don't for the actual TKC example)
-\end{itemize}
+One of the first pieces of information that can be inserted into the magnetics inversion is the anomalous magnetization direction. \autoref{fig:blind53_19} shows the result when the true magnetization direction of the synthetic HK unit is provided. The result has several advantages over that of the one shown in \autoref{fig:blindIndDir}. While the recovered model still greatly overestimates the size of the susceptibility anomaly below the synthetic HK units, anomaly no longer dips giving a better idea of the lateral position of the susceptibility anomaly. Even at the depth of the synthetic HK unit the lateral position of the anomaly is closer to the synthetic truth.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blind53_19South.PNG}
+        \caption{View from south}
+        \label{fig:blind53_19South}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blind53_19East.PNG}
+        \caption{View from east}
+        \label{fig:blind53_19East}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+   \caption{Blind inversion result assuming a magnetization direction to be the magnetization direction of the synthetic HK unit. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 4.0348E-03 (SI) are shown)}
+   \label{fig:blind53_19}
+\end{figure}
+
+Unfortunately we usually don't have the true magnetization direction of an anomaly. For example we do not have the anomaly direction the actual TKC example. To recover the magnetization direction of the anomaly we can use a recovered model using an \ac{MVI} inversion. Using the \ac{GIF} \ac{MVI} code we get the result shown in \autoref{fig:blindMVI}.
+
+
 
 \begin{itemize}
   \item we can perform an \ac{MVI} inversion
 \end{itemize}
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blindMVISouth.PNG}
+        \caption{View from south}
+        \label{fig:blindMVISouth}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blindMVIEast.PNG}
+        \caption{View from east}
+        \label{fig:blindMVIEast}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+   \caption{Blind inversion amplitude result from the \ac{MVI} code. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 2.1039E-03 (SI) are shown)}
+   \label{fig:blindMVI}
+\end{figure}
 
 
 
