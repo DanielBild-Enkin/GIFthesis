@@ -147,7 +147,7 @@ One of the first pieces of information that can be inserted into the magnetics i
    \label{fig:blind53_19}
 \end{figure}
 
-Unfortunately we usually don't have the true magnetization direction of an anomaly. For example we do not have the anomaly direction the actual TKC example. To recover the magnetization direction of the anomaly we can use a recovered model using an \ac{MVI} inversion. Using the \ac{GIF} \ac{MVI} code we get the result shown in \autoref{fig:blindMVI}.
+Unfortunately we usually don't have the true magnetization direction of an anomaly. For example we do not have the anomaly direction the actual TKC example. To recover the magnetization direction of the anomaly we can use a recovered model using an \ac{MVI} inversion. Using the \ac{GIF} \ac{MVI} code we get the result shown in \autoref{fig:blindMVI} and \autoref{fig:blindMVIFld}. \autoref{fig:blindMVI} shows the magnitude of the magnetization of each model cell normalized by the Earth's field (effective susceptibility). 
 
 
 
@@ -158,21 +158,41 @@ Unfortunately we usually don't have the true magnetization direction of an anoma
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.8\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVISouth.PNG}
+        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouth.PNG}
         \caption{View from south}
-        \label{fig:blindMVISouth}
+        \label{fig:blindMVIsouth}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
       %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.8\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIEast.PNG}
+        \includegraphics[width=\textwidth]{images/TKC/blindMVIeast.PNG}
         \caption{View from east}
-        \label{fig:blindMVIEast}
+        \label{fig:blindMVIeast}
     \end{subfigure}
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
    \caption{Blind inversion amplitude result from the \ac{MVI} code. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 2.1039E-03 (SI) are shown)}
    \label{fig:blindMVI}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouthFld.PNG}
+        \caption{View from south}
+        \label{fig:blindMVIsouthFld}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{images/TKC/blindMVIeastFld.PNG}
+        \caption{View from east}
+        \label{fig:blindMVIeastFld}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+   \caption{Blind inversion vector result from the \ac{MVI} code. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 2.1039E-03 (SI) are shown)}
+   \label{fig:blindMVIFld}
 \end{figure}
 
 
