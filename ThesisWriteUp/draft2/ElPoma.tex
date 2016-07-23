@@ -55,18 +55,40 @@
 %apply recovered direction to the anomaly direction in MAG3D
 %could apply anomalous dirrection locally to anomaly 
 
-\section{Creation of Constraints}
+
+\section{Creation of Constraints }
 \label{sec:Creation of Constraints:ElPoma}
 
-\subsection{$\alpha$ coefficients}
-\label{sec:alpha coefficients:ElPoma}
+\subsection{Constraints from Plan View Map and Surface Samples}
+\label{sec:planViewElPoma}
+
+\begin{itemize}
+\item show creation  geology model from plan view (see chapter two)
+\item show determining the physical properties of the units (surface samples)
+\item show creation of constraints (reference model and bounds)
+\item show effect on the results
+\end{itemize}
+
+\subsection{Constraints from Bore Hole data}
+\label{sec:BHElPoma}
+
+\begin{itemize}
+\item show determining the physical properties of the units
+\item Show discretization of Bore Hole data
+\item show creation of constraints (reference model and bounds)
+\item show effect on the results
+\end{itemize}
+%
+%
+%\subsection{$\alpha$ coefficients}
+%\label{sec:alpha coefficients:ElPoma}
 
 %For El Espa\~nole (north south fault) we can lower the $\alpha_x$ to allow for greater discontinuity in general in that direction. Cannot account for other faults without rotation objective function.
 %
 %(show result)
-
-\subsection{Reference Models}
-\label{sec:Reference Models:ElPoma}
+%
+%\subsection{Reference Models}
+%\label{sec:Reference Models:ElPoma}
 
 %Most work to be done here. 
 %
@@ -85,8 +107,8 @@
 %
 %(show Combined result)
 
-\subsection{Weighting matrices}
-\label{sec:Weighting matrices:ElPoma}
+%\subsection{Weighting matrices}
+%\label{sec:Weighting matrices:ElPoma}
 
 %smallness: using some measure of confidence in the measures decrease in cells with reference model specified to force the result to approximate the reference model. In case that map is extended down I will lower the $W_s$ as model cells are further below the surface.
 %(show smallness weight model)
@@ -99,19 +121,24 @@
 %(show result)
 %
 %(show Combined result)
-\subsection{Bounds}
-\label{sec:Bounds:ElPoma}
+%\subsection{Bounds}
+%\label{sec:Bounds:ElPoma}
 
 %Also useful for forcing model values to be near the specified reference model while allowing for uncertainty in our phys prop value
 %(show result)
-
-\subsection{$L_p L_q$ weights}
-\label{sec:Lp Lq weights:ElPoma}
+%
+%\subsection{$L_p L_q$ weights}
+%\label{sec:Lp Lq weights:ElPoma}
 
 %allows the more fuzzy placement of faults. By rotating the \ac{MOF} we can place them in arbitrary directions. The trouble is having more than one fault in more than one orientation. Can't currently apply to MVI inversions, can still apply on MAG3D inversions 
 %(show result)
 %\\\\\\
 %Need to determine if showing the field example is worthwhile at this point and how to bring it into the narrative
+
+
+\section{Conclusion}
+\label{sec:ConclusionElPoma}
+
 
 \endinput
 
