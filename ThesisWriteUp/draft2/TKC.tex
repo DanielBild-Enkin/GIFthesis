@@ -10,29 +10,31 @@
 
 \section{Overview of Deposits}
 \label{sec:Overview of Deposits:TKC}
-%
-%Kimberlite Complex
-%Two anomalies, focusing on the southern one (DO27)
-%
-%Magnetic Anomaly. Remanent magnetization is likely present but largely in the direction of the earth's field
-%Density Anomaly. 
-\section{Discussion of the Geophysical Data Given}
+
+\begin{itemize}
+\item Kimberlite Complex
+\begin{itemize}
+\item Two pipes, focusing on the southern one (DO27)
+\item cite (Devries et. al. forthcoming)
+\end{itemize}
+\end{itemize}
+
+\section{Geophysical Data}
 \label{sec:Discussion of the Geophysical Data Given:TKC}
 %
-%Magnetics: Three different surveys\\
-%Gravity: Ground mag (of usable but dubious quality), Gravity Gradiometry airborne data
-%
-%much EM as well, outside the scope of this Master's Thesis
+\begin{itemize}
+\item Electro Magnetics: Three different surveys, all included magnetic data as well. I will be using the magnetic data from the VTEM survey flown in 2004 (Devries et. al. forthcoming)
+ \item Gravity Gradiometry airborne data flown in 2001  (Devries et. al. forthcoming)
+ \end{itemize}
 
-\section{What Information is Available}
+\section{Geological and Petrophysical Data}
 \label{sec:What Information is Available:TKC}
 
-%Great deal of borehole data with rock units at each depth
-%We also have Phys Props at various points along the holes. We can either mean these across the facies or take the value of each facies that the specially nearest the the measured result.
-%
-%From the borehole data we also have created a surface model of each of the units
-%
-%again from the borehole data, we have graphical cross section maps
+\begin{itemize}
+\item  bore hole data with rock units at each depth \citep{eggleston2014peregrine}
+\item Physical Property (including magnetic susceptibility, NRM, koenigburger ratio, and saturated and grain density at various points along the holes. 
+\item from interpretation of the bore hole data there are two cross sections of DO27 from \citep{harder2006geology}  and \cite{harder2009evolution}
+\end{itemize}
 
 \section{Synthetic Model }
 \label{sec:Synthetic Model:TKC}
@@ -83,22 +85,22 @@ The fit of this synthetic model to the measured field data is shown in  \autoref
 \begin{figure} [h]
    \centering
    \includegraphics[width=0.8\textwidth]{images/TKC/paramModMisfitNorm.PNG}
-   \caption{Normalized misfit of magnetic voxel-parametric  inversion}
+   \caption{Normalized misfit of \ac{MVI} voxel-parametric  inversion}
    \label{fig:paramModMisfitNorm}
 \end{figure}
 
 Given these caveats, the model shown in \autoref{fig:TKCsuscModel} will suit nicely as a sufficiently complex synthetic model for the purposes of showing the capabilities of GIFtools and Model Builder in the performing of inversion on a complicated model with extensive \emph{a priori} information.
-
-To make the inversions easier to preform, the background value (which had an effective susceptibility of 1.09e-3(SI) was set to zero. This avoids having a non-zero reference model in the inversion of the data. the synthetic model with a zero background was forward modeled using the \ac{GIF} \ac{MVI} forward model code. \autoref{fig:Bnoisy} shows the synthetic data contaminated with Gaussian noise with a standard deviation of 1 nanoTesla to match the uncertainties in the field data.
-
-\begin{figure} [h]
-   \centering
-   \includegraphics[width=0.8\textwidth]{images/TKC/Bnoisy.PNG}
-   \caption{Forward modeled synthetic data contaminated with Gaussian noise}
-   \label{fig:Bnoisy}
-\end{figure}
-
-The data shown in \autoref{fig:Bnoisy} is the data I will use for the rest of this chapter. It is the predicted data that would be measured over the model shown in \autoref{fig:TKCsuscModel} with a zero background. From this data I will try to recover an anomaly with a similar shape to the model that created the data using various other forms of data (boreholes, cross section maps etc.)
+%
+%To make the inversions easier to preform, the background value (which had an effective susceptibility of 1.09e-3(SI) was set to zero. This avoids having a non-zero reference model in the inversion of the data. the synthetic model with a zero background was forward modeled using the \ac{GIF} \ac{MVI} forward model code. \autoref{fig:Bnoisy} shows the synthetic data contaminated with Gaussian noise with a standard deviation of 1 nanoTesla to match the uncertainties in the field data.
+%
+%\begin{figure} [h]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{images/TKC/Bnoisy.PNG}
+%   \caption{Forward modeled synthetic data contaminated with Gaussian noise}
+%   \label{fig:Bnoisy}
+%\end{figure}
+%
+%The data shown in \autoref{fig:Bnoisy} is the data I will use for the rest of this chapter. It is the predicted data that would be measured over the model shown in \autoref{fig:TKCsuscModel} with a zero background. From this data I will try to recover an anomaly with a similar shape to the model that created the data using various other forms of data (boreholes, cross section maps etc.)
 
 \subsection{Gravity Gradiometry Synthetic Model }
 \label{subsec:Synthetic Model:GG:TKC}
@@ -130,180 +132,191 @@ The normalized misfit of the model is shown in \autoref{fig:gravParamModMisfitNo
    \label{fig:gravParamModMisfitNorm}
 \end{figure}
 
-As with the magnetic data set, the model shown in  \autoref{fig:TKCdenModel} is forward modeled for the vertical derivative of the vertical component. The data is contaminated with Gaussian noise with a standard deviation .5 eotvos +2\%. The result is shown in 
+As with the magnetic data set, the model shown in  \autoref{fig:TKCdenModel} is forward modeled for the vertical derivative of the vertical component. The data is contaminated with Gaussian noise with a standard deviation 1 Eotvos, this is lower than the assigned uncertainty. The result is shown in 
 
-
-\FloatBarrier
-\section{Blind Inversion of the Synthetic Magnetic Model}
-\label{sec:Blind Inversion of the Synthetic Magnetic Model:TKC}
-
-The inversion whose result is shown in \autoref{fig:blindIndDir} assumes the the magnetization of the anomaly is in the direction of the earth's field. This is not true as discussed in \autoref{sec:Synthetic Model:TKC}. The inversion result highlights the position of the HK unit rather than the PK unit. This is expected given the much higher susceptibility of the HK unit. Since the inversion performed used $L_2$ norms in the \ac{MOF} the model is not compact and over estimates the size of the susceptibility anomaly, especially below the unit in the synthetic model. Additionally, while the position of the HK unit is well estimated at the depth of the true synthetic HK unit, the recovered anomaly dips quite a bit to the south, implying a very different susceptibility distribution than the true synthetic model. By using extra information from \emph{a priori} sources and other inversions I will make the result shown match more closely with the distribution from the synthetic model shown in \autoref{fig:TKCsuscModel}.
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindIndDirSouth.PNG}
-        \caption{View from south}
-        \label{fig:blindIndDirSouth}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindIndDirEast.PNG}
-        \caption{View from east}
-        \label{fig:blindIndDirEast}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)
-   \caption{Blind inversion result assuming a magnetization direction to be the same as the earths field in the location of TKC. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 4.0348E-03 (SI) are shown)}
-   \label{fig:blindIndDir}
-\end{figure}
-
-\FloatBarrier
-
-\section{Determination of Magnetization Direction}
-\label{sec:Determination of Magnetization Direction}
-
-One of the first pieces of information that can be inserted into the magnetics inversion is the anomalous magnetization direction. \autoref{fig:blind53_19} shows the result when the true magnetization direction of the synthetic HK unit is provided. The result has several advantages over that of the one shown in \autoref{fig:blindIndDir}. While the recovered model still greatly overestimates the size of the susceptibility anomaly below the synthetic HK units, anomaly no longer dips giving a better idea of the lateral position of the susceptibility anomaly. Even at the depth of the synthetic HK unit the lateral position of the anomaly is closer to the synthetic truth.
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blind53_19South.PNG}
-        \caption{View from south}
-        \label{fig:blind53_19South}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blind53_19East.PNG}
-        \caption{View from east}
-        \label{fig:blind53_19East}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)
-   \caption{Blind inversion result assuming a magnetization direction to be the magnetization direction of the synthetic HK unit. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 4.0348E-03 (SI) are shown)}
-   \label{fig:blind53_19}
-\end{figure}
-
-Unfortunately we usually don't have the true magnetization direction of an anomaly. For example we do not have the anomaly direction the actual TKC example. To recover the magnetization direction of the anomaly we can use a recovered model using an \ac{MVI} inversion. Using the \ac{GIF} \ac{MVI} code we get the result shown in \autoref{fig:blindMVI} and \autoref{fig:blindMVIFld}. \autoref{fig:blindMVI} shows the magnitude of the magnetization of each model cell normalized by the Earth's field (effective susceptibility). \autoref{fig:blindMVIFld} shows the magnetization vector of each model cell, the colour (and colour bar) are effective susceptibility. 
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouth.PNG}
-        \caption{View from south}
-        \label{fig:blindMVIsouth}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIeast.PNG}
-        \caption{View from east}
-        \label{fig:blindMVIeast}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)
-   \caption{Blind inversion amplitude result from the \ac{MVI} code. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 2.1039E-03 (SI) are shown)}
-   \label{fig:blindMVI}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouthFld.PNG}
-        \caption{View from south}
-        \label{fig:blindMVIsouthFld}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.5\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIeastFld.PNG}
-        \caption{View from east}
-        \label{fig:blindMVIeastFld}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)
-   \caption{Blind inversion vector result from the \ac{MVI} code. Slices are shown through the peak of the anomaly}
-   \label{fig:blindMVIFld}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouthFldIso.PNG}
-        \caption{View from south}
-        \label{fig:blindMVIsouthFldIso}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{images/TKC/blindMVIeastFldIso.PNG}
-        \caption{View from east}
-        \label{fig:blindMVIeastFldIso}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)
-   \caption{Same result as \autoref{fig:blindMVIFld} with an iso-surface of 3.2E-3 (SI).}
-   \label{fig:blindMVIFldIso}
-\end{figure}
-
-
-A procedure for using the \ac{MVI} result to recover a magnetization direction is as follows. Since the \ac{MVI} is also a $L_2$ regularized inversion the effective susceptibility anomaly is smooth. This means that there is an area between the magnetization of the anomaly, which should not have the same magnetization direction as Earth's field, and the background, which should. To find the magnetization direction of the anomaly a very tight iso-surface is used (the value is increased until most of the recovered magnetization vectors are pointing in a similar direction see \autoref{fig:blindMVIFldIso}), and the average direction of the magnetization within the iso-surface is determined. In this case the iso-surface used was 3.2E-3 (SI) and the recovered direction was inclination 80\degree and declination 44\degree. The angular difference between this recovered direction and earth's field is only 4.6\degree. Given the tiny angular difference it is not terribly surprising that recovered model is almost identical to that shown in \autoref{fig:blindIndDir}. To be able to find a magnetization direction that more closely matches that of the synthetic true model more information needs to be added to the inversion.
-
-%The result of a magnetization direction very close to that of Earth's field is not entirely surprising. Since the magnetic inversion is already so under-determined adding two more parameters renders the problem even more so (There needs to be a section on susceptibility inversion and \ac{MVI} in the intro so that I can reference it here). To make the problem slightly less under-determined an additional parameter (called $\gamma$ in the \ac{MVI} code input documentation) that scales the smallness regularization penalty of the components of the model parallel to the earth field relative to the components that are perpendicular to it. The default value of $\gamma$ is 1, meaning that the regularization penalties are equal. In a context where the bulk of the magnetization is not in a direction parallel to Earth's field the $\gamma$ parameter should be lowered.
-
-\FloatBarrier
-\section{Blind Inversion of the Synthetic Gravity Model}
-\label{sec:Blind Inversion of the Synthetic Gravity Model:TKC}
-
-
-
-\section{Blind compact inversion of both data sets}
+\section{Application of GIFtools Capabilities in the Case of Zero Remanence}
+\label{sec:TKCnoRem}
 
 \begin{itemize}
-\item show compact inversion results using current determined magnetization direction.
+\item forward model effective susceptibilities from result in \autoref{fig:TKCdenModel}
 \end{itemize}
 
-\section{Creation of Constraints }
-\label{sec:Creation of Constraints:TKC}
+\subsection{Blind Inversion of the Synthetic Magnetic and Gravity Models}
+\label{subsec:TKCblind}
 
-\subsection{Clustering multiple inversion results}
-\label{sec:clusterTKC}
-
-\begin{itemize}
-\item show creation  of clustered model from grav and mag result. 
-\item Show clustered model for both L2 and compact models.
-\item show creation of constraints
-\begin{itemize}
-\item show reference model
-\item face weights
-\end{itemize}
-\item show how a compact clustered from grav and mag result can make a compact MVI result even though we dont have LpLq for MVI
-\item discuss how this effects our determination of magnetization direction
-\end{itemize}
-
-\subsection{Constraints from Cross Section Map}
-\label{sec:crossSectTKC}
-
-\begin{itemize}
-\item show creation  geology model from cross section (see chapter two)
-\item show positioning of the cross section model
-\item show determining the physical properties of the units
-\item show creation of constraints (reference model and bounds)
-\item show effect on the results
-\end{itemize}
-
-\subsection{Constraints from Bore Hole data}
-\label{sec:BHTKC}
-
-\begin{itemize}
-\item show determining the physical properties of the units
-\item Show discretization of Bore Hole data
-\item show creation of constraints (reference model and bounds)
-\item show effect on the results
-\item show how different sets of the bore hole data effects the result differently
-\end{itemize}
+%
+%
+%\FloatBarrier
+%\section{Blind Inversion of the Synthetic Magnetic Model}
+%\label{sec:Blind Inversion of the Synthetic Magnetic Model:TKC}
+%
+%The inversion whose result is shown in \autoref{fig:blindIndDir} assumes the the magnetization of the anomaly is in the direction of the earth's field. This is not true as discussed in \autoref{sec:Synthetic Model:TKC}. The inversion result highlights the position of the HK unit rather than the PK unit. This is expected given the much higher susceptibility of the HK unit. Since the inversion performed used $L_2$ norms in the \ac{MOF} the model is not compact and over estimates the size of the susceptibility anomaly, especially below the unit in the synthetic model. Additionally, while the position of the HK unit is well estimated at the depth of the true synthetic HK unit, the recovered anomaly dips quite a bit to the south, implying a very different susceptibility distribution than the true synthetic model. By using extra information from \emph{a priori} sources and other inversions I will make the result shown match more closely with the distribution from the synthetic model shown in \autoref{fig:TKCsuscModel}.
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindIndDirSouth.PNG}
+%        \caption{View from south}
+%        \label{fig:blindIndDirSouth}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%      %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindIndDirEast.PNG}
+%        \caption{View from east}
+%        \label{fig:blindIndDirEast}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%   \caption{Blind inversion result assuming a magnetization direction to be the same as the earths field in the location of TKC. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 4.0348E-03 (SI) are shown)}
+%   \label{fig:blindIndDir}
+%\end{figure}
+%
+%\FloatBarrier
+%
+%\section{Determination of Magnetization Direction}
+%\label{sec:Determination of Magnetization Direction}
+%
+%One of the first pieces of information that can be inserted into the magnetics inversion is the anomalous magnetization direction. \autoref{fig:blind53_19} shows the result when the true magnetization direction of the synthetic HK unit is provided. The result has several advantages over that of the one shown in \autoref{fig:blindIndDir}. While the recovered model still greatly overestimates the size of the susceptibility anomaly below the synthetic HK units, anomaly no longer dips giving a better idea of the lateral position of the susceptibility anomaly. Even at the depth of the synthetic HK unit the lateral position of the anomaly is closer to the synthetic truth.
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blind53_19South.PNG}
+%        \caption{View from south}
+%        \label{fig:blind53_19South}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%      %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blind53_19East.PNG}
+%        \caption{View from east}
+%        \label{fig:blind53_19East}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%   \caption{Blind inversion result assuming a magnetization direction to be the magnetization direction of the synthetic HK unit. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 4.0348E-03 (SI) are shown)}
+%   \label{fig:blind53_19}
+%\end{figure}
+%
+%Unfortunately we usually don't have the true magnetization direction of an anomaly. For example we do not have the anomaly direction the actual TKC example. To recover the magnetization direction of the anomaly we can use a recovered model using an \ac{MVI} inversion. Using the \ac{GIF} \ac{MVI} code we get the result shown in \autoref{fig:blindMVI} and \autoref{fig:blindMVIFld}. \autoref{fig:blindMVI} shows the magnitude of the magnetization of each model cell normalized by the Earth's field (effective susceptibility). \autoref{fig:blindMVIFld} shows the magnetization vector of each model cell, the colour (and colour bar) are effective susceptibility. 
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouth.PNG}
+%        \caption{View from south}
+%        \label{fig:blindMVIsouth}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%      %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindMVIeast.PNG}
+%        \caption{View from east}
+%        \label{fig:blindMVIeast}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%   \caption{Blind inversion amplitude result from the \ac{MVI} code. (Red cells show the extent of the HK unit in the synthetic model, only cells with a effective susceptibility of greater than 2.1039E-03 (SI) are shown)}
+%   \label{fig:blindMVI}
+%\end{figure}
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouthFld.PNG}
+%        \caption{View from south}
+%        \label{fig:blindMVIsouthFld}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%      %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindMVIeastFld.PNG}
+%        \caption{View from east}
+%        \label{fig:blindMVIeastFld}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%   \caption{Blind inversion vector result from the \ac{MVI} code. Slices are shown through the peak of the anomaly}
+%   \label{fig:blindMVIFld}
+%\end{figure}
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindMVIsouthFldIso.PNG}
+%        \caption{View from south}
+%        \label{fig:blindMVIsouthFldIso}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%      %(or a blank line to force the subfigure onto a new line)
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/TKC/blindMVIeastFldIso.PNG}
+%        \caption{View from east}
+%        \label{fig:blindMVIeastFldIso}
+%    \end{subfigure}
+%    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+%    %(or a blank line to force the subfigure onto a new line)
+%   \caption{Same result as \autoref{fig:blindMVIFld} with an iso-surface of 3.2E-3 (SI).}
+%   \label{fig:blindMVIFldIso}
+%\end{figure}
+%
+%
+%A procedure for using the \ac{MVI} result to recover a magnetization direction is as follows. Since the \ac{MVI} is also a $L_2$ regularized inversion the effective susceptibility anomaly is smooth. This means that there is an area between the magnetization of the anomaly, which should not have the same magnetization direction as Earth's field, and the background, which should. To find the magnetization direction of the anomaly a very tight iso-surface is used (the value is increased until most of the recovered magnetization vectors are pointing in a similar direction see \autoref{fig:blindMVIFldIso}), and the average direction of the magnetization within the iso-surface is determined. In this case the iso-surface used was 3.2E-3 (SI) and the recovered direction was inclination 80\degree and declination 44\degree. The angular difference between this recovered direction and earth's field is only 4.6\degree. Given the tiny angular difference it is not terribly surprising that recovered model is almost identical to that shown in \autoref{fig:blindIndDir}. To be able to find a magnetization direction that more closely matches that of the synthetic true model more information needs to be added to the inversion.
+%
+%%The result of a magnetization direction very close to that of Earth's field is not entirely surprising. Since the magnetic inversion is already so under-determined adding two more parameters renders the problem even more so (There needs to be a section on susceptibility inversion and \ac{MVI} in the intro so that I can reference it here). To make the problem slightly less under-determined an additional parameter (called $\gamma$ in the \ac{MVI} code input documentation) that scales the smallness regularization penalty of the components of the model parallel to the earth field relative to the components that are perpendicular to it. The default value of $\gamma$ is 1, meaning that the regularization penalties are equal. In a context where the bulk of the magnetization is not in a direction parallel to Earth's field the $\gamma$ parameter should be lowered.
+%
+%\FloatBarrier
+%\section{Blind Inversion of the Synthetic Gravity Model}
+%\label{sec:Blind Inversion of the Synthetic Gravity Model:TKC}
+%
+%
+%
+%\section{Blind compact inversion of both data sets}
+%
+%\begin{itemize}
+%\item show compact inversion results using current determined magnetization direction.
+%\end{itemize}
+%
+%\section{Creation of Constraints }
+%\label{sec:Creation of Constraints:TKC}
+%
+%\subsection{Clustering multiple inversion results}
+%\label{sec:clusterTKC}
+%
+%\begin{itemize}
+%\item show creation  of clustered model from grav and mag result. 
+%\item Show clustered model for both L2 and compact models.
+%\item show creation of constraints
+%\begin{itemize}
+%\item show reference model
+%\item face weights
+%\end{itemize}
+%\item show how a compact clustered from grav and mag result can make a compact MVI result even though we dont have LpLq for MVI
+%\item discuss how this effects our determination of magnetization direction
+%\end{itemize}
+%
+%\subsection{Constraints from Cross Section Map}
+%\label{sec:crossSectTKC}
+%
+%\begin{itemize}
+%\item show creation  geology model from cross section (see chapter two)
+%\item show positioning of the cross section model
+%\item show determining the physical properties of the units
+%\item show creation of constraints (reference model and bounds)
+%\item show effect on the results
+%\end{itemize}
+%
+%\subsection{Constraints from Bore Hole data}
+%\label{sec:BHTKC}
+%
+%\begin{itemize}
+%\item show determining the physical properties of the units
+%\item Show discretization of Bore Hole data
+%\item show creation of constraints (reference model and bounds)
+%\item show effect on the results
+%\item show how different sets of the bore hole data effects the result differently
+%\end{itemize}
 
 \section{Conclusion}
 \label{sec:ConclusionTKC}
